@@ -1,4 +1,4 @@
-Run to create the namespace `kubectl create namespace redpanda `
+Run to create the namespace `kubectl create namespace redpanda `{{exec}}
 
 
 Create local PVC 
@@ -19,8 +19,12 @@ spec:
     requests:
       storage: 1Gi
 EOF
-```
+```{{exec}}
 
+Install Redpanda helm chart
+```
+helm repo add redpanda https://charts.redpanda.com
+```{{exec}}
 
 Install Redpanda via Helm
 
