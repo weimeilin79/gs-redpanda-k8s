@@ -39,10 +39,10 @@ helm install redpanda redpanda/redpanda -n redpanda \
  --set "statefulset.replicas=1" \
  --set "auth.sasl.enabled=false" \
  --set "tls.enabled=false" \
- --set "resources.memory.container.max=1Gi" \
- --set "resources.memory.container.min=1Gi" \
- --set "resources.memory.redpanda.memory=512M" \
- --set "resources.memory.redpanda.reserveMemory=512M" \
+ --set "resources.memory.container.max=2Gi" \
+ --set "resources.memory.container.min=2Gi" \
+ --set "resources.memory.redpanda.memory=1Gi" \
+ --set "resources.memory.redpanda.reserveMemory=1Gi" \
  --set "resource.cpu.overprovisioned=true" \
  --set "resource.cpu.cores=650m" \
  --set "console.enabled=false" \
