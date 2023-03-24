@@ -26,8 +26,14 @@ Install Redpanda helm chart
 helm repo add redpanda https://charts.redpanda.com
 ```{{exec}}
 
-Install Redpanda via Helm
 
+Workaround for CPU limits
+```
+helm pull redpanda/redpanda --untar
+rm redpanda/values.schema.json
+```{{exec}}
+
+Install Redpanda via Helm
 ```
 helm install redpanda redpanda/redpanda -n redpanda \
  --set "statefulset.replicas=1" \
@@ -42,3 +48,10 @@ helm install redpanda redpanda/redpanda -n redpanda \
  --set "console.enabled=false" \
  --set "storage.persistentVolume.size=1Gi"
 ```
+
+
+Print out Pod status
+
+```
+kubectl -n redpanda describe pod redpanda-0
+```{{exec}}
