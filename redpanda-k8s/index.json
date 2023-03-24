@@ -1,0 +1,31 @@
+{
+    "title": "Getting started with Redpanda in K8s",
+    "description": "Install Redpanda via helm chart",
+    "details": {
+      "intro": {
+        "text": "intro.md"
+      },
+      "steps": [
+        {
+          "title": "Install Redpanda in Kubernetes",
+          "text": "step1.md"
+        },
+        {
+          "title": "Create topics, produce and consume events ",
+          "text": "step2.md"
+        },
+        {
+          "title": "Access Redpanda console",
+          "text": "step3.md"
+        },
+        {
+          "title": "Deploy a python event consumer",
+          "text": "step4.md"
+        }
+      ]
+    },
+    "backend": {
+      "imageid": "kubernetes-kubeadm-1node"
+    }
+}
+  
