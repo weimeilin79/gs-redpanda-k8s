@@ -7,11 +7,11 @@
       },
       "steps": [
         {
-          "title": "Install Redpanda in Kubernetes",
+          "title": "Deploy a Redpanda Cluster",
           "text": "step1.md"
         },
         {
-          "title": "Create topics, produce and consume events ",
+          "title": "Create topic, produce and consume events ",
           "text": "step2.md"
         },
         {
@@ -25,7 +25,7 @@
       ]
     },
     "backend": {
-      "imageid": "kubernetes-kubeadm-1node"
+      "imageid": "kubernetes-kubeadm-2node"
     }
 }
   

@@ -1,5 +1,3 @@
-## Deploy a Redpanda Cluster
-
 Not all Kubernetes are equal, please do refer back to our product [documentation](https://docs.redpanda.com/docs/deploy/deployment-option/self-hosted/kubernetes) for more specific details.
 
 Redpanda recommends the Helm chart for all new deployments. Therefore we will be using Redpanda's Helm chart to deploy and customize the configuration. 
@@ -48,7 +46,7 @@ EOF
 And we are ready to kick of the deployment of Redpanda via Helm:
 
 ```
-helm install -n redpandaredpanda redpanda/redpanda  \
+helm install redpanda redpanda/redpanda -n redpanda  \
 --set statefulset.replicas=1 \
 --set auth.sasl.enabled=false \
 --set tls.enabled=false \
@@ -59,11 +57,35 @@ helm install -n redpandaredpanda redpanda/redpanda  \
 --set resources.memory.redpanda.reserveMemory=1Mi \
 --set "console.enabled=false" \
 --set resources.memory.redpanda.memory=1Gi
-```
-
-
-Print out Pod status
-
-```
-kubectl -n redpanda describe pod redpanda-0
 ```{{exec}}
+
+It will take a couple of minutes to spin up, you will see the following prompting that Redpanda is successfully installed.
+
+```
+NAME: redpanda
+LAST DEPLOYED: Mon Mar 27 20:11:47 2023
+NAMESPACE: redpanda
+STATUS: deployed
+REVISION: 1
+NOTES:
+---
+
+**Warning**: 1024 is below the minimum recommended value for Redpanda
+**Warning**: 300m is below the minimum recommended CPU value for Redpanda
+
+---
+
+Congratulations on installing redpanda!
+```
+
+
+Check if you see the broker is running.
+```
+kubectl -n redpanda get pod
+```{{exec}}
+
+The following status will prompt showing a Redpanda broker is running. 
+``` 
+NAME                           READY   STATUS      RESTARTS   AGE
+redpanda-0                     1/1     Running     0          2m50s
+```
