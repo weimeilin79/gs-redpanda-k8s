@@ -17,10 +17,6 @@ helm repo add redpanda https://charts.redpanda.com
 
 In production environment, we will need to allocate sufficient numbers of CPU cores, since this tutorial runs on a tiny environment with very low hardware capacity limits, we will need to bypass the CPU limit check.
 
-```
-helm pull redpanda/redpanda --untar
-rm redpanda/values.schema.json
-```{{exec}}
 
 In Kubernetes cluster, we'll isolate the Redpanda components in a logical namespace call _redpanda_, and let's create the namespace
 ```
@@ -61,7 +57,6 @@ helm install -n redpanda redpanda ./redpanda \
 --set storage.persistendVolume.size=1.2Gi \
 --set resources.memory.container.max=1025Mi \
 --set resources.memory.redpanda.reserveMemory=1Mi \
---set "console.enabled=false" \
 --set resources.memory.redpanda.memory=1Gi
 ```
 
