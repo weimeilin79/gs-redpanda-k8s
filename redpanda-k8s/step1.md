@@ -8,6 +8,9 @@ Tools you will be using in this tutorial:
 - *helm*: help you define, install, and upgrade applications running on Kubernetes.
 - *rpk*: allow you to configure and manage Redpanda clusters, tune them for better performance, manage topics and groups, manage access control lists (ACLs). 
 
+Here is a quick diagram showing all components in the cluster. 
+![Redpanda in K8s Overview](./images/RPinK8s.png)
+
 First, we'll need to add the Redpanda Helm chart repository 
 ```
 helm repo add redpanda https://charts.redpanda.com
@@ -89,3 +92,5 @@ The following status will prompt showing a Redpanda broker is running.
 NAME                           READY   STATUS      RESTARTS   AGE
 redpanda-0                     1/1     Running     0          2m50s
 ```
+
+And your Redpanda is ready to roll in K8s! 
