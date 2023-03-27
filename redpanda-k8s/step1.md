@@ -15,8 +15,6 @@ First, we'll need to add the Redpanda Helm chart repository
 helm repo add redpanda https://charts.redpanda.com
 ```{{exec}}
 
-In production environment, we will need to allocate sufficient numbers of CPU cores, since this tutorial runs on a tiny environment with very low hardware capacity limits, we will need to bypass the CPU limit check.
-
 
 In Kubernetes cluster, we'll isolate the Redpanda components in a logical namespace call _redpanda_, and let's create the namespace
 ```
@@ -48,7 +46,7 @@ EOF
 And we are ready to kick of the deployment of Redpanda via Helm:
 
 ```
-helm install -n redpanda redpanda ./redpanda \
+helm install redpanda redpanda/redpanda -n redpanda\
 --set statefulset.replicas=1 \
 --set auth.sasl.enabled=false \
 --set tls.enabled=false \
@@ -58,7 +56,7 @@ helm install -n redpanda redpanda ./redpanda \
 --set resources.memory.container.max=1025Mi \
 --set resources.memory.redpanda.reserveMemory=1Mi \
 --set resources.memory.redpanda.memory=1Gi
-```
+```{{exec}}
 
 
 Print out Pod status
