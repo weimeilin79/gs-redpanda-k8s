@@ -46,7 +46,7 @@ EOF
 And we are ready to kick of the deployment of Redpanda via Helm:
 
 ```
-helm install redpanda redpanda/redpanda -n redpanda\
+helm install redpanda redpanda/redpanda -n redpanda \
 --set statefulset.replicas=1 \
 --set auth.sasl.enabled=false \
 --set tls.enabled=false \
