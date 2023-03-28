@@ -25,7 +25,7 @@ kubectl create namespace redpanda
 ```{{exec}}
 
 
-We'll allocate disk space to our Redpanda broker. It is recommended to use a dynamically provisioned using StorageClasses, if you are using EKS, GKE or AKS, it is unlike that you need this step. But for the purpose of this tutorial, we'll need to pre-define local storage in the cluster.
+We'll allocate disk space to our Redpanda broker. It is recommended to use a dynamically provisioned using StorageClasses, if you are using EKS, GKE or AKS, it is unlikely that you need this step. But for the purpose of this tutorial, we'll need to pre-define local storage in the cluster.
 
 ```
 cat <<EOF | kubectl -n redpanda apply -f -
@@ -46,7 +46,7 @@ EOF
 ```{{exec}}
 
 
-And we are ready to kick of the deployment of Redpanda via Helm:
+And we are ready to kick off the deployment via Helm:
 
 ```
 helm install redpanda redpanda/redpanda -n redpanda  \

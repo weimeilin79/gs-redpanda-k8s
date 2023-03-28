@@ -1,8 +1,9 @@
 *Redpanda Keeper (rpk)* is a command line interface (CLI) tool to configure, manage, and tune Redpanda clusters. And it also let you manage topics, groups, and access control lists (ACLs).
 
-Every container running Redpanda broker in K8s cluster has the tool installed. It is setup to interact with the Redpanda cluster you installed directly. 
+Every container running Redpanda broker in K8s cluster has the RPK installed. It is setup to interact with the Redpanda cluster you installed directly. 
 
-Using the tool, it can retrieve information about the Redpanda cluster running.
+Use rpk to retrieve information about the Redpanda cluster running.
+
 ```
 kubectl -n redpanda exec -ti redpanda-0 -c redpanda -- rpk cluster metadata
 ```{{exec}}
@@ -21,7 +22,7 @@ ID    HOST                                             PORT
 ```
 
 
-We'll use create a topic named _demo-topic_. 
+Create a topic named _demo-topic_. 
 
 ```
 kubectl -n redpanda exec -ti redpanda-0 -c redpanda -- rpk topic create demo-topic
