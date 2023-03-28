@@ -86,4 +86,4 @@ Going back to _Tab2_, you see the following message received and printed via the
 }
 ```
 
-Send few more messages, and in both Tab2 & Tab3, use ctl+C to terminate both processes. 
+Send few more messages, leave the 2 tabs running, we will need them in the next step. 
