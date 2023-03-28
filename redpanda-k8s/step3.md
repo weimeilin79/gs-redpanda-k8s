@@ -1,6 +1,6 @@
 
 
-By default, Redpanda clusters are exposed through a NodePort Service. To display the services available: 
+By default, Redpanda clusters are exposed through a NodePort Service. To display the services available, go back to *Tab1* and run:
 
 ```
 kubectl -n redpanda get svc
@@ -9,8 +9,8 @@ kubectl -n redpanda get svc
 It will display a headless service which ping down the broker, which explicitly set ClusterIP to “None”. So it will discovering individual service broker in each pod. The *redpanda-external* is the NodePort service, that allows external access to the Redpanda broker via the external IP bounded to the K8s worker node.
 ```
 NAME                TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)                                                       AGE
-redpanda            ClusterIP      None            <none>        <none>                                                        11m
-redpanda-external   NodePort       10.105.46.176   <none>        9644:31644/TCP,9094:31092/TCP,8083:30082/TCP,8084:30081/TCP   11m
+redpanda            ClusterIP      None            <none>        <none>                                                        20m
+redpanda-external   NodePort       10.99.142.230    <none>        9644:31644/TCP,9094:31092/TCP,8083:30082/TCP,8084:30081/TCP   20m
 ```
 
 Normally you will use the external IP of the K8s worker node where your broker is hosted on. But due to the nature of Killercoda, the K8s worker node can be access via 0.0.0.0. Here is a table showing how the client can access the broker service both inside and outside of K8s cluster. 
@@ -23,9 +23,61 @@ Normally you will use the external IP of the K8s worker node where your broker i
 | Schema Registry | redpanda-0.redpanda.redpanda.svc.cluster.local:8084 | 0.0.0.0:30081 |
 
 
+We can try using the internal address for HTTP proxy to publish an event
+```
+kubectl -n redpanda exec -ti redpanda-0 -c redpanda -- curl -s \
+  -X POST \
+  "http://redpanda-0.redpanda.redpanda.svc.cluster.local:8083/topics/demo-topic" \
+  -H "Content-Type: application/vnd.kafka.json.v2+json" \
+  -d '{
+    "records": [
+        { 
+            "value": "Hello world!"
+        }
+    ]
+}'
+```{{exec}}
 
+Go to *Tab2* where you had the consumer open, and you should be able to see the event
 
-We do not have to use NodePort, Redpanda also support Loadbalancer. 
+```
+{
+  "topic": "demo-topic",
+  "value": "\"Hello world!\"",
+  "timestamp": 1679971100372,
+  "partition": 0,
+  "offset": 1
+}
+```
+
+Now, let's try connecting externally through the NodePort endpoint, go back to *Tab1* and run:
+
+```
+curl -s \
+  -X POST \
+  "http://0.0.0.0:30082/topics/demo-topic" \
+  -H "Content-Type: application/vnd.kafka.json.v2+json" \
+  -d '{
+    "records": [
+        { 
+            "value": "Hello Universe!"
+        }
+    ]
+}'
+```{{exec}}
+
+In *Tab2* where you had the consumer open, and you should be able to see the event
+```
+{
+  "topic": "demo-topic",
+  "value": "\"Hello Universe!\"",
+  "timestamp": 1679971457079,
+  "partition": 0,
+  "offset": 4
+}
+```
+
+We do not have to use NodePort, Redpanda also support Loadbalancer. In *Tab1* run the following to install the Loadbalancer service.
 
 
 ```
@@ -53,9 +105,59 @@ spec:
   selector:
     statefulset.kubernetes.io/pod-name: redpanda-0
 EOF
+```{{exec}}
+
+There should be an addition Loadbalancer service,  it will now bind your Redpanda service to your default K8s host and domain.  
+```
+kubectl -n redpanda get svc
+```{{exec}}
+
+But due to the nature of Killercoda, the K8s host and domain is also bind to 0.0.0.0 (Normally your Worker Node IP & K8s domain should be completely different). 
+
+```
+NAME                TYPE           CLUSTER-IP       EXTERNAL-IP   PORT(S)                                                       AGE
+lb-redpanda-0       LoadBalancer   10.104.112.167   <pending>     8081:30533/TCP,8082:30376/TCP,9093:31748/TCP,9644:31103/TCP   6s
+redpanda            ClusterIP      None             <none>        <none>                                                        22m
+redpanda-external   NodePort       10.99.142.230    <none>        9644:31644/TCP,9094:31092/TCP,8083:30082/TCP,8084:30081/TCP   22m
 ```
 
-Finally [ACCESS]({{TRAFFIC_HOST1_1234}}/hello) the Admin API through Istio <small>(or [select the port here]({{TRAFFIC_SELECTOR}}))</small>.
 
+Here is a table showing how the client can access the broker service outside of K8s cluster. 
 
-curl 0.0.0.0:31644/v1/clusters
+| Listener  | K8s internal IP &Port | External IP & Port |
+| -------- | ------- | ------- |
+| Admin API | redpanda-0.redpanda.redpanda.svc.cluster.local:9644 |	0.0.0.0:31103 |
+| Kafka	| redpanda-0.redpanda.redpanda.svc.cluster.local:9093 |	0.0.0.0:31748 |
+| HTTP Proxy | redpanda-0.redpanda.redpanda.svc.cluster.local:8082 | 0.0.0.0:30376 |
+| Schema Registry | redpanda-0.redpanda.redpanda.svc.cluster.local:8081 | 0.0.0.0:30533 |
+
+Try connecting externally through the NodePort endpoint, go back to *Tab1* and run:
+(Your external bounded port can be different, make sure you change that accordingly)
+
+```
+curl -s \
+  -X POST \
+  "http://0.0.0.0:30376/topics/demo-topic" \
+  -H "Content-Type: application/vnd.kafka.json.v2+json" \
+  -d '{
+    "records": [
+        { 
+            "value": "Hello Milky Way!"
+        }
+    ]
+}'
+```{{exec}}
+
+In *Tab2* where you had the consumer open, and you should be able to see the event
+```
+{
+  "topic": "demo-topic",
+  "value": "\"Hello Milky Way!\"",
+  "timestamp": 1679972709426,
+  "partition": 0,
+  "offset": 5
+}
+```
+
+Finally [ACCESS]({{TRAFFIC_HOST1_30376}}/v1/node_config) the Admin API through  <small>(or [select the port here]({{TRAFFIC_SELECTOR}}))</small>.
+
