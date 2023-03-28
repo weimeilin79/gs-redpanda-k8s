@@ -2,6 +2,8 @@
 
 By default, Redpanda clusters are exposed through a NodePort Service. To display the services available, go back to *Tab1* and run:
 
+![Node Port](./images/step-3-np.png)
+
 ```
 kubectl -n redpanda get svc
 ```{{exec}}
@@ -77,9 +79,11 @@ In *Tab2* where you had the consumer open, and you should be able to see the eve
 }
 ```
 
-We do not have to use NodePort, Redpanda also support Loadbalancer. In *Tab1* run the following to install the Loadbalancer service.
+We do not have to use NodePort, Redpanda also support _Loadbalancer_. 
 
+![Load Balancer](./images/step-3-lb.png)
 
+In *Tab1* run the following to install the Loadbalancer service.
 ```
 cat <<EOF | kubectl -n redpanda apply -f -
 apiVersion: v1
@@ -123,6 +127,7 @@ redpanda-external   NodePort       10.99.142.230    <none>        9644:31644/TCP
 
 
 Here is a table showing how the client can access the broker service outside of K8s cluster. 
+*(Your external bounded port will be different!!!)* 
 
 | Listener  | K8s internal IP &Port | External IP & Port |
 | -------- | ------- | ------- |
@@ -137,7 +142,7 @@ Try connecting externally through the NodePort endpoint, go back to *Tab1* and r
 ```
 curl -s \
   -X POST \
-  "http://0.0.0.0:30376/topics/demo-topic" \
+  "http://0.0.0.0:{{YOUR HTTP Proxy External Port}}/topics/demo-topic" \
   -H "Content-Type: application/vnd.kafka.json.v2+json" \
   -d '{
     "records": [
@@ -146,7 +151,8 @@ curl -s \
         }
     ]
 }'
-```{{exec}}
+```
+
 
 In *Tab2* where you had the consumer open, and you should be able to see the event
 ```
@@ -159,5 +165,14 @@ In *Tab2* where you had the consumer open, and you should be able to see the eve
 }
 ```
 
-Finally [ACCESS]({{TRAFFIC_HOST1_30376}}/v1/node_config) the Admin API through  <small>(or [select the port here]({{TRAFFIC_SELECTOR}}))</small>.
+Finally, try accessing the Kakfa Admin API  [select the port here]({{TRAFFIC_SELECTOR}})).
+Under _Host 1_ type in your Admin API external port, (in my case, it is 31103, yours will be different), and click the access button.
+A new browser window/tab will open up, prompting:
+
+```
+{"message": "Not found", "code": 404}
+```
+
+Don't worry it's not an error, let's try get the broker configuration by adding *v1/node_config* to the URL and refresh the page.
+![Node Config](./images/step-3-node-config.png)
 

@@ -7,3 +7,5 @@ Redpanda is a Kafka®-compatible streaming data platform that is less complex an
 Kubernetes is a container orchestration tool that helps you to manage Redpanda cluster deployments and provides a standardized way of achieving high availability, disaster recovery, and scalability.
 
 In this tutorial, you will learn how to deploy Redpanda in Kubernetes with the Redpanda Helm chart.
+
+(This tutorial will take you 10-20 mins to complete)
