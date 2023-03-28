@@ -1,5 +1,3 @@
-
-
 By default, Redpanda broker are exposed through a NodePort Service. To display the services available, go back to *Tab1* and run:
 
 ![Node Port](./images/step-3-np.png)
@@ -139,12 +137,12 @@ Here is a table showing how the client can access the broker service outside of 
 | Schema Registry | redpanda-0.redpanda.redpanda.svc.cluster.local:8081 | 0.0.0.0:30533 |
 
 Try connecting externally through the NodePort endpoint, go back to *Tab1* and run:
-(Your external bounded port can be different, make sure you change that accordingly)
 
 ```
+LB_HTTP_PORT=$(kubectl -n redpanda get svc lb-redpanda-0 -o json | jq '.spec.ports[] | select (.name=="http")| .nodePort')
 curl -s \
   -X POST \
-  "http://0.0.0.0:{{YOUR HTTP Proxy External Port}}/topics/demo-topic" \
+  "http://0.0.0.0:$LB_HTTP_PORT/topics/demo-topic" \
   -H "Content-Type: application/vnd.kafka.json.v2+json" \
   -d '{
     "records": [
@@ -154,7 +152,6 @@ curl -s \
     ]
 }'
 ```
-
 
 In *Tab2* where you had the consumer open, and you should be able to see the event
 ```
@@ -167,15 +164,22 @@ In *Tab2* where you had the consumer open, and you should be able to see the eve
 }
 ```
 
-Finally, try accessing the Kakfa Admin API  [select the port here]({{TRAFFIC_SELECTOR}})).
-Under _Host 1_ type in your Admin API external port, (in my case, it is 31103, yours will be different), and click the access button.
+Try accessing the Kakfa Admin API, run the following command to print the admin port, 
+
+```
+kubectl -n redpanda get svc lb-redpanda-0 -o json | jq '.spec.ports[] | select (.name=="admin")| .nodePort'
+```
+
+To access the admin API, [go to the Traffic Port Accessor]({{TRAFFIC_SELECTOR}})).
+In *Host 1* type in your Admin API external port printed from the previous step, and click the access button.
 A new browser window/tab will open up, prompting:
 
 ```
 {"message": "Not found", "code": 404}
 ```
 
-Don't worry it's not an error, let's try get the broker configuration by adding *v1/node_config* to the URL and refresh the page.
+
+Don't worry it's not an error, let's try get the broker configuration by adding */v1/node_config* to the URL and refresh the page.
 ![Node Config](./images/step-3-node-config.png)
 
 In both _Tab2_ and _Tab3_ use *ctl+C* to terminate the consumer & producer processes. Feel free to also close the tabs, we will not be needing them from this point onwards. 
