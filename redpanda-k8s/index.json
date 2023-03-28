@@ -15,11 +15,11 @@
           "text": "step2.md"
         },
         {
-          "title": "Access Redpanda brokers, the Networks",
+          "title": "The Networks, access Redpanda brokers",
           "text": "step3.md"
         },
         {
-          "title": "Deploy a python event consumer",
+          "title": "Upgrading, customize or change your setting via Helm chart",
           "text": "step4.md"
         }
       ]
