@@ -3,7 +3,9 @@
     "description": "Install Redpanda via helm chart",
     "details": {
       "intro": {
-        "text": "intro.md"
+        "text": "intro.md",
+        "foreground": "foreground.sh",
+        "background": "background.sh"
       },
       "steps": [
         {
