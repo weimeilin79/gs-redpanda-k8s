@@ -1,5 +1,7 @@
-Updating and patching a Redpanda cluster is fairly straightforward.
+Updating and patching a Redpanda cluster is fairly straightforward with helm.
+We can use the parameter like how we deploy the cluster in step one, or we can create a YAML file to indicate the new settings.
 
+In this scenario, we will be adding and spin up the *Redpanda Console*. Redpanda Console is a developer-friendly UI for managing your the workloads. In this setting, you can see that we have enable the console to deploy as well as setup an ingress endpoint, so we can access the console externally.  
 
 ```
 cat <<EOF > value.yaml
@@ -14,7 +16,7 @@ console:
 EOF
 ```{{exec}}
 
-
+Kick start helm and upgrades a release with the new changes in setting. 
 
 ```
 helm upgrade --install redpanda redpanda/redpanda \
@@ -23,9 +25,13 @@ helm upgrade --install redpanda redpanda/redpanda \
 
 ```{{exec}}
 
+Give it a minute or two, your console should be deploy and ready. 
+
 ```
 kubectl -n redpanda get pod
 ```{{exec}}
+
+Where you will see the redpanda-console pod running. 
 
 ```
 NAME                                READY   STATUS      RESTARTS   AGE
@@ -35,13 +41,21 @@ redpanda-console-5d77c44b95-wf6kg   1/1     Running     0          31s
 redpanda-post-upgrade-2l5xg         0/1     Completed   0          25s
 ```
 
-```
-kubectl -n redpanda get svc
-```{{exec}}
-
+Check if you see an ingress endpoint installed, 
 
 ```
 kubectl -n redpanda get ingress
 ```{{exec}}
 
-Go to the [Redpanda Console]({{TRAFFIC_HOST2_80}}) the admin API, [go to the Traffic Port Accessor]({{TRAFFIC_SELECTOR}})).
+It should be bind to an 80 port.
+```
+NAME               CLASS    HOSTS   ADDRESS     PORTS   AGE
+redpanda-console   <none>   *       localhost   80      26m
+```
+
+```
+kubectl get pod -o=custom-columns=NAME:.metadata.name,NODE:.spec.nodeName --all-namespaces | grep ingress-nginx-controller
+```{{exec}}
+
+Check where your ingress is hosted, if it's in *controlplane*, click [here]({{TRAFFIC_HOST1_80}}) the _*Redpanda Console*_, or if it's showing *node01* click [here]({{TRAFFIC_HOST2_80}}).
+
