@@ -1,12 +1,18 @@
+Updating and patching a Redpanda cluster is fairly straightforward.
+
+
 ```
 cat <<EOF > value.yaml
 console:
   enabled: true
   ingress:
     enabled: true
+    hosts:
+    - paths:
+        - path: /
+          pathType: ImplementationSpecific
 EOF
 ```{{exec}}
-
 
 
 
@@ -38,22 +44,4 @@ kubectl -n redpanda get svc
 kubectl -n redpanda get ingress
 ```{{exec}}
 
-
-
-```
-cat <<EOF | kubectl -n redpanda apply -f -
-apiVersion: v1
-kind: Service
-metadata:
-  name: lb-redpanda-console
-  namespace: redpanda
-spec:
-  type: LoadBalancer
-  ports:
-    - name: console
-      targetPort: 8080
-      port: 8080
-  selector:
-    statefulset.kubernetes.io/pod-name: redpanda-0
-EOF
-```{{exec}}
+Go to the [Redpanda Console]({{TRAFFIC_HOST2_80}}) the admin API, [go to the Traffic Port Accessor]({{TRAFFIC_SELECTOR}})).

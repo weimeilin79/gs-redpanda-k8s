@@ -21,8 +21,9 @@
           "text": "step3.md"
         },
         {
-          "title": "Upgrading, customize or change your setting via Helm chart",
-          "text": "step4.md"
+          "title": "Customize or change your setting,and Redpanda console",
+          "text": "step4.md",
+          "foreground": "ingress-nginx.sh"
         }
       ]
     },
