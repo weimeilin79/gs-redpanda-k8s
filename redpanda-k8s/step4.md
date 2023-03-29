@@ -55,6 +55,7 @@ NAME               CLASS    HOSTS   ADDRESS     PORTS   AGE
 redpanda-console   <none>   *       localhost   80      26m
 ```
 
+Give it a couple of minutes to start, (refresh if you see bad gateways! This is super limited cluster)
 Click [Redpanda Console]({{TRAFFIC_HOST1_80}}/) to access it via your browser.
 You'll see the _demo-topic_ we've created in Step 2.
 ![Redpanda console topic view](./images/step-4-topic.png)
@@ -63,7 +64,7 @@ Click into the topic, where all event streamed is displayed.
 ![Redpanda console topic view](./images/step-4-topic-detail.png)
 
 
-Congratulations you have completed this scenario with all components installed. 
+Congratulations you have completed this tutorial with all components installed. 
 ![Redpanda in K8s Overview](./images/RPinK8s.png)
 
 Happy Streaming!
