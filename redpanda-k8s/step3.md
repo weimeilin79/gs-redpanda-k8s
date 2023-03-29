@@ -182,5 +182,5 @@ A new browser window/tab will open up, prompting:
 Don't worry it's not an error, let's try get the broker configuration by adding */v1/node_config* to the URL and refresh the page.
 ![Node Config](./images/step-3-node-config.png)
 
-In both _Tab2_ and _Tab3_ use *ctl+C* to terminate the consumer & producer processes. Feel free to also close the tabs, we will not be needing them from this point onwards. 
+In both _Tab2_ and _Tab3_ use *ctl+C* to terminate the consumer & producer processes. We will not be needing them from this point onwards. 
 
