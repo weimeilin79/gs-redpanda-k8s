@@ -55,7 +55,7 @@ NAME               CLASS    HOSTS   ADDRESS     PORTS   AGE
 redpanda-console   <none>   *       localhost   80      26m
 ```
 
-Give it a couple of minutes to start, (refresh if you see bad gateways! This is super limited cluster)
+Give it a couple of minutes to start, (refresh if you see 503 Service Temporarily Unavailable! This is super limited cluster)
 Click [Redpanda Console]({{TRAFFIC_HOST1_80}}/) to access it via your browser.
 You'll see the _demo-topic_ we've created in Step 2.
 ![Redpanda console topic view](./images/step-4-topic.png)
