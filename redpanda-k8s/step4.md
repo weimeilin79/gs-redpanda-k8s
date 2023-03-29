@@ -3,6 +3,8 @@ We can use the parameter like how we deploy the cluster in step one, or we can c
 
 In this scenario, we will be adding and spin up the *Redpanda Console*. Redpanda Console is a developer-friendly UI for managing your the workloads. In this setting, you can see that we have enable the console to deploy as well as setup an ingress endpoint, so we can access the console externally.  
 
+![Redpanda console overview](./images/step-4-overview.png)
+
 ```
 cat <<EOF > value.yaml
 console:
@@ -53,9 +55,12 @@ NAME               CLASS    HOSTS   ADDRESS     PORTS   AGE
 redpanda-console   <none>   *       localhost   80      26m
 ```
 
-```
-kubectl get pod -o=custom-columns=NAME:.metadata.name,NODE:.spec.nodeName --all-namespaces | grep ingress-nginx-controller
-```{{exec}}
+Click [Redpanda Console]({{TRAFFIC_HOST1_80}}/) to access it via your browser.
+You'll see the _demo-topic_ we've created in Step 2.
+![Redpanda console topic view](./images/step-4-topic.png)
 
-Check where your ingress is hosted, if it's in *controlplane*, click [here]({{TRAFFIC_HOST1_80}}) the _*Redpanda Console*_, or if it's showing *node01* click [here]({{TRAFFIC_HOST2_80}}).
+Click into the topic, where all event streamed is displayed.
+![Redpanda console topic view](./images/step-4-topic-detail.png)
 
+
+Congratulations you have completed this scenario. Happy Streaming!
