@@ -151,7 +151,7 @@ curl -s \
         }
     ]
 }'
-```
+```{{exec}}
 
 In *Tab2* where you had the consumer open, and you should be able to see the event
 ```
@@ -162,13 +162,13 @@ In *Tab2* where you had the consumer open, and you should be able to see the eve
   "partition": 0,
   "offset": 5
 }
-```
+```{{exec}}
 
 Try accessing the Kakfa Admin API, run the following command to print the admin port, 
 
 ```
 kubectl -n redpanda get svc lb-redpanda-0 -o json | jq '.spec.ports[] | select (.name=="admin")| .nodePort'
-```
+```{{exec}}
 
 To access the admin API, [go to the Traffic Port Accessor]({{TRAFFIC_SELECTOR}})).
 In *Host 1* type in your Admin API external port printed from the previous step, and click the access button.

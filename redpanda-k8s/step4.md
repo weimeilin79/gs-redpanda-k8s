@@ -35,6 +35,12 @@ kubectl -n redpanda get svc
 
 
 ```
+kubectl -n redpanda get ingress
+```{{exec}}
+
+
+
+```
 cat <<EOF | kubectl -n redpanda apply -f -
 apiVersion: v1
 kind: Service
