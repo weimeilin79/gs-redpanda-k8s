@@ -21,9 +21,8 @@
           "text": "step3.md"
         },
         {
-          "title": "Customize or change your setting,and Redpanda console",
-          "text": "step4.md",
-          "foreground": "ingress-nginx.sh"
+          "title": "Customize & change your setting, plus Redpanda console",
+          "text": "step4.md"
         }
       ]
     },

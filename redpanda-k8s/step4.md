@@ -1,7 +1,7 @@
 Updating and patching a Redpanda cluster is fairly straightforward with helm.
 We can use the parameter like how we deploy the cluster in step one, or we can create a YAML file to indicate the new settings.
 
-In this scenario, we will be adding and spin up the *Redpanda Console*. Redpanda Console is a developer-friendly UI for managing your the workloads. In this setting, you can see that we have enable the console to deploy as well as setup an ingress endpoint, so we can access the console externally.  
+In this step, we will be adding and spin up the *Redpanda Console*. Redpanda Console is a developer-friendly UI for managing your the workloads. In this setting, you can see that we have enable the console to deploy as well as setup an ingress endpoint, so we can access the console externally.  
 
 ![Redpanda console overview](./images/step-4-overview.png)
 
@@ -63,4 +63,7 @@ Click into the topic, where all event streamed is displayed.
 ![Redpanda console topic view](./images/step-4-topic-detail.png)
 
 
-Congratulations you have completed this scenario. Happy Streaming!
+Congratulations you have completed this scenario with all components installed. 
+![Redpanda in K8s Overview](./images/RPinK8s.png)
+
+Happy Streaming!
