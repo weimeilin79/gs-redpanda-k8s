@@ -10,7 +10,7 @@ The following diagram shows all components in the cluster.
 
 ![Redpanda in K8s Overview](./images/RPinK8s.png)
 
-First, to the Redpanda Helm chart repository, run: 
+First, to install the Redpanda Helm chart repository, run: 
 
 ```
 helm repo add redpanda https://charts.redpanda.com
@@ -92,7 +92,7 @@ To confirm that the broker is up, run:
 kubectl -n redpanda get pod
 ```{{exec}}
 
-The following status will prompt showing that a Redpanda broker is running. 
+The following status confirms that a Redpanda broker is running. 
 ``` 
 NAME                           READY   STATUS      RESTARTS   AGE
 redpanda-0                     1/1     Running     0          2m50s
