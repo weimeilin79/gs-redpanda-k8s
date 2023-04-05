@@ -1,7 +1,7 @@
 Updating and patching a Redpanda cluster is fairly straightforward with Helm.
 You can use the parameter, like how you deployed the cluster in step one, or you can create a YAML file with the new settings.
 
-In this step, you add and spin up the **Redpanda Console**. Redpanda Console is a developer-friendly UI for managing your workloads. In this setting, you can see that you've enabled the console to deploy as well as set up an ingress endpoint, so you can access the console externally.  
+In this step, you add and spin up **Redpanda Console**. Redpanda Console is a developer-friendly UI for managing your workloads. You can see that you've enabled the console to deploy as well as set up an ingress endpoint, so you can access the console externally.  
 
 ![Redpanda console overview](./images/step-4-overview.png)
 
@@ -66,7 +66,7 @@ Give it a couple of minutes to start. (Refresh it if you see 503 Service Tempora
 
 Click [Redpanda Console]({{TRAFFIC_HOST1_80}}/) to access it in your browser.
 
-You'll see the _demo-topic_ you created in Step 2.
+You'll see the `demo-topic` you created in Step 2.
 
 ![Redpanda console topic view](./images/step-4-topic.png)
 

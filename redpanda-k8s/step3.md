@@ -94,7 +94,7 @@ In **Tab2** (where you have the consumer open), you see the event:
 ```
 
 
-You don't need to use NodePort: Redpanda also supports LoadBalancer Services. Next, you'll create a load balancer service for each broker. 
+You don't need to use NodePort: Redpanda also supports LoadBalancer Services. Next, you'll create a LoadBalancer Service for each broker. 
 
 ![Load Balancer](./images/step-3-lb.png)
 
@@ -147,7 +147,7 @@ redpanda-external   NodePort       10.99.142.230    <none>        9644:31644/TCP
 
 The following table shows how the client can access the broker service outside of K8s cluster. 
 
-**(WARNING: The ports are randomly chosen, so your external bound port will be different.)**
+**Warning: The ports are randomly chosen, so your external bound port will be different.**
 
 | Listener  | K8s Internal IP & Port | External IP & Port |
 | -------- | ------- | ------- |
@@ -157,7 +157,7 @@ The following table shows how the client can access the broker service outside o
 | Schema Registry | redpanda-0.redpanda.redpanda.svc.cluster.local:8081 | 0.0.0.0:30533 |
 
 
-Try connecting externally through the NodePort endpoint, go back to **Tab1** and run:
+Now try connecting externally through the NodePort endpoint. Go back to **Tab1**, and run:
 
 ```
 LB_HTTP_PORT=$(kubectl -n redpanda get svc lb-redpanda-0 -o json | jq '.spec.ports[] | select (.name=="http")| .nodePort')
@@ -188,7 +188,7 @@ In **Tab2** (where you had the consumer open), you can see the event:
 ```{{exec}}
 
 
-Try to access the Kakfa Admin API. Run the following command to print the admin port:
+Try to access the Kakfa Admin API. Run the following command to print the Admin API port:
 
 ```
 kubectl -n redpanda get svc lb-redpanda-0 -o json | jq '.spec.ports[] | select (.name=="admin")| .nodePort'
@@ -197,7 +197,7 @@ kubectl -n redpanda get svc lb-redpanda-0 -o json | jq '.spec.ports[] | select (
 
 To access the Admin API, [go to the Traffic Port Accessor]({{TRAFFIC_SELECTOR}})).
 
-In *Host 1*, enter your Admin API external port printed from the previous step, and click the access button.
+In **Host 1**, enter your Admin API external port printed from the previous step, and click the access button.
 
 A new browser window/tab opens:
 
@@ -210,7 +210,7 @@ This is not an error. To get the broker configurations, add `/v1/node_config` to
 
 ![Node Config](./images/step-3-node-config.png)
 
-In **Tab2**, click *ctl+C* to terminate the consumer processes. 
+In **Tab2**, click **ctl+C** to terminate the consumer processes. 
 
-In **Tab3**, click *ctl+C* to terminate the producer processes. 
+In **Tab3**, click **ctl+C** to terminate the producer processes. 
 
