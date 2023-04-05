@@ -1,6 +1,6 @@
 {
-    "title": "Getting started with Redpanda in K8s",
-    "description": "Install Redpanda via helm chart",
+    "title": "Get Started with Redpanda in K8s",
+    "description": "Install Redpanda the Helm chart",
     "details": {
       "intro": {
         "text": "intro.md",
@@ -13,15 +13,15 @@
           "text": "step1.md"
         },
         {
-          "title": "Create topic, produce and consume events ",
+          "title": "Create Topics, and Produce and Consume Events",
           "text": "step2.md"
         },
         {
-          "title": "The Networks, access Redpanda brokers",
+          "title": "Access Redpanda Brokers",
           "text": "step3.md"
         },
         {
-          "title": "Customize & change your setting, plus Redpanda console",
+          "title": "Customize Setting + Redpanda Console",
           "text": "step4.md"
         }
       ]

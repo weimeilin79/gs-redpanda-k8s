@@ -1,14 +1,12 @@
-*Redpanda Keeper (rpk)* is a command line interface (CLI) tool to configure, manage, and tune Redpanda clusters. And it also let you manage topics, groups, and access control lists (ACLs).
+Every container running Redpanda brokers in a Kubernetes cluster has `rpk` installed. It is set up to directly interact with the Redpanda cluster you installed. 
 
-Every container running Redpanda broker in K8s cluster has the RPK installed. It is setup to interact with the Redpanda cluster you installed directly. 
-
-Use rpk to retrieve information about the Redpanda cluster running.
+Use `rpk` to retrieve information about the Redpanda cluster:
 
 ```
 kubectl -n redpanda exec -ti redpanda-0 -c redpanda -- rpk cluster metadata
 ```{{exec}}
 
-Because we have yet to create any topics, you will see information brokers and cluster
+Because you haven't yet created any topics, you'll see information brokers and cluster:
 
 ```
 CLUSTER
@@ -21,26 +19,26 @@ ID    HOST                                             PORT
 0*    redpanda-0.redpanda.redpanda.svc.cluster.local.  9093
 ```
 
-
-Create a topic named _demo-topic_. 
+To create a topic named `demo-topic`, run:
 
 ```
 kubectl -n redpanda exec -ti redpanda-0 -c redpanda -- rpk topic create demo-topic
 ```{{exec}}
 
 You'll see the topic has been successfully created. 
+
 ```
 TOPIC       STATUS
 demo-topic  OK
 ```
 
+Use `rpk` to check the cluster again:
 
-Using the tool to check the cluster again.
 ```
 kubectl -n redpanda exec -ti redpanda-0 -c redpanda -- rpk cluster metadata
 ```{{exec}}
 
-And this time you should be able to see the topic along with details like it's partition and replicas. 
+This time, you see the topic along with details, like its partition and replicas. 
 
 ```
 CLUSTER
@@ -58,24 +56,37 @@ NAME        PARTITIONS  REPLICAS
 demo-topic  1           1
 ```
 
-Click the *+* on the top to open a new terminal, where you will see _Tab2_ appear. In the new tab let's go ahead and start a consumer that consumes from the newly created topic. 
+Now you'll start producing and consuming events. 
+
+Click **+** on the top of the terminal to open a new terminal. You'll see **Tab2** appear. 
+
+Click **Tab2** to enter that terminal.
+
+In **Tab2**, start a consumer that consumes from the newly created topic:
+
 ```
 kubectl -n redpanda exec -ti redpanda-0 -c redpanda -- rpk topic consume demo-topic
 ```{{exec}}
 
-Click the *+* on the top to open another new terminal, where you will see _Tab3_ appear. In the new tab, this time, we'll use it to produce event to newly created topic. 
+Click **+** again to open another new terminal. You'll see *Tab3* appear. 
+
+Click **Tab3** to enter that terminal.
+
+In **Tab3**, produce an event to the newly-created topic:
 
 ```
 kubectl -n redpanda exec -ti redpanda-0 -c redpanda -- rpk topic produce demo-topic
 ```{{exec}}
 
-Type in following after the producer has started in _Tab3_
+In **Tab3**, enter the following message after the producer has started:
 
 ```
 Hello from Redpanda!!
 ```{{exec}}
 
-Going back to _Tab2_, you see the following message received and printed via the consumer process.
+Click *Enter* to send the message. 
+
+Return to **Tab2**. You see the following message received and printed via the consumer process.
 
 ```
 {
@@ -87,4 +98,4 @@ Going back to _Tab2_, you see the following message received and printed via the
 }
 ```
 
-Send few more messages, leave the 2 tabs running, we will need them in the next step. 
+Send a few more messages. Leave the two tabs running, because you'll need them in the next step. 
