@@ -1,4 +1,4 @@
-Every container running Redpanda brokers in a Kubernetes cluster has `rpk` installed. It is set up to directly interact with the Redpanda cluster you installed. 
+Every container running Redpanda brokers in a Kubernetes cluster has `rpk` installed. It's set up to directly interact with the Redpanda cluster you installed. 
 
 Use `rpk` to retrieve information about the Redpanda cluster:
 
@@ -62,29 +62,26 @@ Click **+** on the top of the terminal to open a new terminal. You'll see **Tab2
 
 Click **Tab2** to enter that terminal.
 
-In **Tab2**, start a consumer that consumes from the newly created topic:
+On **Tab2**, start a consumer that consumes from the newly created topic:
 
 ```
 kubectl -n redpanda exec -ti redpanda-0 -c redpanda -- rpk topic consume demo-topic
 ```{{exec}}
 
-Click **+** again to open another new terminal. You'll see **Tab3** appear. 
+Click **+** again to open **Tab3**, and click **Tab3** to enter that terminal.
 
-Click **Tab3** to enter that terminal.
-
-In **Tab3**, produce an event to the newly-created topic:
+On **Tab3**, produce an event to the newly-created topic:
 
 ```
 kubectl -n redpanda exec -ti redpanda-0 -c redpanda -- rpk topic produce demo-topic
 ```{{exec}}
 
-In **Tab3**, enter the following message after the producer has started:
+On **Tab3**, enter the following message after the producer has started:
 
 ```
 Hello from Redpanda!!
 ```{{exec}}
 
-Click **Enter** to send the message. 
 
 Return to **Tab2**. You see the following message received and printed via the consumer process.
 
