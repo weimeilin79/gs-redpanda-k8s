@@ -9,7 +9,7 @@ kubectl -n redpanda get svc
 ```{{exec}}
 
 
-It displays a headless service that explicitly sets ClusterIP to `None`, so it discovers individual service brokers in each Pod. The `redpanda-external` is the NodePort service that allows external access to the Redpanda broker with the external IP bound to the Kubernetes worker node.
+It displays a headless service that explicitly sets ClusterIP to `None`, so it discovers individual service brokers in each Pod. The `redpanda-external` service is the NodePort Service that allows external access to the Redpanda broker with the external IP bound to the Kubernetes worker node.
 
 ```
 NAME                TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)                                                       AGE
@@ -28,7 +28,9 @@ Normally you'll use the external IP of the K8s worker node where your broker is 
 | Schema Registry | redpanda-0.redpanda.redpanda.svc.cluster.local:8084 | 0.0.0.0:30081 |
 
 
-Try using the internal address for HTTP Proxy to publish an event:
+Try using the internal address for HTTP Proxy to publish an event. 
+
+On **Tab1**, run:
 
 Note: This executes the curl command in the K8s Pod.
 
@@ -47,7 +49,7 @@ kubectl -n redpanda exec -ti redpanda-0 -c redpanda -- curl -s \
 ```{{exec}}
 
 
-In **Tab2** (where you have the consumer open), you see the event:
+On **Tab2** (where you have the consumer open), you see the event:
 
 ```
 {
@@ -62,7 +64,7 @@ In **Tab2** (where you have the consumer open), you see the event:
 
 Next, you'll connect externally through the NodePort endpoint. 
 
-In **Tab1**, run the following: 
+On **Tab1**, run: 
 
 Note: This executes the curl command outside K8s cluster.
 
@@ -81,7 +83,7 @@ curl -s \
 ```{{exec}}
 
 
-In **Tab2** (where you have the consumer open), you see the event:
+On **Tab2** (where you have the consumer open), you see the event:
 
 ```
 {
@@ -98,7 +100,7 @@ You don't need to use NodePort: Redpanda also supports LoadBalancer Services. Ne
 
 ![Load Balancer](./images/step-3-lb.png)
 
-In **Tab1**, run the following to install the LoadBalancer Service:
+On **Tab1**, run the following to install the LoadBalancer Service:
 
 ```
 cat <<EOF | kubectl -n redpanda apply -f -
@@ -128,14 +130,16 @@ EOF
 ```{{exec}}
 
 
-There should be an addition LoadBalancer Service. It now binds your Redpanda service to your default K8s domain. 
+There should be an additional LoadBalancer Service. It now binds your Redpanda service to your default K8s domain. 
+
+To again display the services available, run:
 
 ```
 kubectl -n redpanda get svc
 ```{{exec}}
 
 
-In this tutorial, the K8s domain is also bound to 0.0.0.0. (Normally, your Worker Node IP & K8s domain should be different.) 
+In this tutorial, the K8s domain is also bound to 0.0.0.0. (Normally, your worker node IP & K8s domain should be different.) 
 
 ```
 NAME                TYPE           CLUSTER-IP       EXTERNAL-IP   PORT(S)                                                       AGE
@@ -145,9 +149,9 @@ redpanda-external   NodePort       10.99.142.230    <none>        9644:31644/TCP
 ```
 
 
-The following table shows how the client can access the broker service outside of K8s cluster. 
+The following table shows how the client can access the broker service outside of the K8s cluster. 
 
-**Warning: The ports are randomly chosen, so your external bound port will be different.**
+**Warning: Ports are randomly chosen, so your external bound port will be different.**
 
 | Listener  | K8s Internal IP & Port | External IP & Port |
 | -------- | ------- | ------- |
@@ -157,7 +161,9 @@ The following table shows how the client can access the broker service outside o
 | Schema Registry | redpanda-0.redpanda.redpanda.svc.cluster.local:8081 | 0.0.0.0:30533 |
 
 
-Now try connecting externally through the NodePort endpoint. Go back to **Tab1**, and run:
+Now try connecting externally through the NodePort endpoint. 
+
+On **Tab1**, run:
 
 ```
 LB_HTTP_PORT=$(kubectl -n redpanda get svc lb-redpanda-0 -o json | jq '.spec.ports[] | select (.name=="http")| .nodePort')
@@ -175,7 +181,7 @@ curl -s \
 ```{{exec}}
 
 
-In **Tab2** (where you had the consumer open), you can see the event:
+On **Tab2** (where you had the consumer open), you can see the event:
 
 ```
 {
@@ -188,16 +194,18 @@ In **Tab2** (where you had the consumer open), you can see the event:
 ```{{exec}}
 
 
-Try to access the Kakfa Admin API. Run the following command to print the Admin API port:
+Try to access the Kakfa Admin API. 
+
+On **Tab1**, run the following command to print the Admin API port:
 
 ```
 kubectl -n redpanda get svc lb-redpanda-0 -o json | jq '.spec.ports[] | select (.name=="admin")| .nodePort'
 ```{{exec}}
 
 
-To access the Admin API, [go to the Traffic Port Accessor]({{TRAFFIC_SELECTOR}})).
+To access the Admin API, [go to the Traffic Port Accessor]({{TRAFFIC_SELECTOR}}).
 
-In **Host 1**, enter your Admin API external port printed from the previous step, and click the access button.
+For **Custom Ports**, enter your Admin API external port printed from the previous step, and click **Access**.
 
 A new browser window/tab opens:
 
@@ -210,7 +218,7 @@ This is not an error. To get the broker configurations, add `/v1/node_config` to
 
 ![Node Config](./images/step-3-node-config.png)
 
-In **Tab2**, click **ctl+C** to terminate the consumer processes. 
+On **Tab2**, click **ctl+C** to terminate the consumer processes. 
 
-In **Tab3**, click **ctl+C** to terminate the producer processes. 
+On **Tab3**, click **ctl+C** to terminate the producer processes. 
 

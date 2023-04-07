@@ -1,7 +1,7 @@
 Updating and patching a Redpanda cluster is fairly straightforward with Helm.
-You can use the parameter, like how you deployed the cluster in step one, or you can create a YAML file with the new settings.
+You can use the parameter, like how you deployed the cluster at the beginning of the tutorial, or you can create a YAML file with the new settings.
 
-In this step, you add and spin up **Redpanda Console**. Redpanda Console is a developer-friendly UI for managing your workloads. You can see that you've enabled the console to deploy as well as set up an ingress endpoint, so you can access the console externally.  
+In this step, you add and spin up Redpanda Console. Redpanda Console is a developer-friendly UI for managing your workloads. You've enabled the console to deploy as well as set up an ingress endpoint, so you can access the console externally.  
 
 ![Redpanda console overview](./images/step-4-overview.png)
 
@@ -70,7 +70,7 @@ You'll see the `demo-topic` you created in Step 2.
 
 ![Redpanda console topic view](./images/step-4-topic.png)
 
-Click into the topic to see all event streaming displayed.
+Click **demo-topic** to display all your event streaming.
 
 ![Redpanda console topic view](./images/step-4-topic-detail.png)
 
