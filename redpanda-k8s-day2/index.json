@@ -1,0 +1,33 @@
+{
+    "title": "Get Started with Redpanda in K8s",
+    "description": "Install Redpanda the Helm chart",
+    "details": {
+      "intro": {
+        "text": "intro.md",
+        "foreground": "foreground.sh",
+        "background": "background.sh"
+      },
+      "steps": [
+        {
+          "title": "Deploy a Redpanda Cluster",
+          "text": "step1.md"
+        },
+        {
+          "title": "Create Topics, and Produce and Consume Events",
+          "text": "step2.md"
+        },
+        {
+          "title": "Access Redpanda Brokers",
+          "text": "step3.md"
+        },
+        {
+          "title": "Customize Settings + Redpanda Console",
+          "text": "step4.md"
+        }
+      ]
+    },
+    "backend": {
+      "imageid": "kubernetes-kubeadm-1node"
+    }
+}
+  
