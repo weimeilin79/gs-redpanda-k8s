@@ -1,5 +1,5 @@
 
-
+```
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts  
 helm repo update
 ```{{exec}}
@@ -7,17 +7,27 @@ helm repo update
 
 ```
 cat <<EOF > value.yaml
-storageSpec:
-    volumeClaimTemplate:
-      spec:
-        resources:
-          requests:
-            storage: 2Gi
+server:
+  name: server
+  ingress:
+    enabled: true
+    path: /prometheus
+    extraPaths: 
+    - path: /*
+      backend:
+        serviceName: prometheus-server 
+        servicePort: 80
+  persistentVolume:
+    enabled: true
+    accessModes:
+      - ReadWriteOnce
+    size: 2Gi
 EOF
 ```{{exec}}
 
+
 ```
-helm install prometheus prometheus-community/prometheus --namespace monitoring --create-namespace --values value.yml
+helm install prometheus prometheus-community/prometheus --namespace monitoring --create-namespace --values value.yaml
 ```{{exec}}
 
 
@@ -70,7 +80,6 @@ helm upgrade --install redpanda redpanda/redpanda \
 kubectl -n redpanda rollout status statefulset redpanda --watch
 ```{{exec}}
 
-```
 
 
 Play with Prometheus
