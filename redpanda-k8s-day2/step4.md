@@ -1,1 +1,3 @@
-4. Setup MM2 getting ready for new migration
+
+
+Add two more broker to the cluster
