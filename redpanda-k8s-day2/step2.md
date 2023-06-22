@@ -1,10 +1,6 @@
 Install Dashboard 
 
-helm repo add grafana https://grafana.github.io/helm-charts
-helm repo update
-
-
-
+```
 cat <<EOF | kubectl -n monitoring apply -f -
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -14,17 +10,18 @@ metadata:
     volume.kubernetes.io/storage-provisioner: rancher.io/local-path
   name: grafana-pvc
   namespace: monitoring
-  resourceVersion: "2680"
-  uid: 1c71e4a8-e732-48dc-ab01-a22c2bfd7b04
 spec:
   accessModes:
   - ReadWriteOnce
   resources:
     requests:
-      storage: 1Gi
+      storage: 2Gi
   storageClassName: local-path
+  volumeMode: Filesystem
 EOF
+```{{exec}}
 
+```
 cat <<EOF | kubectl -n monitoring apply -f -
 apiVersion: apps/v1
 kind: Deployment
@@ -74,7 +71,7 @@ spec:
           resources:
             requests:
               cpu: 250m
-              memory: 750Mi
+              memory: 250Mi
           volumeMounts:
             - mountPath: /var/lib/grafana
               name: grafana-pv
@@ -97,6 +94,7 @@ spec:
   sessionAffinity: None
   type: LoadBalancer
 EOF
+```{{exec}}
 
 ```
 cat <<EOF | kubectl -n monitoring apply -f -
@@ -115,7 +113,29 @@ spec:
               name: grafana
               port:
                 number: 3000
-          path: /grafana
+          path: /
+          pathType: ImplementationSpecific
+EOF
+```{{exec}}
+
+```
+cat <<EOF | kubectl -n monitoring apply -f -
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: redpanda-ingress
+  annotations:
+    ingress.kubernetes.io/rewrite-target: /
+spec:
+    rules:
+    - http:
+        paths:
+        - backend:
+            service:
+              name: grafana
+              port:
+                number: 3000
+          path: /
           pathType: ImplementationSpecific
 EOF
 ```{{exec}}
