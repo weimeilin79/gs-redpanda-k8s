@@ -125,7 +125,8 @@ kind: Ingress
 metadata:
   name: redpanda-ingress
   annotations:
-    ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
     rules:
     - http:
@@ -135,7 +136,14 @@ spec:
               name: grafana
               port:
                 number: 3000
-          path: /
-          pathType: ImplementationSpecific
+          path: /grafana(/|$)(.*)
+          pathType: Prefix
+        - backend:
+            service:
+              name: prometheus-server 
+              port:
+                number: 80
+          path: /prometheus(/|$)(.*)
+          pathType: Prefix
 EOF
 ```{{exec}}
