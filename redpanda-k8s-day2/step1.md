@@ -1,28 +1,23 @@
 
 
-
-```
-helm upgrade --install redpanda redpanda/redpanda \
-  --namespace redpanda \
-  --create-namespace \
-  --set-string statefulset.annotations."prometheus\.io/scrape"="true",statefulset.annotations."prometheus\.io/path"=public_metrics,statefulset.annotations."prometheus\.io/port"="9644" \
-  --reuse-values 
-```{{exec}}
-
-  Wait until all Pods are running:
-
-```
-kubectl -n redpanda rollout status statefulset redpanda --watch
-```{{exec}}
-
-```
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts  
 helm repo update
 ```{{exec}}
 
+
 ```
-helm install prometheus prometheus-community/prometheus --namespace monitoring --create-namespace \ 
---set alertmanager.persistentVolume.storageClass="local-path",server.persistentVolume.storageClass="local-path" 
+cat <<EOF > value.yaml
+storageSpec:
+    volumeClaimTemplate:
+      spec:
+        resources:
+          requests:
+            storage: 2Gi
+EOF
+```{{exec}}
+
+```
+helm install prometheus prometheus-community/prometheus --namespace monitoring --create-namespace --values value.yml
 ```{{exec}}
 
 
@@ -60,4 +55,31 @@ spec:
 EOF
 ```{{exec}}
 
+
+```
+helm upgrade --install redpanda redpanda/redpanda \
+  --namespace redpanda \
+  --create-namespace \
+  --set-string statefulset.annotations."prometheus\.io/scrape"="true",statefulset.annotations."prometheus\.io/path"=public_metrics,statefulset.annotations."prometheus\.io/port"="9644" \
+  --reuse-values 
+```{{exec}}
+
+  Wait until all Pods are running:
+
+```
+kubectl -n redpanda rollout status statefulset redpanda --watch
+```{{exec}}
+
+```
+
+
 Play with Prometheus
+
+
+redpanda_cluster_topics
+
+```
+kubectl -n redpanda exec -ti redpanda-0 -c redpanda -- rpk topic create demo-topic
+```{{exec}}
+
+

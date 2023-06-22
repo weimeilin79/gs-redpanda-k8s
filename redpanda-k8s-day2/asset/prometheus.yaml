@@ -1,0 +1,10 @@
+server:
+  name: server
+  ingress:
+    enabled: true
+    path: /prometheus
+  persistentVolume:
+    enabled: true
+    accessModes:
+      - ReadWriteOnce
+    size: 2Gi
