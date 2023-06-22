@@ -11,7 +11,9 @@ server:
   name: server
   ingress:
     enabled: true
+    ingressClassName: nginx
     path: /prometheus
+    ingressPathType: ImplementationSpecific
     extraPaths: 
     - path: /*
       backend:
