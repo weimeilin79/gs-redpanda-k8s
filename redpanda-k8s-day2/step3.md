@@ -1,4 +1,6 @@
-Step three monitoring & logging
+Step three logging
 
-2. Configure prometheous & Grafana 
-3. Set fluentD & loki? 
+```
+helm repo add fluent https://fluent.github.io/helm-charts
+helm -n monitoring  install fluent-bit fluent/fluent-bit 
+```{{exec}}

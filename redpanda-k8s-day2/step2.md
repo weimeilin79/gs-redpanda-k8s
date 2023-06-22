@@ -92,8 +92,12 @@ spec:
   selector:
     app: grafana
   sessionAffinity: None
-  type: LoadBalancer
 EOF
+```{{exec}}
+
+
+```
+kubectl -n monitoring delete Ingress prometheus-ingress
 ```{{exec}}
 
 ```
@@ -118,32 +122,5 @@ spec:
 EOF
 ```{{exec}}
 
-```
-cat <<EOF | kubectl -n monitoring apply -f -
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: redpanda-ingress
-  annotations:
-    nginx.ingress.kubernetes.io/use-regex: "true"
-    nginx.ingress.kubernetes.io/rewrite-target: /$2
-spec:
-    rules:
-    - http:
-        paths:
-        - backend:
-            service:
-              name: grafana
-              port:
-                number: 3000
-          path: /grafana(/|$)(.*)
-          pathType: Prefix
-        - backend:
-            service:
-              name: prometheus-server 
-              port:
-                number: 80
-          path: /prometheus(/|$)(.*)
-          pathType: Prefix
-EOF
-```{{exec}}
+
+Add 3 Dashboard to Grafana
