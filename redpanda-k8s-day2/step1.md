@@ -1,9 +1,16 @@
 
+![Overview](./images/step-1-overview.png)
+
+
+To install Prometheus with helm chart, add the Prometheus repository
+
 ```
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts  
 helm repo update
 ```{{exec}}
 
+
+Since this tutorial environment has limited capacity, we will adjust the storage from default 8GB to 2 GB. 
 
 ```
 cat <<EOF > value.yaml
@@ -17,6 +24,7 @@ server:
 EOF
 ```{{exec}}
 
+Install Prometheus in the monitoring namespace
 
 ```
 helm install prometheus prometheus-community/prometheus --namespace monitoring --create-namespace --values value.yaml

@@ -1,6 +1,6 @@
 {
     "title": "Get Started with Day Two Operation Redpanda in K8s",
-    "description": "Install Redpanda the Helm chart",
+    "description": "Monitoring Redpanda",
     "details": {
       "intro": {
         "text": "intro.md",
@@ -9,7 +9,7 @@
       },
       "steps": [
         {
-          "title": "Deploy a Redpanda Cluster",
+          "title": "Setup Redpanda for monitoring and deploy Prometheus",
           "text": "step1.md"
         },
         {
