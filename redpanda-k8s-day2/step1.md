@@ -9,16 +9,6 @@ helm repo update
 cat <<EOF > value.yaml
 server:
   name: server
-  ingress:
-    enabled: true
-    ingressClassName: nginx
-    path: /prometheus
-    ingressPathType: ImplementationSpecific
-    extraPaths: 
-    - path: /*
-      backend:
-        serviceName: prometheus-server 
-        servicePort: 80
   persistentVolume:
     enabled: true
     accessModes:
