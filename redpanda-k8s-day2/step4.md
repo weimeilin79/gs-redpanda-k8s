@@ -3,6 +3,14 @@ Install cert manger
 helm repo add jetstack https://charts.jetstack.io
 helm repo update
 ```{{exec}}
+```
+helm install \
+  cert-manager jetstack/cert-manager \
+  --namespace cert-manager \
+  --create-namespace \
+  --version v1.12.0 \
+  --set installCRDs=true
+```{{exec}}
 
 ```
 cat <<EOF > security.yaml
@@ -26,6 +34,8 @@ auth:
 
 rpk topic create demo-topic  --brokers 0.0.0.0:31092
 
+rpk cluster info  --brokers localhost:31092 --tls-truststore cae.crt
+rpk topic create test  --brokers localhost:31092 --tls-truststore cae.crt
 
 ```
 helm upgrade --install redpanda redpanda/redpanda -n redpanda --create-namespace \

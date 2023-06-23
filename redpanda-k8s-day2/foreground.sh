@@ -46,5 +46,5 @@ helm install redpanda redpanda/redpanda -n redpanda  \
 --set "console.enabled=false" \
 --set resources.memory.redpanda.memory=1Gi \
 --set external.domain='' \
---set external.addresses={'0.0.0.0'} 
+--set external.addresses={'localhost'} 
 
