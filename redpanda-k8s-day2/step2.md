@@ -187,7 +187,7 @@ Let's get some action going, by running the *testdata.sh*, it will start produci
 
 Give it a minutes to run. Go back [Grafana Console]({{TRAFFIC_HOST1_80}}/), and select the *Redpanda OPS Dashboard* on the homepage. And you will be able to see metrics appear in the OPS dashboard. 
 
-[step-2-set-ds.png](./images/step-2-result-1.png)
-[step-2-set-ds.png](./images/step-2-result-2.png)
+![step-2-set-ds.png](./images/step-2-result-1.png)
+![step-2-set-ds.png](./images/step-2-result-2.png)
 
 Hit **ctl+C** to terminate the *produce-data* producer processes. 
