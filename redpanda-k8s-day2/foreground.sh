@@ -44,5 +44,7 @@ helm install redpanda redpanda/redpanda -n redpanda  \
 --set resources.memory.container.max=1025Mi \
 --set resources.memory.redpanda.reserveMemory=1Mi \
 --set "console.enabled=false" \
---set resources.memory.redpanda.memory=1Gi
+--set resources.memory.redpanda.memory=1Gi \
+--set external.domain='' \
+--set external.addresses={'0.0.0.0'} 
 
