@@ -8,20 +8,9 @@ helm repo update
 cat <<EOF > security.yaml
 tls:
   enabled: true
-external:
-  type: NodePort
-  domain: ""
-  addresses:
-   - 0.0.0.0
 EOF
 ```{{exec}}
 
-
-```
-helm upgrade --install redpanda redpanda/redpanda -n redpanda --create-namespace \
- --values security.yaml \
- --reuse-values 
-```{{exec}}
 
 
 ```
@@ -34,12 +23,9 @@ auth:
         password: admin
 ```
 
-```
-export PATH="~/.local/bin:$PATH"
-```{{exec}}
+
 rpk topic create demo-topic  --brokers 0.0.0.0:31092
 
-rpk redpanda config set redpanda.advertised_kafka_api '{address: 0.0.0.0, port: 9093}'
 
 ```
 helm upgrade --install redpanda redpanda/redpanda -n redpanda --create-namespace \
