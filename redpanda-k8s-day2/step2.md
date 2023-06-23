@@ -140,5 +140,7 @@ Skip the password change:
 [Grafana Login](./images/step-2-grafana-skip-pwd.png)
 
 First, configure the data source, 
+http://prometheus-server:80
+step-2-datasource.png
 
 Add 3 Dashboard to Grafana

@@ -105,10 +105,9 @@ EOF
 ```{{exec}}
 
 
-Click [Prometheus Console]({{TRAFFIC_HOST1_80}}/) to access it in your browser.
-```
-sed 's/PORT/80/g' /etc/killercoda/host
-```{{exec}}
+Give it a couple of minutes to start. (Refresh it if you see 503 Service Temporarily Unavailable. This is a very limited cluster.) Click [Prometheus Console]({{TRAFFIC_HOST1_80}}/) to access it in your browser.
+
+![Prometheus Console](./images/step-1-prometheus-ui.png)
 
 It's not collect data from Redpanda just yet, let's go ahead and add annotations to our Redpanda pods, it allows Prometheus to find and scrape the Redpanda's metrics endpoint:
 
@@ -132,7 +131,7 @@ redpanda-0   2/2     Running   0          8m43s
 ```
 Go back to your [Prometheus Console]({{TRAFFIC_HOST1_80}}/), and in the Expression box, type *redpanda_cluster_topics* and click _Execute_ on the right. And click on Graph tab to see the result:
 
-![Initial State](./images/step-1-prometheus-ui-topic-0.png)
+![Prometheus Console](./images/step-1-prometheus-ui-topic-0.png)
 
 You should be able to see a line on 0 of the Y axis.
 
@@ -149,7 +148,7 @@ demo-topic  OK
 
 Give it a minute, and go back to the [Prometheus Console]({{TRAFFIC_HOST1_80}}/) and query the same *redpanda_cluster_topics* expression again, you should be able to see the increase of topic number from zero to one now. 
 
-![Initial State](./images/step-1-prometheus-ui-topic-1.png)
+![Prometheus Console](./images/step-1-prometheus-ui-topic-1.png)
 
 Create a few more, and see the growth of the graph. 
 
@@ -166,7 +165,7 @@ TOPIC        STATUS
 demo3-topic  OK
 ```
 
-![Initial State](./images/step-1-prometheus-ui-topic-2.png)
+![Prometheus Console](./images/step-1-prometheus-ui-topic-2.png)
 
 Congratulations, you have successfully setup Prometheus and Redpanda to start collecting metrics for monitoring. 
 
