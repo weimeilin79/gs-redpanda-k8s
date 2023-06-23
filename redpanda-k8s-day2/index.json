@@ -9,20 +9,24 @@
       },
       "steps": [
         {
-          "title": "Setup Redpanda for monitoring and deploy Prometheus",
+          "title": "Monitor Redpanda- Prometheus",
           "text": "step1.md"
         },
         {
-          "title": "Create Topics, and Produce and Consume Events",
+          "title": "Monitor Redpanda- Grafana",
           "text": "step2.md"
         },
         {
-          "title": "Access Redpanda Brokers",
+          "title": "Redpanda Logging ",
           "text": "step3.md"
         },
         {
-          "title": "Customize Settings + Redpanda Console",
+          "title": "Configure TLS for Redpanda",
           "text": "step4.md"
+        },
+        {
+          "title": "Configure SASL for Redpanda",
+          "text": "step5.md"
         }
       ]
     },
