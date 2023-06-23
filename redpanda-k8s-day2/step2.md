@@ -134,24 +134,24 @@ EOF
 ```{{exec}}
 
 Give it a couple of minutes to start. (Refresh it if you see 503 Service Temporarily Unavailable. This is a very limited cluster.) Click [Grafana Console]({{TRAFFIC_HOST1_80}}/) to access it in your browser. Login with ID/PWD, admin/admin
-[Grafana Login](./images/step-2-grafana-login.png)
+![Grafana Login](./images/step-2-grafana-login.png)
 
 Skip the password change:
-[Grafana Login](./images/step-2-grafana-skip-pwd.png)
+![Grafana Login](./images/step-2-grafana-skip-pwd.png)
 
 In the [Grafana Console]({{TRAFFIC_HOST1_80}}/), configure the data source, by click on the "Add your first data source" tile in the home page.
-[Grafana Data Source](./images/step-2-datasource.png)
+![Grafana Data Source](./images/step-2-datasource.png)
 
 Select Prometheus, 
-[Grafana Select Data Source](./images/step-2-prometheus.png)
+![Grafana Select Data Source](./images/step-2-prometheus.png)
 
 In the Configure page for Prometheus, set _URL_ to *http://prometheus-server:80* and click on Save & test at the bottom of the page.
-[Grafana add Prometheus DS](./images/step-2-add-promethrus-ds.png)
+![Grafana add Prometheus DS](./images/step-2-add-promethrus-ds.png)
 
 Click the Grafana icon on the top of left menu bar to go back to the home age, and we are now ready to import the Redpanda template dashboards.These are metrics to help detect and mitigate anomalous system behaviors, capture baseline metrics of your healthy system at different stages (at start-up, under high load, in steady state) so you can set thresholds and alerts according to those baselines.
 
 To import, hover over the the _Dashboard_ item on the left menu and select _+ Import_
-[Grafana Import Dashboard](./images/step-2-import.png)
+![Grafana Import Dashboard](./images/step-2-import.png)
 
 All the Redpanda dashboards can be found in the [Grafana Marketplace](https://grafana.com/grafana/dashboards/), go to the site and type *redpanda* in the search box, you will see several of them, 
 the recommend one are: 
@@ -160,29 +160,29 @@ the recommend one are:
 - *Kafka Topic Metrics*: A deeper dive into Topic metrics, shows the records received and the read/write throughput for each topics. 
 - *Kafka Consumer Offsets*: Focusing on consumer offsets, showing which consumer groups are falling behind and  consumption rate by each groups.
 
-[Redpanda Marketplace](./images/step-2-marketplace.png)
+![Redpanda Marketplace](./images/step-2-marketplace.png)
 
 
 In the marketplace click into Redpanda Ops Dashboard, and click on _Copy ID to clipboard_:
-[Redpanda Ops Dashboard](./images/step-2-copy-id-ops.png)
+![Redpanda Ops Dashboard](./images/step-2-copy-id-ops.png)
 
 In the marketplace click into Redpanda Ops Dashboard, and click on _Copy ID to clipboard_:
-[Redpanda Ops Dashboard](./images/step-2-copy-id-ops.png)
+![Redpanda Ops Dashboard](./images/step-2-copy-id-ops.png)
 
 Paste the ID into the Grafana Import via Grafana box and click _Load_:
-[Load Redpanda Ops Dashboard ID](./images/step-2-load-id.png)
+![Load Redpanda Ops Dashboard ID](./images/step-2-load-id.png)
 
 In the next page, select Prometheus from the drop down menu as the data source, and click _Import_:
-[Load ID from marketplace](./images/step-2-load-id.png)
+![Load ID from marketplace](./images/step-2-load-id.png)
 
 Feel free to import all three dashboard mentioned above,but make sure you at least import the *Redpanda Ops Dashboard* for this tutorial. In the home page, you should be able to see the dashboard you just imported.
 
-[All Dashboards on Homepage](./images/step-2-all-dashboards.png)
+![All Dashboards on Homepage](./images/step-2-all-dashboards.png)
 
 Let's get some action going, by running the *testdata.sh*, it will start producing data into a topic call demo-topic. 
 
 ```
-./testdata.sh
+./produce-data.sh
 ```{{exec}}
 
 Give it a minutes to run. Go back [Grafana Console]({{TRAFFIC_HOST1_80}}/), and select the *Redpanda OPS Dashboard* on the homepage. And you will be able to see metrics appear in the OPS dashboard. 
@@ -190,4 +190,4 @@ Give it a minutes to run. Go back [Grafana Console]({{TRAFFIC_HOST1_80}}/), and 
 [step-2-set-ds.png](./images/step-2-result-1.png)
 [step-2-set-ds.png](./images/step-2-result-2.png)
 
-Hit **ctl+C** to terminate the *testdata* producer processes. 
+Hit **ctl+C** to terminate the *produce-data* producer processes. 
