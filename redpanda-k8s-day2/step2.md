@@ -1,5 +1,6 @@
-Install Dashboard 
+Grafana is a popular open-source monitoring tool used in Kubernetes. It enables the creation of visually appealing dashboards and graphs to visualize and analyze metrics collected from various data sources, including Prometheus. Redpanda provides template Grafana dashboards with guidelines and example queries using Redpanda's public metrics to monitor it's performance and health.
 
+Again, with limited capacity, we will adjust the storage for Grafana to 2 GB: 
 ```
 cat <<EOF | kubectl -n monitoring apply -f -
 apiVersion: v1
@@ -21,6 +22,7 @@ spec:
 EOF
 ```{{exec}}
 
+There are many ways to setup Grafana, such as helm or operator, but to make it simple, we will just use Kubernetes manifests for the setup this time:
 ```
 cat <<EOF | kubectl -n monitoring apply -f -
 apiVersion: apps/v1
@@ -95,12 +97,21 @@ spec:
 EOF
 ```{{exec}}
 
-
+Check if the Grafana pod is ready and running:
 ```
-kubectl -n monitoring delete Ingress prometheus-ingress
+kubectl get pod -n monitoring
 ```{{exec}}
 
+You should be able to see a grafana instance is ready and in running state:
 ```
+NAME                                                 READY   STATUS    RESTARTS   AGE
+grafana-bf6c9bd55-z8f7r                              1/1     Running   0          82s
+```
+
+
+Run the following command to export Grafana Dashboard:
+```
+kubectl -n monitoring delete Ingress prometheus-ingress
 cat <<EOF | kubectl -n monitoring apply -f -
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -122,5 +133,12 @@ spec:
 EOF
 ```{{exec}}
 
+Give it a couple of minutes to start. (Refresh it if you see 503 Service Temporarily Unavailable. This is a very limited cluster.) Click [Grafana Console]({{TRAFFIC_HOST1_80}}/) to access it in your browser. Login with ID/PWD, admin/admin
+[Grafana Login](./images/step-2-grafana-login.png)
+
+Skip the password change:
+[Grafana Login](./images/step-2-grafana-skip-pwd.png)
+
+First, configure the data source, 
 
 Add 3 Dashboard to Grafana
