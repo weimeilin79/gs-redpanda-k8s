@@ -1,6 +1,6 @@
 {
-    "title": "Get Started with Day Two Operation Redpanda in K8s",
-    "description": "From monitoring, logging to securing your Redpanda cluster",
+    "title": "Day Two Operation with Redpanda in K8s - Part 1",
+    "description": "Setup monitoring, logging for your Redpanda cluster",
     "details": {
       "intro": {
         "text": "intro.md",
@@ -19,14 +19,6 @@
         {
           "title": "Redpanda Logging-Loki & Promtail",
           "text": "step3.md"
-        },
-        {
-          "title": "Configure TLS for Redpanda",
-          "text": "step4.md"
-        },
-        {
-          "title": "Configure SASL for Redpanda",
-          "text": "step5.md"
         }
       ]
     },

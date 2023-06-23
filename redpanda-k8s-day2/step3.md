@@ -6,6 +6,17 @@ helm repo add grafana https://grafana.github.io/helm-charts
 helm -n monitoring  install loki grafana/loki-stack --set grafana.enabled=false
 ```{{exec}}
 
+```
+kubectl -n monitoring get pod
+```{{exec}}
+
+```
+NAME                                                 READY   STATUS    RESTARTS      AGE
+grafana-bf6c9bd55-zjh9c                              1/1     Running   0             10m
+loki-0                                               1/1     Running   0             115s
+loki-promtail-p9q5q                                  1/1     Running   0             115s
+```
+
 The default installation settings of the loki stack are pretty complete:
 
 the data source is correctly configured in Grafana
