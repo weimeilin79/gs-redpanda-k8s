@@ -1,0 +1,25 @@
+{
+    "title": "Day Two Operation with Redpanda in K8s - Part 2",
+    "description": "Securing your Redpanda cluster",
+    "details": {
+      "intro": {
+        "text": "intro.md",
+        "foreground": "foreground.sh",
+        "background": "background.sh"
+      },
+      "steps": [
+        {
+          "title": "Configure TLS for Redpanda",
+          "text": "step1.md"
+        },
+        {
+          "title": "Configure SASL for Redpanda",
+          "text": "step2.md"
+        }
+      ]
+    },
+    "backend": {
+      "imageid": "kubernetes-kubeadm-1node"
+    }
+}
+  

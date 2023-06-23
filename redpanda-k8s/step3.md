@@ -213,6 +213,25 @@ A new browser window/tab opens:
 {"message": "Not found", "code": 404}
 ```
 
+#TBD
+```
+cat <<EOF > security.yaml
+tls:
+  enabled: true
+external:
+  type: NodePort
+  domain: ""
+  addresses:
+   - 0.0.0.0
+EOF
+```{{exec}}
+
+
+```
+helm upgrade --install redpanda redpanda/redpanda -n redpanda --create-namespace \
+ --values security.yaml \
+ --reuse-values 
+```{{exec}}
 
 This is not an error. To get the broker configurations, add `/v1/node_config` to the URL and refresh the page.
 
