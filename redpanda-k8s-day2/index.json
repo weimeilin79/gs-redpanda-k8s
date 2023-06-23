@@ -1,6 +1,6 @@
 {
     "title": "Get Started with Day Two Operation Redpanda in K8s",
-    "description": "Monitoring Redpanda",
+    "description": "From monitoring, logging to securing your Redpanda cluster",
     "details": {
       "intro": {
         "text": "intro.md",
@@ -9,15 +9,15 @@
       },
       "steps": [
         {
-          "title": "Monitor Redpanda- Prometheus",
+          "title": "Monitor Redpanda-Prometheus",
           "text": "step1.md"
         },
         {
-          "title": "Monitor Redpanda- Grafana",
+          "title": "Monitor Redpanda-Grafana",
           "text": "step2.md"
         },
         {
-          "title": "Redpanda Logging ",
+          "title": "Redpanda Logging-Loki & Promtail",
           "text": "step3.md"
         },
         {

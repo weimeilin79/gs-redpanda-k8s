@@ -1,3 +1,24 @@
+Tools in this tutorial:
+
+- `helm`: This helps you define, install, and upgrade applications running on Kubernetes.
+- `kubectl`: The Kubernetes command-line tool lets you deploy applications, inspect and manage cluster resources, and view logs in Kubernetes cluster. 
+- `rpk`: The Redpanda command-line tool lets you manage your entire Redpanda cluster, without the need to run a separate script for each function, as with Apache Kafka. The `rpk` commands handle everything from configuring nodes and low-level tuning to high-level general Redpanda tasks. 
+
+Assume you have already deploy the Redpanda cluster in Kubernetes, and everything is running smoothly, so what next? Let's take a look around, a Redpanda cluster with one broker has already installed for you on this single node Kubernetes environment.
+
+
+Run 
+
+```
+kubectl get all --namespace redpanda
+```{{exec}}
+
+you'll see a working Redpanda cluster in the _redpanda_ namespace
+
+![Initial State](./images/step-1-initial-state.png)
+
+
+Monitoring Redpanda after installation is crucial for ensuring the health, performance, and stability of your cluster. By monitoring Kafka, you gain valuable insights into its resource utilization, message throughput, and overall system behavior. 
 
 ![Overview](./images/step-1-overview.png)
 
