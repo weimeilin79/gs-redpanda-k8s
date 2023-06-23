@@ -4,6 +4,14 @@ Redpanda is a Kafka-compatible streaming data platform that is less complex and 
 
 Kubernetes is a container orchestration tool that helps you to manage Redpanda cluster deployments. It provides a standardized way of achieving high availability, disaster recovery, and scalability.
 
-In this tutorial, you learn everything about day two operation for Redpanda cluster, such as learn how to configure monitoring, logging for cluster and how to update Redpanda cluster configuration in Kubernetes.
+In this tutorial, you will learn about day two operations for Redpanda cluster in Kubernetes,in order to support ongoing maintenance, management, and other activities after Redpanda has been deployed .
 
-This tutorial takes 10-20 minutes to complete.
+We'll cover 
+
+- Monitoring for Redpanda in K8s
+- Logging for Redpanda in K8s
+- Security & configuration change for Redpanda in K8s
+
+This tutorial takes 15-20 minutes to complete.
+
+Note: This tutorial is a continuation of the *Get Started with Redpanda in K8s* hands-on tutorial. It is highly recommended to have already completed the initial getting started course, as it covers the fundamental concepts necessary to fully benefit from this tutorial.
