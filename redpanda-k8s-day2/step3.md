@@ -12,7 +12,6 @@ kubectl -n monitoring get pod
 
 ```
 NAME                                                 READY   STATUS    RESTARTS      AGE
-grafana-bf6c9bd55-zjh9c                              1/1     Running   0             10m
 loki-0                                               1/1     Running   0             115s
 loki-promtail-p9q5q                                  1/1     Running   0             115s
 ```
