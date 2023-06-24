@@ -25,7 +25,7 @@
         "host01": [
           {"file": "produce-data.sh", "target": "~/", "chmod": "+x"}
         ]
-      },
+      }
     },
     "backend": {
       "imageid": "kubernetes-kubeadm-2nodes"
