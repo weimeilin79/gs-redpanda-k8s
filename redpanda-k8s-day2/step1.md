@@ -131,6 +131,9 @@ redpanda-0   2/2     Running   0          8m43s
 ```
 Go back to your [Prometheus Console]({{TRAFFIC_HOST1_80}}/), and in the Expression box, type *redpanda_cluster_topics* and click _Execute_ on the right. And click on Graph tab to see the result:
 
+TRAFFIC_SELECTOR:
+[ACCESS PORTS]({{TRAFFIC_SELECTOR}})
+
 ![Prometheus Console](./images/step-1-prometheus-ui-topic-0.png)
 
 You should be able to see a line on 0 of the Y axis.
