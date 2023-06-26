@@ -1,5 +1,10 @@
 Grafana is a popular open-source monitoring tool used in Kubernetes. It enables the creation of visually appealing dashboards and graphs to visualize and analyze metrics collected from various data sources, including Prometheus. Redpanda provides template Grafana dashboards with guidelines and example queries using Redpanda's public metrics to monitor it's performance and health.
 
+Here is what your environment will look like, notice we are adding Grafana under the same _monitoring_ namespace.
+
+![Grafana overview](./images/step-2-grafana-env.png)
+
+Let's start deploying the Grafana for it's dashboards.
 Again, with limited capacity, adjust the storage for Grafana to 2 GB: 
 ```
 cat <<EOF | kubectl -n monitoring apply -f -

@@ -37,7 +37,7 @@ job.batch/redpanda-configuration   1/1           16s        37s
 
 Monitoring Redpanda after installation is crucial for ensuring the health, performance, and stability of your cluster. By monitoring Kafka, you gain valuable insights into its resource utilization, message throughput, and overall system behavior. Prometheus is popularly used for monitoring and alerting in Kubernetes. We will use it to scrapes and collect metrics data from Redpanda cluster.
 
-![Overview](./images/step-1-overview.png)
+![Prometheus Env Overview](./images/step-1-prometheus-env.png)
 
 
 To install Prometheus with helm chart, add the Prometheus repository:

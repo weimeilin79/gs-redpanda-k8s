@@ -1,5 +1,8 @@
 Logging is essential for monitoring Redpanda as it provides valuable insights into the internal workings and behavior of the cluster. By analyzing the logs, you can identify and troubleshoot issues, track performance metrics, detect anomalies, and gain a deeper understanding of the system's operations.
 
+Here is what your environment will look like, notice we are adding both Loki & Promtail under the same _monitoring_ namespace.
+![Loki & Promtail Env Overview](./images/step-3-loki-env.png)
+
 *Promtail* is a component used for log collection and forwarding. It sends the logs to a centralized log aggregator, allowing for centralized log management and analysis.
 
 *Loki* the log aggregator that enables the collection, indexing, and storage of logs in a highly scalable and efficient manner. Allows users to easily search, explore, and analyze logs.
