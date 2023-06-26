@@ -1,6 +1,6 @@
 Grafana is a popular open-source monitoring tool used in Kubernetes. It enables the creation of visually appealing dashboards and graphs to visualize and analyze metrics collected from various data sources, including Prometheus. Redpanda provides template Grafana dashboards with guidelines and example queries using Redpanda's public metrics to monitor it's performance and health.
 
-Again, with limited capacity, we will adjust the storage for Grafana to 2 GB: 
+Again, with limited capacity, adjust the storage for Grafana to 2 GB: 
 ```
 cat <<EOF | kubectl -n monitoring apply -f -
 apiVersion: v1
@@ -22,7 +22,7 @@ spec:
 EOF
 ```{{exec}}
 
-There are many ways to setup Grafana, such as helm or operator, but to make it simple, we will just use Kubernetes manifests for the setup this time:
+There are many ways to setup Grafana, such as helm or operator, but to make it simple, this time just use Kubernetes manifests for the setup:
 ```
 cat <<EOF | kubectl -n monitoring apply -f -
 apiVersion: apps/v1
@@ -133,13 +133,15 @@ spec:
 EOF
 ```{{exec}}
 
-Give it a couple of minutes to start. (Refresh it if you see 503 Service Temporarily Unavailable. This is a very limited cluster.) Click [Grafana Console]({{TRAFFIC_HOST1_80}}/) to access it in your browser. Login with ID/PWD, admin/admin
+Give it a couple of minutes to start. (Refresh it if you see 503 Service Temporarily Unavailable. This is a very limited cluster.) Click [Grafana Console]({{TRAFFIC_HOST2_80}}/) to access it in your browser. Login with ID/PWD, admin/admin
 ![Grafana Login](./images/step-2-grafana-login.png)
+
+(_NOTE_ if you keep getting Error 502 *Bad Gateway*, that probably means the Ingress was hosted on another host in this tutorial env. go to [ACCESS PORTS]({{TRAFFIC_SELECTOR}}) and try click on both 80 port, one of them should work.)
 
 Skip the password change:
 ![Grafana Login](./images/step-2-grafana-skip-pwd.png)
 
-In the [Grafana Console]({{TRAFFIC_HOST1_80}}/), configure the data source, by click on the "Add your first data source" tile in the home page.
+In the [Grafana Console]({{TRAFFIC_HOST2_80}}/), configure the data source, by click on the "Add your first data source" tile in the home page.
 ![Grafana Data Source](./images/step-2-datasource.png)
 
 Select Prometheus, 
@@ -179,15 +181,15 @@ Feel free to import all three dashboard mentioned above,but make sure you at lea
 
 ![All Dashboards on Homepage](./images/step-2-all-dashboards.png)
 
-Let's get some action going, by running the *testdata.sh*, it will start producing data into a topic call demo-topic. 
+Let's get some action going, by running the *produce-data.sh*, it will start producing data into a topic call demo-topic. 
 
 ```
 ./produce-data.sh
 ```{{exec}}
 
-Give it a minutes to run. Go back [Grafana Console]({{TRAFFIC_HOST1_80}}/), and select the *Redpanda OPS Dashboard* on the homepage. And you will be able to see metrics appear in the OPS dashboard. 
+Give it a minutes to run. Go back [Grafana Console]({{TRAFFIC_HOST2_80}}/), and select the *Redpanda OPS Dashboard* on the homepage. And you will be able to see metrics appear in the OPS dashboard. 
 
 ![step-2-set-ds.png](./images/step-2-result-1.png)
 ![step-2-set-ds.png](./images/step-2-result-2.png)
 
-Hit **ctl+C** to terminate the *produce-data* producer processes. 
+Hit **ctl+C** to terminate the *produce-data* producer processes. Congratulations, you have successfully setup Grafana to view metrics for monitoring Redpanda. 

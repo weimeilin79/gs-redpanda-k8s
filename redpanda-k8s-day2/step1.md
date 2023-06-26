@@ -105,9 +105,12 @@ EOF
 ```{{exec}}
 
 
-Give it a couple of minutes to start. (Refresh it if you see 503 Service Temporarily Unavailable. This is a very limited cluster.) Click [Prometheus Console]({{TRAFFIC_HOST1_80}}/) to access it in your browser.
+Give it a couple of minutes to start. (Refresh it if you see 503 Service Temporarily Unavailable. This is a very limited cluster.) Click [Prometheus Console]({{TRAFFIC_HOST2_80}}/) to access it in your browser.
 
 ![Prometheus Console](./images/step-1-prometheus-ui.png)
+
+(_NOTE_ if you keep getting Error 502 *Bad Gateway*, that probably means the Ingress was hosted on another host in this tutorial env. go to [ACCESS PORTS]({{TRAFFIC_SELECTOR}}) and try click on both 80 port, one of them should work.)
+
 
 It's not collect data from Redpanda just yet, let's go ahead and add annotations to our Redpanda pods, it allows Prometheus to find and scrape the Redpanda's metrics endpoint:
 
@@ -129,10 +132,9 @@ kubectl -n redpanda get pod redpanda-0
 NAME         READY   STATUS    RESTARTS   AGE
 redpanda-0   2/2     Running   0          8m43s
 ```
-Go back to your [Prometheus Console]({{TRAFFIC_HOST1_80}}/), and in the Expression box, type *redpanda_cluster_topics* and click _Execute_ on the right. And click on Graph tab to see the result:
+Go back to your [Prometheus Console]({{TRAFFIC_HOST2_80}}/), and in the Expression box, type *redpanda_cluster_topics* and click _Execute_ on the right. And click on Graph tab to see the result:
 
-TRAFFIC_SELECTOR:
-[ACCESS PORTS]({{TRAFFIC_SELECTOR}})
+
 
 ![Prometheus Console](./images/step-1-prometheus-ui-topic-0.png)
 
@@ -149,7 +151,7 @@ TOPIC       STATUS
 demo-topic  OK
 ```
 
-Give it a minute, and go back to the [Prometheus Console]({{TRAFFIC_HOST1_80}}/) and query the same *redpanda_cluster_topics* expression again, you should be able to see the increase of topic number from zero to one now. 
+Give it a minute, and go back to the [Prometheus Console]({{TRAFFIC_HOST2_80}}/) and query the same *redpanda_cluster_topics* expression again, you should be able to see the increase of topic number from zero to one now. 
 
 ![Prometheus Console](./images/step-1-prometheus-ui-topic-1.png)
 

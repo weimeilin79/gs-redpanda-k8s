@@ -8,9 +8,9 @@ In this tutorial, you will learn about day two operations for Redpanda cluster i
 
 We'll cover 
 
-- Monitoring for Redpanda in K8s
-- Logging for Redpanda in K8s
-- Security & configuration change for Redpanda in K8s
+- Monitoring for Redpanda in K8s with Prometheus
+- Display monitoring metrics for Redpanda for Redpanda in K8s with Grafana
+- Logging for Redpanda in K8s with Loki and Promtail
 
 This tutorial takes 15-20 minutes to complete.
 
