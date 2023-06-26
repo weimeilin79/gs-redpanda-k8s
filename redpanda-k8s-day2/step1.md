@@ -100,7 +100,7 @@ spec:
               port:
                 number: 80
           path: /
-          pathType: Prefix
+          pathType: ImplementationSpecific
 EOF
 ```{{exec}}
 
