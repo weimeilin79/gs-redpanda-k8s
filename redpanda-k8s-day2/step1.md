@@ -48,9 +48,13 @@ helm repo update
 ```{{exec}}
 
 
-Since this tutorial environment has limited capacity, we will adjust the storage from default 8GB to 2 GB: 
+Since this tutorial environment has limited capacity, we will adjust the storage from default 8GB to 2 GB and we will not be installing both the alert manager and push gateway : 
 ```
 cat <<EOF > value.yaml
+alertmanager:
+  enabled: false
+prometheus-pushgateway:
+  enabled: false
 server:
   name: server
   persistentVolume:
