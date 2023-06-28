@@ -78,7 +78,6 @@ kubectl get pod --namespace monitoring
 Verify that all pods are in the _Running_ state:
 ```
 NAME                                                 READY   STATUS    RESTARTS   AGE
-prometheus-alertmanager-0                            1/1     Running   0          48s
 prometheus-kube-state-metrics-64b4cd6658-p9bk7       1/1     Running   0          48s
 prometheus-prometheus-node-exporter-ljkfj            1/1     Running   0          48s
 prometheus-prometheus-pushgateway-7cfd5f66f4-mm7v7   1/1     Running   0          48s
