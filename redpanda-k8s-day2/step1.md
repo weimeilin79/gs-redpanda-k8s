@@ -107,7 +107,6 @@ spec:
 EOF
 ```{{exec}}
 
-
 Give it a couple of minutes to start. (Refresh it if you see 503 Service Temporarily Unavailable. This is a very limited cluster.) Click [Prometheus Console]({{TRAFFIC_HOST2_80}}/) to access it in your browser.
 
 ![Prometheus Console](./images/step-1-prometheus-ui.png)
@@ -116,6 +115,7 @@ Give it a couple of minutes to start. (Refresh it if you see 503 Service Tempora
 
 
 It's not collect data from Redpanda just yet, let's go ahead and add annotations to our Redpanda pods, it allows Prometheus to find and scrape the Redpanda's metrics endpoint:
+
 
 ```
 helm upgrade --install redpanda redpanda/redpanda \

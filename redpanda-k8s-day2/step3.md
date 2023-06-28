@@ -25,8 +25,7 @@ loki-0                                               1/1     Running   0        
 loki-promtail-p9q5q                                  1/1     Running   0             115s
 ```
 
-The Promtail is configured to scrape the logs of the pods running on your cluster.
-This means you can directly head to the Explore menu to check the logs of your pods, click on the Logo on the left menu, and select the _Add your data source_ tab to add Loki as the data source to explore:
+The Promtail agent that we've installed is at the host level and is configured to scrape the all logs in the cluster. This means you can directly head to the Explore menu to check the logs of your pods, click on the Logo on the left menu, and select the _Add your data source_ tab to add Loki as the data source to explore:
 ![Prometheus Homepage](./images/step-3-homepage.png)
 
 
