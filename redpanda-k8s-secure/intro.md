@@ -8,7 +8,8 @@ In this tutorial, you will learn about day two operations for Redpanda cluster i
 
 We'll cover 
 
-- Security & configuration change for Redpanda in K8s
+- Configure TLS for Redpanda in K8s
+- Configure SASL for Redpanda in K8s
 
 This tutorial takes 10-15 minutes to complete.
 
