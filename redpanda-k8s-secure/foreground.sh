@@ -12,6 +12,8 @@ while ! kubectl -n ingress-nginx get pod -l app.kubernetes.io/component=controll
   sleep 1;
 done
 
+
+
 #Install Helm
 helm repo add redpanda https://charts.redpanda.com
 kubectl create namespace redpanda
@@ -49,6 +51,4 @@ helm install redpanda redpanda/redpanda -n redpanda  \
 --set external.addresses={'localhost'} \
 --set config.cluster.auto_create_topics_enabled=true \
 --set console.enabled=true \
---set console.ingress.enabled=true \
---set "console.ingress.hosts.paths.path=/" \
---set "console.ingress.hosts.paths.pathType=ImplementationSpecific
+--set console.ingress.enabled=true 

@@ -15,7 +15,8 @@ mkdir -p ~/.local/bin
 unzip rpk-linux-amd64.zip -d ~/.local/bin/
 export PATH="~/.local/bin:$PATH"
 
-
+echo export PATH="~/.local/bin:$PATH" >> ~/.bashrc
+source ~/.bashrc
 
 
 
