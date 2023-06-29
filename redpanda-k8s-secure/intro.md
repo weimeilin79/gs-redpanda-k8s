@@ -1,4 +1,4 @@
-![Super panda](./images/super-panda.png)
+![Super panda](./images/rocket-panda.png)
 
 Redpanda is a Kafka-compatible streaming data platform that is less complex and less costly than any other commercial mission-critical event streaming platform. It's fast, it's easy, and it keeps your data safe.
 

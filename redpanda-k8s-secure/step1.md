@@ -96,30 +96,69 @@ and the secrets that stores the actual certificate that are attached to the brok
 kubectl -n redpanda get secret -l controller.cert-manager.io/fao=true
 ```{{exec}}
 
-
+The certificate renewal process is handled seamlessly by cert-manager. You don't need to do anything to facilitate the renewal. However you can alway regenerate the certificate, change any spec on the certificate too: 
 ```
 kubectl -n redpanda patch certificate redpanda-external-cert -p '[{"op": "add", "path": "/spec/dnsNames" , "value":["localhost"]}]' --type='json'
 kubectl -n redpanda delete secret redpanda-external-cert
 ```{{exec}}
 
+You'll see the newly created certificate:
+```
+kubectl -n redpanda get secret redpanda-external-cert
+```{{exec}}
+
+Here is what you will see:
+```
+NAME                                 TYPE                DATA   AGE
+redpanda-default-cert                kubernetes.io/tls   3      7m37s
+redpanda-default-root-certificate    kubernetes.io/tls   3      7m41s
+redpanda-external-cert               kubernetes.io/tls   3      2s
+redpanda-external-root-certificate   kubernetes.io/tls   3      7m41s
+```
+
+If you have external connectivity configured for your cluster and you didn't provide an issuer in the configuration file, you must export the Certificate Authority's (CA) public certificate file from the node certificate Secret as a file named cae.crt.
+
 ```
 kubectl -n redpanda get secret redpanda-external-cert -o go-template='{{ index .data "ca.crt" | base64decode }}' > cae.crt
 ```{{exec}}
 
-
+Let's first try connecting to the broker without the certificate, 
 ```
 rpk cluster info  --brokers localhost:31092 
 ```{{exec}}
 
+Note it will fail with error messages:
+```
+unable to request metadata: invalid large response size 352518912 > limit 104857600; the first three bytes received appear to be a tls alert record for TLS v1.2; is this a plaintext connection speaking to a tls endpoint?
+```
+
+Next try connect to with the exported CA certificates:
 ```
 rpk cluster info  --brokers localhost:31092 --tls-truststore cae.crt
 ```{{exec}}
 
+Result:
+```
+CLUSTER
+=======
+redpanda.43313f94-1b3d-4656-b6a0-9140ba76b6b4
+
+BROKERS
+=======
+ID    HOST       PORT
+0*    localhost  31092
+
+TOPICS
+======
+NAME      PARTITIONS  REPLICAS
+_schemas  1           1
+```
+
+You can also user it for other commands, such as create topics. 
 ```
 rpk topic create test-topic  --brokers localhost:31092 --tls-truststore cae.crt
 ```{{exec}}
 
-```
-kubectl get nodes -o yaml
-```{{exec}}
 
+
+Congrats, you have successfully secured your Redpanda with TLS in K8s.
