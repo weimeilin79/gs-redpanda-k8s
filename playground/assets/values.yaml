@@ -21,9 +21,9 @@ storage:
   persistentVolume:
     size: 3Gi
 external:
-  domain: ''
-  addresses:
-   - localhost
+  enabled: true
+  type: NodePort
+  domain: localhost
 console:
   enabled: true
   ingress:
