@@ -15,7 +15,7 @@
     ],
     "assets": {
       "host01": [
-        {"file": "produce-data.sh", "target": "~/", "chmod": "+x"}
+        {"file": "values.yaml", "target": "~/", "chmod": "+x"}
       ]
     }
   },
