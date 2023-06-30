@@ -37,4 +37,4 @@ EOF
 
 #Install redpanda
 helm install redpanda redpanda/redpanda -n redpanda  \
---values valus.yaml
+--values values.yaml
