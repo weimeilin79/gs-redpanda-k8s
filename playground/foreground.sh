@@ -35,38 +35,6 @@ spec:
       storage: 1Gi
 EOF
 
-cat <<EOF | kubectl -n redpanda apply -f -
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: datadir-redpanda-1
-  annotations:
-    volumeType: local
-spec:
-  accessModes:
-    - ReadWriteOnce
-  storageClassName: local-path
-  resources:
-    requests:
-      storage: 1Gi
-EOF
-
-cat <<EOF | kubectl -n redpanda apply -f -
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: datadir-redpanda-2
-  annotations:
-    volumeType: local
-spec:
-  accessModes:
-    - ReadWriteOnce
-  storageClassName: local-path
-  resources:
-    requests:
-      storage: 1Gi
-EOF
-
 #Install redpanda
 helm install redpanda redpanda/redpanda -n redpanda  \
 --values values.yaml 

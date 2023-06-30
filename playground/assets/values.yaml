@@ -1,5 +1,5 @@
 statefulset:
-  replicas: 3
+  replicas: 1
   updateStrategy:
     type: RollingUpdate
 tls:
@@ -23,7 +23,9 @@ storage:
 external:
   enabled: true
   type: NodePort
-  domain: localhost
+  domain: ''
+  addresses:
+    - localhost
 console:
   enabled: true
   ingress:
