@@ -1,0 +1,37 @@
+statefulset:
+  replicas: 3
+  updateStrategy:
+    type: RollingUpdate
+tls:
+  enabled: false
+auth:
+  sasl:
+    enabled: false
+resources:
+  cpu:
+    cores: 300m
+  memory:
+    container:
+      max: 1025Mi
+    redpanda:
+      memory: 1Gi
+      reserveMemory: 1Mi
+  overprovisioned: true
+storage:
+  persistentVolume:
+    size: 3Gi
+external:
+  domain: ''
+  addresses:
+   - localhost
+console:
+  enabled: true
+  ingress:
+    enabled: true
+    hosts:
+    - paths:
+        - path: /
+          pathType: ImplementationSpecific
+config:
+  cluster:
+    auto_create_topics_enabled: true 
