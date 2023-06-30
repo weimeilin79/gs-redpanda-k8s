@@ -154,7 +154,7 @@ kubectl -n redpanda delete secret redpanda-default-cert
 
 Give it a minute for the cluster to recreate the secrets, and you'll see the newly created certificate:
 ```
-kubectl -n redpanda get secret 
+kubectl -n redpanda get secret -l controller.cert-manager.io/fao=true
 ```{{exec}}
 
 Here is what you will see, a new certificate named *redpanda-external-cert* generated :
