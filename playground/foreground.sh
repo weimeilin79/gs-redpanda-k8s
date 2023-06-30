@@ -36,5 +36,4 @@ spec:
 EOF
 
 #Install redpanda
-helm install redpanda redpanda/redpanda -n redpanda  \
---values values.yaml
+#helm install redpanda redpanda/redpanda -n redpanda  --values values.yaml

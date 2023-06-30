@@ -28,4 +28,12 @@ external:
     - localhost
 config:
   cluster:
-    auto_create_topics_enabled: true 
+    auto_create_topics_enabled: true
+console:
+  enabled: true
+  ingress:
+    enabled: true
+    hosts:
+    - paths:
+        - path: /
+          pathType: ImplementationSpecific
