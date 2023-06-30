@@ -26,14 +26,6 @@ external:
   domain: ''
   addresses:
     - localhost
-console:
-  enabled: true
-  ingress:
-    enabled: true
-    hosts:
-    - paths:
-        - path: /
-          pathType: ImplementationSpecific
 config:
   cluster:
     auto_create_topics_enabled: true 
