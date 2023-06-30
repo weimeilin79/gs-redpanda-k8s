@@ -147,8 +147,8 @@ redpanda-external-root-certificate   kubernetes.io/tls   3      3m42s
 The certificate renewal process is handled seamlessly by cert-manager. You don't need to do anything to facilitate the renewal. However you can alway regenerate the certificate, change any spec on the certificate too: 
 ```
 kubectl -n redpanda patch certificate redpanda-external-cert -p '[{"op": "add", "path": "/spec/dnsNames" , "value":["localhost"]}]' --type='json'
-kubectl -n redpanda patch certificate redpanda-default-cert -p '[{"op": "add", "path": "/spec/dnsNames" , "value":["localhost"]}]' --type='json'
 kubectl -n redpanda delete secret redpanda-external-cert
+kubectl -n redpanda patch certificate redpanda-default-cert -p '[{"op": "add", "path": "/spec/dnsNames" , "value":["localhost", "redpanda-0.redpanda.redpanda.svc.cluster.local."]}]' --type='json'
 kubectl -n redpanda delete secret redpanda-default-cert
 ```{{exec}}
 
