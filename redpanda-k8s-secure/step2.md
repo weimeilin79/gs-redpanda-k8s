@@ -68,14 +68,10 @@ Once you have created the superuser, you can now create new users and authorize 
 
 The normal users are not part of K8s configuration, they are stored and manages in the Redpanda cluster. Therefore we will be using _RPK_ tools to create the user.
 
-Let's regenerate and download the certificate for admin port:
-
+Let's download the certificate for admin port:
 ```
-kubectl -n redpanda patch certificate redpanda-default-cert -p '[{"op": "add", "path": "/spec/dnsNames" , "value":["localhost"]}]' --type='json'
-kubectl -n redpanda delete secret redpanda-default-cert
 kubectl -n redpanda get secret redpanda-default-cert -o go-template='{{ index .data "ca.crt" | base64decode }}' > admin.crt
 ```{{exec}}
-
 
 Create user via *rpk*:
 ```
@@ -136,7 +132,22 @@ CONFIGS
 config response contained error: TOPIC_AUTHORIZATION_FAILED: Not authorized to access topics: [Topic authorization failed.]
 ```
 
-Now, go ahead and grant the 
+Go ahead and grant all privileges for Topic *test-topic* to myuser:
+```
+rpk acl create --allow-principal User:myuser \
+  --operation all \
+  --topic test-topic \
+  --user admin \
+  --password 'admin' \
+  --sasl-mechanism SCRAM-SHA-256 \
+  --tls-enabled \
+  --tls-truststore cae.crt \
+  --brokers localhost:31092
+```{{exec}}
+
+
+Let's try to describe the topic again:
+
 ```
 rpk topic describe test-topic \
   --user myuser \
@@ -147,4 +158,30 @@ rpk topic describe test-topic \
   --brokers localhost:31092
 ```{{exec}}
 
-Grant the new user permissions for a specific topic. The following command grants describe privileges to a topic called myfirsttopic:
+You should be able to see the details about the topic:
+```
+SUMMARY
+=======
+NAME        test-topic
+PARTITIONS  1
+REPLICAS    1
+
+CONFIGS
+=======
+KEY                           VALUE       SOURCE
+cleanup.policy                delete      DYNAMIC_TOPIC_CONFIG
+compression.type              producer    DEFAULT_CONFIG
+max.message.bytes             1048576     DEFAULT_CONFIG
+message.timestamp.type        CreateTime  DEFAULT_CONFIG
+redpanda.remote.delete        true        DEFAULT_CONFIG
+redpanda.remote.read          false       DEFAULT_CONFIG
+redpanda.remote.write         false       DEFAULT_CONFIG
+retention.bytes               -1          DEFAULT_CONFIG
+retention.local.target.bytes  -1          DEFAULT_CONFIG
+retention.local.target.ms     86400000    DEFAULT_CONFIG
+retention.ms                  604800000   DEFAULT_CONFIG
+segment.bytes                 134217728   DEFAULT_CONFIG
+segment.ms                    1209600000  DEFAULT_CONFIG
+```
+
+Congrats, you have successfully enforcing authentication and authorization to your Redpanda with SASL in K8s.

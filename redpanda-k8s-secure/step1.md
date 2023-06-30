@@ -94,8 +94,11 @@ tls:
       # duration: 43800h
 ```
 
-In this tutorial, to make it simple, we'll be using the default self-signed certificate. Let's turn on the TLS config and leave everything as is:
+In this tutorial, to make it simple, we'll be using the default self-signed certificate. Here is what your cluster will look like after this step
 
+![Initial State](./images/step-1-tls-overview.png)
+
+Let's turn on the TLS config and leave everything as is:
 ```
 cat <<EOF > security.yaml
 tls:
@@ -144,7 +147,9 @@ redpanda-external-root-certificate   kubernetes.io/tls   3      3m42s
 The certificate renewal process is handled seamlessly by cert-manager. You don't need to do anything to facilitate the renewal. However you can alway regenerate the certificate, change any spec on the certificate too: 
 ```
 kubectl -n redpanda patch certificate redpanda-external-cert -p '[{"op": "add", "path": "/spec/dnsNames" , "value":["localhost"]}]' --type='json'
+kubectl -n redpanda patch certificate redpanda-default-cert -p '[{"op": "add", "path": "/spec/dnsNames" , "value":["localhost"]}]' --type='json'
 kubectl -n redpanda delete secret redpanda-external-cert
+kubectl -n redpanda delete secret redpanda-default-cert
 ```{{exec}}
 
 Give it a minute for the cluster to recreate the secrets, and you'll see the newly created certificate:
@@ -155,7 +160,7 @@ kubectl -n redpanda get secret
 Here is what you will see, a new certificate named *redpanda-external-cert* generated :
 ```
 NAME                                 TYPE                DATA   AGE
-redpanda-default-cert                kubernetes.io/tls   3      7m37s
+redpanda-default-cert                kubernetes.io/tls   3      1m2s
 redpanda-default-root-certificate    kubernetes.io/tls   3      7m41s
 redpanda-external-cert               kubernetes.io/tls   3      1m2s
 redpanda-external-root-certificate   kubernetes.io/tls   3      7m41s
