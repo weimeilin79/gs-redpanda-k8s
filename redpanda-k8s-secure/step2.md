@@ -2,7 +2,9 @@ By enforcing authentication and authorization mechanisms, you can control who ha
 
 You must create the superuser. This user has ALL permissions on the cluster and is the user that grants permissions to new users. Without a superuser, you can create other users, but you will not be able to grant them permissions to the cluster.
 
-With Kubernetes, it's best practice to use use a Secret to store sensitive configuration, in this case the superuser credentials,
+![SASL overview](./images/step-2-sasl-overview.png)
+
+With Kubernetes, it's best practice to use use a Secret to store sensitive configuration, in this case the superuser credentials,st
 
 ```
 echo 'admin:admin:SCRAM-SHA-256' >> superusers.txt

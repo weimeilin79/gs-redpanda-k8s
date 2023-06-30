@@ -96,7 +96,7 @@ tls:
 
 In this tutorial, to make it simple, we'll be using the default self-signed certificate. Here is what your cluster will look like after this step
 
-![Initial State](./images/step-1-tls-overview.png)
+![TLS overview](./images/step-1-tls-overview.png)
 
 Let's turn on the TLS config and leave everything as is:
 ```
