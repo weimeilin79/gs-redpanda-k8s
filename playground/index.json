@@ -1,23 +1,20 @@
 {
   "title": "Redpanda Playground",
-  "description": "A playground for Redpanda",
+  "description": "A playground for streaming platform",
   "details": {
     "intro": {
-      "text": "intro.md"
+      "text": "intro.md",
+      "foreground": "foreground.sh",
+      "background": "background.sh"
     },
     "steps": [
       {
+        "title": "Env",
         "text": "step1.md"
-      },
-      {
-        "text": "step2.md"
       }
-    ],
-    "finish": {
-      "text": "finish.md"
-    }
+    ]
   },
   "backend": {
-    "imageid": "ubuntu"
+    "imageid": "kubernetes-kubeadm-2nodes"
   }
 }
