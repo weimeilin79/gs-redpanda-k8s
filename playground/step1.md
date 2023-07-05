@@ -10,6 +10,10 @@ Tools available in the playground:
 - `kubectl`: The Kubernetes command-line tool lets you deploy applications, inspect and manage cluster resources, and view logs in Kubernetes cluster. 
 - `rpk`: The Redpanda command-line tool lets you manage your entire Redpanda cluster, without the need to run a separate script for each function, as with Apache Kafka. The `rpk` commands handle everything from configuring nodes and low-level tuning to high-level general Redpanda tasks. 
 
+Wait until installation is done, you will be prompted with:
+```
+REDPANDA PLAYGROUND READY!!!!!
+```
 
 You may connect to the cluster with RPK tools access externally (Outside K8s):
 ```
@@ -24,3 +28,5 @@ kubectl -n redpanda exec -ti redpanda-0 -c redpanda -- rpk cluster info
 
 
 Click [Redpanda Console]({{TRAFFIC_HOST1_80}}/) to access it in your browser.
+
+Have fun! 
