@@ -47,7 +47,7 @@ helm upgrade --install redpanda redpanda/redpanda \
     --namespace redpanda --create-namespace \
     --values console.yaml --reuse-values
 
-while ! kubectl -n redpanda get pod -l app.kubernetes.io/instance=redpanda -l app.kubernetes.io/name=console | grep -w "Running"; do
+while ! kubectl -n redpanda get pod -l app.kubernetes.io/name=console | grep -w "Running"; do
   echo  -n ".."
   sleep 1;
 done
