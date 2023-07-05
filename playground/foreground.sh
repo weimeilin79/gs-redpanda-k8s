@@ -54,4 +54,4 @@ while [ ! "$(curl -s -o /dev/null -w '%{http_code}' http://localhost)" == '200' 
   sleep 1;
 done 
 
-echo "REDPANDA PLAYGROUND READY!!!!!"
+echo "REDPANDA PLAYGROUND READY.."
