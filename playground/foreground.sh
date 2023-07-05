@@ -36,4 +36,13 @@ spec:
 EOF
 
 #Install redpanda
-#helm install redpanda redpanda/redpanda -n redpanda  --values values.yaml
+helm install redpanda redpanda/redpanda -n redpanda  --values values.yaml
+
+while ! kubectl -n redpanda get pod -l app.kubernetes.io/instance=redpanda | grep -w "Running"; do
+  echo  -n ".."
+  sleep 1;
+done
+
+helm upgrade --install redpanda redpanda/redpanda \
+    --namespace redpanda --create-namespace \
+    --values value.yaml --reuse-values
