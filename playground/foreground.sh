@@ -49,7 +49,7 @@ helm upgrade --install redpanda redpanda/redpanda \
 
 while [ ! "$(kubectl -n redpanda exec -ti redpanda-0 -c redpanda -- curl -s -o /dev/null -w '%{http_code}' http://redpanda-console:8080)" == '200' ] ; do
   echo  -n ".."
-  sleep 1;
+  sleep 3;
 done 
 
 echo "REDPANDA PLAYGROUND READY!!!!!"
