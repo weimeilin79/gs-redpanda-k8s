@@ -15,7 +15,8 @@
     ],
     "assets": {
       "host01": [
-        {"file": "values.yaml", "target": "~/", "chmod": "+x"}
+        {"file": "values.yaml", "target": "~/", "chmod": "+x"},
+        {"file": "console.yaml", "target": "~/", "chmod": "+x"}
       ]
     }
   },
