@@ -45,4 +45,4 @@ done
 
 helm upgrade --install redpanda redpanda/redpanda \
     --namespace redpanda --create-namespace \
-    --values value.yaml --reuse-values
+    --values console.yaml --reuse-values
