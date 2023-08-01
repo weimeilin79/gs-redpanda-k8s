@@ -1,0 +1,71 @@
+{
+  "title": "Masterclass 2. Flink SQL - Basics",
+  "description": "Learn how to run basic stream processing pipelines using Redpanda and Flink SQL",
+  "details": {
+    "intro": {
+      "text": "intro.md",
+      "background": "background.sh"
+    },
+    "steps": [
+      {
+        "title": "The environment",
+        "text": "step1.md"
+      },
+      {
+        "title": "Start the clusters",
+        "text": "step1.1.md"
+      },
+      {
+        "title": "Installing connectors",
+        "text": "step1.2.md"
+      },
+      {
+        "title": "Flink UI",
+        "text": "step1.3.md"
+      },
+      {
+        "title": "Create the topics",
+        "text": "step2.md"
+      },
+      {
+        "title": "Flink SQL",
+        "text": "step3.md"
+      },
+      {
+        "title": "Configure the client",
+        "text": "step4.md"
+      },
+      {
+        "title": "Create the source table",
+        "text": "step5.md"
+      },
+      {
+        "title": "Explore the language",
+        "text": "step5.1.md"
+      },
+      {
+        "title": "Explore the language",
+        "text": "step5.2.md"
+      },
+      {
+        "title": "Create the sink",
+        "text": "step5.3.md"
+      },
+      {
+        "title": "Verify the results",
+        "text": "step5.4.md"
+      }
+    ],
+    "finish": {
+      "text": "finish.md"
+    },
+    "assets": {
+      "host01": [
+        {"file": "*", "target": "~/"}
+      ]
+    }
+  },
+  "backend": {
+    "imageid": "ubuntu-4GB"
+  }
+}

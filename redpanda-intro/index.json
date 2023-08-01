@@ -1,0 +1,79 @@
+{
+  "title": "Masterclass 1. Redpanda Intro",
+  "description": "Learn the basics of Redpanda and the rpk CLI",
+  "details": {
+    "intro": {
+      "text": "intro.md",
+      "background": "background.sh"
+    },
+    "steps": [
+      {
+        "title": "Start a Redpanda cluster",
+        "text": "step1.md"
+      },
+      {
+        "title": "rpk Basics",
+        "text": "step2.md"
+      },
+      {
+        "title": "Topic Basics",
+        "text": "step3.md"
+      },
+      {
+        "title": "Partition Basics",
+        "text": "step3.1.md"
+      },
+      {
+        "title": "Creating Topics",
+        "text": "step3.2.md"
+      },
+      {
+        "title": "Configuring Topics",
+        "text": "step4.md"
+      },
+      {
+        "title": "Configuring Topics",
+        "text": "step4.1.md"
+      },
+      {
+        "title": "Producer Basics",
+        "text": "step5.md"
+      },
+      {
+        "title": "Producing Data with rpk",
+        "text": "step5.1.md"
+      },
+      {
+        "title": "Consumer Basics",
+        "text": "step6.md"
+      },
+      {
+        "title": "Consuming Data with rpk",
+        "text": "step6.1.md"
+      },
+      {
+        "title": "Consumer Groups",
+        "text": "step7.md"
+      },
+      {
+        "title": "Consumer Groups",
+        "text": "step7.1.md"
+      },
+      {
+        "title": "Exploring Redpanda Console",
+        "text": "step8.md"
+      }
+    ],
+    "finish": {
+      "text": "finish.md"
+    },
+    "assets": {
+      "host01": [
+        {"file": "*", "target": "~/"}
+      ]
+    }
+  },
+  "backend": {
+    "imageid": "ubuntu-4GB"
+  }
+}

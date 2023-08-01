@@ -1,0 +1,83 @@
+{
+  "title": "Masterclass 3. Flink SQL - Algorithmic Trading",
+  "description": "Learn how to create a more advanced stream processing application using Redpanda, Flink SQL, and Alpaca.",
+  "details": {
+    "intro": {
+      "text": "intro.md",
+      "background": "background.sh"
+    },
+    "steps": [
+      {
+        "title": "Disclosures",
+        "text": "step0.md"
+      },
+      {
+        "title": "Environment setup",
+        "text": "step1.md"
+      },
+      {
+        "title": "Create the topics",
+        "text": "step2.md"
+      },
+      {
+        "title": "Hydrate the topics",
+        "text": "step3.md"
+      },
+      {
+        "title": "Hydrate the topics",
+        "text": "step4.md"
+      },
+      {
+        "title": "Hydrate the topics",
+        "text": "step5.md"
+      },
+      {
+        "title": "Start the Flink SQL client",
+        "text": "step6.md"
+      },
+      {
+        "title": "Register the source tables",
+        "text": "step7.md"
+      },
+      {
+        "title": "Inspect the source tables",
+        "text": "step8.md"
+      },
+      {
+        "title": "Create the trade signals table",
+        "text": "step9.md"
+      },
+      {
+        "title": "Create the first Flink job",
+        "text": "step10.md"
+      },
+      {
+        "title": "Create the single position trade signals",
+        "text": "step11.md"
+      },
+      {
+        "title": "Create the second Flink job",
+        "text": "step12.md"
+      },
+      {
+        "title": "Backtest the strategy",
+        "text": "step13.md"
+      },
+      {
+        "title": "Inspect the Redpanda topics",
+        "text": "step14.md"
+      }
+    ],
+    "finish": {
+      "text": "finish.md"
+    },
+    "assets": {
+      "host01": [
+        {"file": "*", "target": "~/"}
+      ]
+    }
+  },
+  "backend": {
+    "imageid": "ubuntu-4GB"
+  }
+}
