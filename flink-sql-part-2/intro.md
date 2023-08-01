@@ -3,7 +3,7 @@
 
 ### Welcome !
 
-![Graduate Panda](./images/graduate-panda.svg)
+![Graduate Panda](./images/graduate-panda.png)
 
 In this tutorial, you’ll be implementing a sentiment-based trading strategy using Flink SQL.
 

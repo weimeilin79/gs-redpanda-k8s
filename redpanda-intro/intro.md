@@ -3,7 +3,7 @@
 
 ### Welcome !
 
-![Graduate Panda](./images/graduate-panda.svg)
+![Graduate Panda](./images/graduate-panda.png)
 
 In this scenario, you'll learn the basics of running a Redpanda cluster using Docker. You'll also learn about Redpanda's CLI, `rpk`.
 

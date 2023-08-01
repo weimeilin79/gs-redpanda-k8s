@@ -3,7 +3,7 @@
 
 ### Welcome !
 
-![Graduate Panda](./images/graduate-panda.svg)
+![Graduate Panda](./images/graduate-panda.png)
 
 In this scenario, you'll learn the basics of running a Flink cluster using Docker. You'll also learn how to run a basic stream processing application using Redpanda and Flink SQL.
 
