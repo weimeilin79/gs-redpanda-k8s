@@ -1,0 +1,67 @@
+{
+  "title": "Masterclass 4. Flink SQL - Paper trading focus",
+  "description": "Use Redpanda, Flink, and Alpaca to implement a sentiment strategy and execute paper trades",
+  "details": {
+    "intro": {
+      "text": "intro.md",
+      "background": "background.sh"
+    },
+    "steps": [
+      {
+        "title": "Disclosures",
+        "text": "step0.md"
+      },
+      {
+        "title": "Environment setup",
+        "text": "step1.md"
+      },
+      {
+        "title": "Create the topics",
+        "text": "step2.md"
+      },
+      {
+        "title": "Restart the SQL client",
+        "text": "step3.md"
+      },
+      {
+        "title": "View the strategy",
+        "text": "step3.1.md"
+      },
+      {
+        "title": "Install the Python dependencies",
+        "text": "step4.md"
+      },
+      {
+        "title": "Create an API key and secret",
+        "text": "step5.md"
+      },
+      {
+        "title": "Export the keys",
+        "text": "step6.md"
+      },
+      {
+        "title": "Start the order listener",
+        "text": "step6.1.md"
+      },
+      {
+        "title": "Trigger a BUY signal",
+        "text": "step7.md"
+      },
+      {
+        "title": "Trigger a SELL signal",
+        "text": "step8.md"
+      }
+    ],
+    "finish": {
+      "text": "finish.md"
+    },
+    "assets": {
+      "host01": [
+        {"file": "*", "target": "~/"}
+      ]
+    }
+  },
+  "backend": {
+    "imageid": "ubuntu-4GB"
+  }
+}
