@@ -1,0 +1,26 @@
+{
+  "title": "WIP - Redpanda Masterclass Day 2 Operation",
+  "description": "Masterclass Day 2 Operation",
+  "details": {
+    "intro": {
+      "text": "intro.md",
+      "foreground": "foreground.sh",
+      "background": "background.sh"
+    },
+    "steps": [
+      {
+        "title": "Env",
+        "text": "step1.md"
+      }
+    ],
+    "assets": {
+      "host01": [
+        {"file": "values.yaml", "target": "~/", "chmod": "+x"},
+        {"file": "console.yaml", "target": "~/", "chmod": "+x"}
+      ]
+    }
+  },
+  "backend": {
+    "imageid": "ubuntu-4GB"
+  }
+}
