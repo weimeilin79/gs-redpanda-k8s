@@ -15,6 +15,10 @@
       {
         "title": "Removing old brokers",
         "text": "step2.md"
+      },
+      {
+        "title": "Challenge",
+        "text": "step3.md"
       }
     ],
     "assets": {
