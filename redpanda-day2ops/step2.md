@@ -72,5 +72,5 @@ You now have a cluster with 3 brokers, two of which have been replaced. In a rea
 
 Check if you passed the challenge:
 ```
-docker-compose -p 1-commissioning-brokers -f compose.redpanda-2.yaml stop
+bash check-challenge.sh
 ```{{exec}}
