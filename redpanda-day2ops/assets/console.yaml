@@ -1,8 +1,0 @@
-console:
-  enabled: true
-  ingress:
-    enabled: true
-    hosts:
-    - paths:
-        - path: /
-          pathType: ImplementationSpecific
