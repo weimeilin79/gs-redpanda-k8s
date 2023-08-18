@@ -68,5 +68,9 @@ You now have a cluster with 3 brokers, two of which have been replaced. In a rea
 2. update seeds on `redpanda-3` and `redpanda-4` to match `redpanda-5`
 3. restart `redpanda-3` and `redpanda-4` one at a time (verifying cluster health after each broker comes back up)
 4. decommission `redpanda-0` and then stop the container
+5. (OPTIONAL) You might also want to edit the console configuration to point to the updated admin address.
 
 Check if you passed the challenge:
+```
+docker-compose -p 1-commissioning-brokers -f compose.redpanda-2.yaml stop
+```{{exec}}
