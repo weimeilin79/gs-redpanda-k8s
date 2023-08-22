@@ -1,5 +1,5 @@
 {
-  "title": "Masterclass 4. Flink SQL - Paper trading focus",
+  "title": "Masterclass Flink 4 - Flink SQL - Paper trading focus",
   "description": "Use Redpanda, Flink, and Alpaca to implement a sentiment strategy and execute paper trades",
   "details": {
     "intro": {
