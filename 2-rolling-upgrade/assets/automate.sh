@@ -17,14 +17,14 @@ echo ""
 rpk cluster maintenance enable 0
 
 echo ""
-echo -n "Check if maintenance succesd.."
+echo -n "Check if maintenance successful "
 while ! rpk cluster maintenance status | awk 'NR==2{ print; }' | awk '{print $2 $3 $4}'| grep truetruefalse; do
   echo  -n ".."
   sleep 1;
 done
 
 echo ""
-echo -n  "Checking cluster health"
+echo -n  "Checking cluster health "
 for i in {1..5}; do echo  -n ".."; sleep 0.5; done
 
 if [[ $(rpk cluster health |  grep 'down' |grep -oP '(?<=\[).*(?=])' | wc -c) -ne 0 ]]; then

@@ -79,7 +79,7 @@ Now that `redpanda-2` is back in service, it is eligible for partition leadershi
 rpk topic describe log -p | awk '{printf("%10s%10s\n"), $1,$2}'
 ```{{exec}}
 
-You'll see that each partition is assigned to different leader node (assigned node can be varied):
+You'll see that each partition is assigned to different leader node (assigned node can be varied, it'll take a few minutes to reelect leaders.):
 ```
  PARTITION    LEADER
          0         1

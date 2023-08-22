@@ -53,7 +53,7 @@ Take a look at all partition leaders for Topic log again:
 rpk topic describe log -p | awk '{printf("%10s%10s\n"), $1,$2}'
 ```{{exec}}
 
-You'll see that each partition is assigned to different leader node:
+You'll see that each partition is assigned to different leader node :
 ```
  PARTITION    LEADER
          0         1
