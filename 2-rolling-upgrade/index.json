@@ -1,5 +1,5 @@
 {
-  "title": "Masterclass Day 2 Ops 2 - Rolling upgrade",
+  "title": "Masterclass Day 2 OPS 2 - Rolling upgrade",
   "description": "Upgrading a cluster to a new version of Redpanda",
   "details": {
     "intro": {
