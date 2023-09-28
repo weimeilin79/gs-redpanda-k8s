@@ -1,0 +1,25 @@
+{
+  "title": "zzWIP",
+  "description": "WIP",
+  "details": {
+    "intro": {
+      "text": "intro.md",
+      "foreground": "foreground.sh",
+      "background": "background.sh"
+    },
+    "steps": [
+      {
+        "title": "Setup",
+        "text": "step1.md"
+      }
+    ],
+    "assets": {
+      "host01": [
+        {"file": "docker-compose.yaml", "target": "~/", "chmod": "+x"}
+      ]
+    }
+  },
+  "backend": {
+    "imageid": "ubuntu-4GB"
+  }
+}
