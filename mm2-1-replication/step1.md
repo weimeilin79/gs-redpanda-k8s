@@ -10,6 +10,6 @@ docker run --net=host --rm confluentinc/cp-kafka:latest bash -c "seq 42 | kafka-
 
 
 
-Click [Redpanda Console]({{TRAFFIC_HOST1_80}}/) to access it in your browser.
+Click [Redpanda Console]({{TRAFFIC_HOST1_8080}}/) to access it in your browser.
 
 Have fun! 
