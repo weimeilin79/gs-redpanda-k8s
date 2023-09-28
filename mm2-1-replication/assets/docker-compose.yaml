@@ -66,11 +66,12 @@ services:
           enabled: true
           clusters:
             - name: rp-connector
-              url: http://connect:8083
+              url: http://rp-connect:8083
     ports:
       - 8080:8080
     depends_on:
       - redpanda-0
+      - rp-connect
   zookeeper:
     image: confluentinc/cp-zookeeper:latest
     networks:
@@ -95,14 +96,13 @@ services:
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
-  connect:
+  rp-connect:
     image: docker.redpanda.com/redpandadata/connectors:latest
     volumes:
       - ./connect-password:/opt/kafka/connect-password
       - ./connect-plugins:/opt/kafka/connect-plugins
       - ./connect-certs:/opt/kafka/connect-certs/user-secret
-    hostname: connect
-    ports:
+   ports:
       - "8083:8083"
     environment:
       CONNECT_CONFIGURATION: |
@@ -118,12 +118,4 @@ services:
       CONNECT_BOOTSTRAP_SERVERS: redpanda-0:9092
       CONNECT_GC_LOG_ENABLED: "false"
       CONNECT_HEAP_OPTS: -Xms1G -Xmx1G
-      CONNECT_METRICS_ENABLED: "false"
-      CONNECT_SASL_MECHANISM: "scram-sha-256"
-      CONNECT_SASL_USERNAME: "connect-user"
-      CONNECT_SASL_PASSWORD_FILE: "redpanda-password/password"
-      CONNECT_TLS_ENABLED: "true"
-      CONNECT_TRUSTED_CERTS: "user-secret/ca.crt"
-      CONNECT_TLS_AUTH_CERT: "user-secret/client.crt"
-      CONNECT_TLS_AUTH_KEY: "user-secret/client.key"
-      CONNECT_PLUGIN_PATH: "/opt/kafka/connect-plugins"
+      CONNECT_METRICS_ENABLED: "true"
