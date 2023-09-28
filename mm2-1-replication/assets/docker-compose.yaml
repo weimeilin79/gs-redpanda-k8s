@@ -66,12 +66,11 @@ services:
           enabled: true
           clusters:
             - name: rp-connector
-              url: http://rp-connect:8083
+              url: http://connect:8083
     ports:
       - 8080:8080
     depends_on:
       - redpanda-0
-      - rp-connect
   zookeeper:
     image: confluentinc/cp-zookeeper:latest
     networks:
@@ -96,14 +95,17 @@ services:
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
-  rp-connect:
+  connect:
     image: docker.redpanda.com/redpandadata/connectors:latest
     volumes:
       - ./connect-password:/opt/kafka/connect-password
       - ./connect-plugins:/opt/kafka/connect-plugins
       - ./connect-certs:/opt/kafka/connect-certs/user-secret
-   ports:
+    hostname: connect
+    ports:
       - "8083:8083"
+    networks:
+      - redpanda_network
     environment:
       CONNECT_CONFIGURATION: |
         key.converter=org.apache.kafka.connect.converters.ByteArrayConverter
