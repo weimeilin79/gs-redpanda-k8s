@@ -3,22 +3,22 @@
 
 a. Create a new *Topic*
 ```
-docker exec -it assets_kafka_1 kafka-topics --create --topic foo --partitions 2 --replication-factor 1 --if-not-exists --bootstrap-server localhost:9094
-```
+docker exec -it root_kafka_1 kafka-topics --create --topic foo --partitions 2 --replication-factor 1 --if-not-exists --bootstrap-server localhost:29094
+```{{exec}}
 b. Test by Send data into producer
 ```
-docker exec -it assets-kafka-1 kafka-console-producer --broker-list localhost:29094 --topic foo 
-```
+docker exec -it root-kafka-1 kafka-console-producer --broker-list localhost:29094 --topic foo 
+```{{exec}}
 c. Test by Receive data from consumer
 ```
-docker exec -it assets-kafka-1 kafka-console-consumer --bootstrap-server localhost:9094 --topic foo 
-```
+docker exec -it root-kafka-1 kafka-console-consumer --bootstrap-server localhost:9094 --topic foo 
+```{{exec}}
 
 3/ Start the running clients
 
 ```
-docker compose -f docker-compose-clients.yaml up -d
-```
+docker-compose -f docker-compose-clients.yaml up -d
+```{{exec}}
 
 
 Overview
