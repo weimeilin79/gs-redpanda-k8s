@@ -23,8 +23,8 @@
     ],
     "assets": {
       "host01": [
-        {"file": "docker-compose-kafka.yaml", "target": "~/", "chmod": "+x"},
         {"file": "docker-compose-rp.yaml", "target": "~/", "chmod": "+x"},
+        {"file": "docker-compose-kafka.yaml", "target": "~/", "chmod": "+x"},
         {"file": "docker-compose-clients.yaml", "target": "~/", "chmod": "+x"}
       ]
     }

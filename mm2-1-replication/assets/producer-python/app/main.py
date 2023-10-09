@@ -1,10 +1,10 @@
-import random, json, time
+import random, json, time, os
 from producer import *
 from flask import Flask
 app = Flask(__name__)
 app.config.from_pyfile('config/app.properties')
 TOPIC = app.config['TOPIC_TO_SEND']
-BOOTSTRAP_SERVERS = app.config['BOOTSTRAP_SERVERS']
+BOOTSTRAP_SERVERS = os.getenv('BOOTSTRAP_SERVERS') or app.config['BOOTSTRAP_SERVERS']
 
 
 def main():

@@ -7,11 +7,11 @@ docker exec -it root_kafka_1 kafka-topics --create --topic foo --partitions 2 --
 ```{{exec}}
 b. Test by Send data into producer
 ```
-docker exec -it root-kafka-1 kafka-console-producer --broker-list localhost:29094 --topic foo 
+docker exec -it root_kafka_1 kafka-console-producer --broker-list localhost:29094 --topic foo 
 ```{{exec}}
 c. Test by Receive data from consumer
 ```
-docker exec -it root-kafka-1 kafka-console-consumer --bootstrap-server localhost:9094 --topic foo 
+docker exec -it root_kafka_1 kafka-console-consumer --bootstrap-server localhost:29094 --topic foo 
 ```{{exec}}
 
 3/ Start the running clients
