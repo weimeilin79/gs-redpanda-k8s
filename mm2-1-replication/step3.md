@@ -14,6 +14,8 @@ docker run -d --network=root_redpanda_network \
 weimeilin/mm2consumer 
 ```{{exec}}
 
+
+
 ```
 docker logs -t mm2consumer-A
 ```{{exec}}
@@ -64,6 +66,11 @@ docker run -d --network=root_redpanda_network \
 --name mm2producer \
 weimeilin/mm2producer
 ```{{exec}}
+
+docker run -d --network=assets_redpanda_network \
+-e BOOTSTRAP_SERVERS='redpanda-0:9092' \
+--name mm2producer \
+weimeilin/mm2producer
 
 ```
 docker logs -t mm2producer

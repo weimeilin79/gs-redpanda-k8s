@@ -19,7 +19,7 @@ def main():
     
     logging.info('Processing record from Redpanda...')    
     for msg in rp.client:
-       print(f"Consumed record. key={msg.key}, value={msg.value}")
+       print(f"Consumed record. offset={msg.offset} key={msg.key}, value={msg.value}")
             
 
 if __name__ == '__main__':
