@@ -32,7 +32,7 @@ services:
       - --mode dev-container
       # enable logs for debugging.
       - --default-log-level=debug
-    image: docker.redpanda.com/redpandadata/redpanda:v23.2.9
+    image: docker.redpanda.com/redpandadata/redpanda:v23.2.12
     container_name: redpanda-0
     volumes:
       - redpanda-0:/var/lib/redpanda/data
@@ -45,7 +45,7 @@ services:
       - 19644:9644
   console:
     container_name: redpanda-console
-    image: docker.redpanda.com/redpandadata/console:v2.3.1
+    image: docker.redpanda.com/redpandadata/console:v2.3.3
     networks:
       - redpanda_network
     entrypoint: /bin/sh
@@ -71,30 +71,6 @@ services:
       - 8080:8080
     depends_on:
       - redpanda-0
-  zookeeper:
-    image: confluentinc/cp-zookeeper:latest
-    networks:
-      - redpanda_network
-    environment:
-      ZOOKEEPER_CLIENT_PORT: 2181
-      ZOOKEEPER_TICK_TIME: 2000
-    ports:
-      - 22181:2181
-  kafka:
-    image: confluentinc/cp-kafka:latest
-    networks:
-      - redpanda_network
-    depends_on:
-      - zookeeper
-    ports:
-      - 29094:29094
-    environment:
-      KAFKA_BROKER_ID: 1
-      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9094,PLAINTEXT_HOST://localhost:29094
-      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
-      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
-      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
   connect:
     image: docker.redpanda.com/redpandadata/connectors:latest
     volumes:

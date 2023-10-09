@@ -1,6 +1,6 @@
 {
-  "title": "zzWIP",
-  "description": "WIP",
+  "title": "Migration to Redpanda using Mirror Maker 2",
+  "description": "A getting started course about mirror makers",
   "details": {
     "intro": {
       "text": "intro.md",
@@ -9,13 +9,23 @@
     },
     "steps": [
       {
-        "title": "Setup",
+        "title": "Check the existing Kafka cluster",
         "text": "step1.md"
+      },
+      {
+        "title": "Start up Redpanda and MM2",
+        "text": "step2.md"
+      },
+      {
+        "title": "Migrating Consumer and producers",
+        "text": "step3.md"
       }
     ],
     "assets": {
       "host01": [
-        {"file": "docker-compose.yaml", "target": "~/", "chmod": "+x"}
+        {"file": "docker-compose-kafka.yaml", "target": "~/", "chmod": "+x"},
+        {"file": "docker-compose-rp.yaml", "target": "~/", "chmod": "+x"},
+        {"file": "docker-compose-clients.yaml", "target": "~/", "chmod": "+x"}
       ]
     }
   },

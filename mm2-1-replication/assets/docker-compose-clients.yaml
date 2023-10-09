@@ -1,0 +1,30 @@
+version: '3.7'
+networks:
+  redpanda_network:
+    driver: bridge
+services:
+  mm2consumer-A:
+    container_name: mm2consumer-A
+    image: weimeilin/mm2consumer
+    environment:
+      - CONSUMER_GROUP=A_GROUP
+    networks:
+      - redpanda_network
+  mm2consumer-B1:
+    container_name: mm2consumer-B1
+    image: weimeilin/mm2consumer
+    environment:
+      - CONSUMER_GROUP=B_GROUP
+    networks:
+      - redpanda_network
+  mm2consumer-B2:
+    container_name: mm2consumer-B2
+    image: weimeilin/mm2consumer
+    environment:
+      - CONSUMER_GROUP=B_GROUP
+    networks:
+      - redpanda_network
+  mm2producer:
+    image: weimeilin/mm2producer
+    networks:
+      - redpanda_network
