@@ -2,6 +2,7 @@
 ### Migrating consumers
 We will now transfer all the consumer groups from the source cluster to the destination Redpanda cluster. The most challenging aspect of this migration is ensuring that there's no duplication in message processing.
 
+![Migrate Clients](./images/step-3-migrate-clients.png)
 
 Stop consumer in group A which are drawing from the source cluster:
 ```
@@ -17,7 +18,6 @@ docker run -d --network=root_redpanda_network \
 --name mm2consumer-A \
 weimeilin/mm2consumer 
 ```{{exec}}
-
 
 
 Stop all the consumers of consumer group B which are drawing from the source cluster:
@@ -64,6 +64,8 @@ weimeilin/mm2producer
 ### Shut down Kafka and zookeeper
 
 Now nothing is connected to the old cluster, we can go ahead and shut it down. 
+![Final result](./images/step-3-final.png)
+
 ```
 docker stop  $(docker ps | grep root_kafka_1 | awk '{ print $1 }')
 docker stop  $(docker ps | grep root_zookeeper_1 | awk '{ print $1 }')

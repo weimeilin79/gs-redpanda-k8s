@@ -9,9 +9,11 @@ cat docker-compose-rp.yaml
 
 Inside, you'll find three services:
 
-_redpanda-0_: This is the broker's name. In this lab, because of limited resources, we're just spinning up a single broker. But remember, in a real-world setup, you'd have multiple brokers for high availability, fault tolerance, and better scaling.
-_redpanda-console_: This links to the Redpanda Console, which is the official UI for Redpanda.
-_connect_: This Docker image is used to set up managed connectors for Redpanda.
+**redpanda-0** : This is the broker's name. In this lab, because of limited resources, we're just spinning up a single broker. But remember, in a real-world setup, you'd have multiple brokers for high availability, fault tolerance, and better scaling.
+
+**redpanda-console**: This links to the Redpanda Console, which is the official UI for Redpanda.
+
+**connect**: This Docker image is used to set up managed connectors for Redpanda.
 
 ![Redpanda components](./images/step-2-rp.png)
 
@@ -41,9 +43,9 @@ Let's go ahead and set up the 3 connectors:
 
 ![Connector Overview](./images/step-2-connector-overview.png)
 
- In to the console, on the left menu, tap on _connector_. Ready to set up your first connector? Click the *Create Connector* button at the top of the page and pick "import data from Kafka cluster topics" on the next screen. This will lead you to configure the *MirrorSourceConnector*.
+ In to the console, on the left menu, tap on _connector_. Ready to set up your first connector? Click the _Create Connector_ button at the top of the page and pick "import data from Kafka cluster topics" on the next screen. This will lead you to configure the **MirrorSourceConnector**.
 
-The _MirrorSourceConnector_ is your go-to for copying data from your source Kafka cluster to the Redpanda cluster. It consumes records from source topics on the source cluster and then produces them to the corresponding mirrored topics on the target cluster. It also takes care of offset translation between source and target topics so that it can provide exactly-once delivery semantics.
+The **MirrorSourceConnector** is your go-to for copying data from your source Kafka cluster to the Redpanda cluster. It consumes records from source topics on the source cluster and then produces them to the corresponding mirrored topics on the target cluster. It also takes care of offset translation between source and target topics so that it can provide exactly-once delivery semantics.
 
 Move past the configuration page, and hit *Next*. In the *Connector Properties* section, overwrite the existing content with the following:
 
@@ -71,11 +73,11 @@ Once created, you should be able to see the connector's status:
 ![mirror-source-connector-redpanda-status](./images/step-2-mirror-source-connector-redpanda.png)
 
 
-Next, go back to the connector page by clicking on the left menu, tap on _connector_. Repeat the process of clicking on the *Create Connector* button but this time pick " import data from Kafka cluster offsets" on the next screen. This will lead you to configure the *MirrorCheckpointConnector*.
+Next, go back to the connector page by clicking on the left menu, tap on _connector_. Repeat the process of clicking on the _Create Connector_ button but this time pick " import data from Kafka cluster offsets" on the next screen. This will lead you to configure the **MirrorCheckpointConnector**.
 
-*MirrorCheckpointConnector*  manages checkpoints, it periodically consumes from all internal MM2 topics on the target cluster (like mm2-offsets.<source-cluster>, mm2-configs.<source-cluster>, and so on) and emits checkpoints to the mm2-offset-checkpoints.<target-cluster> topic. These checkpoints are essential to translating offsets between source and target clusters, which is essential for failover.
+**MirrorCheckpointConnector**  manages checkpoints, it periodically consumes from all internal MM2 topics on the target cluster and emits checkpoints to the an mm2-offset-checkpoints topic. These checkpoints are essential to translating offsets between source and target clusters, which is essential for failover.
 
-Move past the configuration page, and hit *Next*. In the *Connector Properties* section, overwrite the existing content with the following:
+Move past the configuration page, and hit _Next_. In the _Connector Properties_ section, overwrite the existing content with the following:
 ```
 {
     "connector.class": "org.apache.kafka.connect.mirror.MirrorCheckpointConnector",
@@ -92,11 +94,11 @@ Move past the configuration page, and hit *Next*. In the *Connector Properties* 
 Once created, you should be able to see the connector's status:
 ![mirror-checkpoint-redpanda-status](./images/step-2-mirror-checkpoint-redpanda.png)
 
-Repeat last step to create the MirrorHeartbeatConnector, make sure you select "import data from Heartbeat" when choosing the connector. 
+Repeat last step to create the **MirrorHeartbeatConnector**, make sure you select "import data from Heartbeat" when choosing the connector. 
 
-*MirrorHeartbeatConnector* like it's name, it produces heartbeats to predefined topics on the source cluster. These heartbeats are replicated to the target cluster like regular data and can be used to measure replication latency and ensure that the replication is alive and well. 
+*&MirrorHeartbeatConnector*& like it's name, it produces heartbeats to predefined topics on the source cluster. These heartbeats are replicated to the target cluster like regular data and can be used to measure replication latency and ensure that the replication is alive and well. 
 
-Move past the configuration page, and hit *Next*. In the *Connector Properties* section, overwrite the existing content with the following:
+Move past the configuration page, and hit _Next_. In the _Connector Properties_ section, overwrite the existing content with the following:
 ```
 {
     "connector.class": "org.apache.kafka.connect.mirror.MirrorHeartbeatConnector",

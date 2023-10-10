@@ -44,7 +44,7 @@ We will activate several consumers and a producer to emulate data streaming into
 
 ![Kafka broker and clients](./images/step-1-clients.png)
 
-Begin by creating a new *Topic* _foo_, in tab 1:
+Begin by creating a new **Topic** _foo_, in tab 1:
 
 ```
 docker exec -it root_kafka_1 kafka-topics --create --topic foo --partitions 2 --replication-factor 1 --if-not-exists --bootstrap-server localhost:29094
