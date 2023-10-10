@@ -5,9 +5,9 @@ Take a peek at the docker-compose-rp.yaml file to see the services you'll be dep
 
 Inside, you'll find three services:
 
-*redpanda-0*: This is the broker's name. In this lab, because of limited resources, we're just spinning up a single broker. But remember, in a real-world setup, you'd have multiple brokers for high availability, fault tolerance, and better scaling.
-*redpanda-console*: This links to the Redpanda Console, which is the official UI for Redpanda.
-*connector*: This Docker image is used to set up managed connectors for Redpanda.
+_*redpanda-0*_: This is the broker's name. In this lab, because of limited resources, we're just spinning up a single broker. But remember, in a real-world setup, you'd have multiple brokers for high availability, fault tolerance, and better scaling.
+_*redpanda-console*_: This links to the Redpanda Console, which is the official UI for Redpanda.
+_*connect*_: This Docker image is used to set up managed connectors for Redpanda.
 
 Alright, it's time to get these services going. Kick them off with the following command:
 ```
@@ -17,11 +17,10 @@ docker-compose -f docker-compose-rp.yaml up -d
 Please be patient for a moment. You'll know it's done when you see:
 
 ```
-Creating redpanda-0 ... done
+Creating redpanda-0     ... done
+Creating root_connect_1 ... done
 Creating redpanda-console ... done
-Creating connector ... done
 ```
-
 
 MirrorMaker 2.0 (MM2) brings in the idea of connectors to make mirroring data and setups between Kafka clusters a breeze.
 
