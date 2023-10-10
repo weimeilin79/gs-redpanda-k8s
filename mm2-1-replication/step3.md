@@ -14,7 +14,14 @@ docker run -d --network=root_redpanda_network \
 weimeilin/mm2consumer 
 ```{{exec}}
 
-
+TESTING
+```
+docker run -d --network=assets_redpanda_network \
+-e BOOTSTRAP_SERVERS='redpanda-0:9092' \
+-e CONSUMER_GROUP='A_GROUP' \
+--name mm2consumer-A \
+weimeilin/mm2consumer 
+```
 
 ```
 docker logs -t mm2consumer-A
@@ -67,10 +74,21 @@ docker run -d --network=root_redpanda_network \
 weimeilin/mm2producer
 ```{{exec}}
 
+TESTING
+```
 docker run -d --network=assets_redpanda_network \
 -e BOOTSTRAP_SERVERS='redpanda-0:9092' \
 --name mm2producer \
 weimeilin/mm2producer
+```
+
+TESTING
+```
+docker run -d --network=root_redpanda_network \
+-e BOOTSTRAP_SERVERS='kafka:9094' \
+--name mm2producer \
+weimeilin/mm2producer
+```
 
 ```
 docker logs -t mm2producer
