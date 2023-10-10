@@ -1,13 +1,20 @@
-
+### Start the Redpanda cluster
 There are several ways to set up Redpanda; in this guide, we'll focus on using the Docker images. You can quickly get Redpanda clusters up and running with Docker Compose or Kubernetes.
 
 Take a peek at the docker-compose-rp.yaml file to see the services you'll be deploying:
+```
+cat docker-compose-rp.yaml
+```{{exec}}
+
 
 Inside, you'll find three services:
 
 _redpanda-0_: This is the broker's name. In this lab, because of limited resources, we're just spinning up a single broker. But remember, in a real-world setup, you'd have multiple brokers for high availability, fault tolerance, and better scaling.
 _redpanda-console_: This links to the Redpanda Console, which is the official UI for Redpanda.
 _connect_: This Docker image is used to set up managed connectors for Redpanda.
+
+![Redpanda components](./images/step-2-rp.png)
+
 
 Alright, it's time to get these services going. Kick them off with the following command:
 ```
@@ -23,16 +30,20 @@ Creating redpanda-console ... done
 ```
 Click on [Redpanda Console]({{TRAFFIC_HOST1_8080}}/) and access it via your browser. In the Topics page, you should see nothing is created indicating this is an empty cluster.
 
+### Provision Mirror Maker 2
+
 Now that the Redpanda cluster is up and running, we can now go ahead and start the migration. MirrorMaker 2.0 (MM2) brings in the idea of connectors to make migrating from Kafka to Redpanda clusters a breeze.
 
-Here are the big three connectors that MM2 boasts of:
+Let's go ahead and set up the 3 connectors:
 - MirrorSourceConnector 
 - MirrorCheckpointConnector 
 - MirrorHeartbeatConnector 
 
- Back to the console. On the left menu, tap on _connector_. Ready to set up your first connector? Click the *Create Connector* button at the top of the page and pick "import data from Kafka cluster topics" on the next screen. This will lead you to configure the *MirrorSourceConnector*.
+![Connector Overview](./images/step-2-connector-overview.png)
 
-The *MirrorSourceConnector* is your go-to for copying data from your source Kafka cluster to the Redpanda cluster. It consumes records from source topics on the source cluster and then produces them to the corresponding mirrored topics on the target cluster. It also takes care of offset translation between source and target topics so that it can provide exactly-once delivery semantics.
+ In to the console, on the left menu, tap on _connector_. Ready to set up your first connector? Click the *Create Connector* button at the top of the page and pick "import data from Kafka cluster topics" on the next screen. This will lead you to configure the *MirrorSourceConnector*.
+
+The _MirrorSourceConnector_ is your go-to for copying data from your source Kafka cluster to the Redpanda cluster. It consumes records from source topics on the source cluster and then produces them to the corresponding mirrored topics on the target cluster. It also takes care of offset translation between source and target topics so that it can provide exactly-once delivery semantics.
 
 Move past the configuration page, and hit *Next*. In the *Connector Properties* section, overwrite the existing content with the following:
 
@@ -50,8 +61,6 @@ Move past the configuration page, and hit *Next*. In the *Connector Properties* 
     "source.cluster.bootstrap.servers": "kafka:9094",
     "source.cluster.sasl.mechanism": "PLAIN",
     "source.cluster.security.protocol": "PLAINTEXT",
-    "source.cluster.ssl.keystore.type": "PEM",
-    "source.cluster.ssl.truststore.type": "PEM",
     "sync.topic.acls.enabled": "false",
     "sync.topic.configs.enabled": "true",
     "target.cluster.bootstrap.servers": "redpanda-0:9092",
