@@ -1,5 +1,5 @@
 ### Start the Redpanda cluster
-There are several ways to set up Redpanda; in this guide, we'll focus on using the Docker images. You can quickly get Redpanda clusters up and running with Docker Compose or Kubernetes.
+There are several ways to set up Redpanda; in this lab, we'll focus on using the Docker images. You can quickly get Redpanda clusters up and running with Docker Compose or Kubernetes.
 
 Take a peek at the docker-compose-rp.yaml file to see the services you'll be deploying:
 ```
@@ -47,7 +47,7 @@ Let's go ahead and set up the 3 connectors:
 
 The **MirrorSourceConnector** is your go-to for copying data from your source Kafka cluster to the Redpanda cluster. It consumes records from source topics on the source cluster and then produces them to the corresponding mirrored topics on the target cluster. It also takes care of offset translation between source and target topics so that it can provide exactly-once delivery semantics.
 
-Move past the configuration page, and hit *Next*. In the *Connector Properties* section, overwrite the existing content with the following:
+Move past the wizard page (It's alright to leave the fields in configuration form empty, we will be overwriting those in the next step), and hit **Next**. In the *Connector Properties* section, overwrite the existing content with the following:
 
 ```
 {
@@ -69,7 +69,8 @@ Move past the configuration page, and hit *Next*. In the *Connector Properties* 
     "topics.exclude": ".*[\\-\\.]internal,.*\\.replica,__consumer_offsets,_redpanda_e2e_probe,__redpanda.cloud.sla_verification,_internal_connectors.*,_schemas"
 }
 ```{{copy}}
-Once created, you should be able to see the connector's status:
+
+Hit **Create* to start the connector, you should be able to see the connector's status:
 ![mirror-source-connector-redpanda-status](./images/step-2-mirror-source-connector-redpanda.png)
 
 
@@ -77,7 +78,7 @@ Next, go back to the connector page by clicking on the left menu, tap on _connec
 
 **MirrorCheckpointConnector**  manages checkpoints, it periodically consumes from all internal MM2 topics on the target cluster and emits checkpoints to the an mm2-offset-checkpoints topic. These checkpoints are essential to translating offsets between source and target clusters, which is essential for failover.
 
-Move past the configuration page, and hit _Next_. In the _Connector Properties_ section, overwrite the existing content with the following:
+Move past the configuration wizard page (Again, ignore the empty fields, we will overwrite it in the following step), and hit **Next**. In the _Connector Properties_ section, overwrite the existing content with the following:
 ```
 {
     "connector.class": "org.apache.kafka.connect.mirror.MirrorCheckpointConnector",
@@ -91,14 +92,14 @@ Move past the configuration page, and hit _Next_. In the _Connector Properties_ 
 }
 ```{{copy}}
 
-Once created, you should be able to see the connector's status:
+Hit **Create* to start the connector, you should be able to see the connector's status:
 ![mirror-checkpoint-redpanda-status](./images/step-2-mirror-checkpoint-redpanda.png)
 
 Repeat last step to create the **MirrorHeartbeatConnector**, make sure you select "import data from Heartbeat" when choosing the connector. 
 
 *&MirrorHeartbeatConnector*& like it's name, it produces heartbeats to predefined topics on the source cluster. These heartbeats are replicated to the target cluster like regular data and can be used to measure replication latency and ensure that the replication is alive and well. 
 
-Move past the configuration page, and hit _Next_. In the _Connector Properties_ section, overwrite the existing content with the following:
+Move past the configuration wizard page(Ignore the empty fields, we will overwrite it in the following step ), and hit **Next**. In the _Connector Properties_ section, overwrite the existing content with the following:
 ```
 {
     "connector.class": "org.apache.kafka.connect.mirror.MirrorHeartbeatConnector",
@@ -112,7 +113,8 @@ Move past the configuration page, and hit _Next_. In the _Connector Properties_ 
 }
 ```{{copy}}
 
-Once created, you should be able to see the connector's status:
+
+Hit **Create* to start the connector, you should be able to see the connector's status:
 ![mirror-heartbeat-redpanda-status](./images/step-2-mirror-heartbeat-redpanda.png)
 
 Back in the connector page, your should see all three connector running:
