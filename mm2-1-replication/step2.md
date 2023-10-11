@@ -70,7 +70,7 @@ Move past the wizard page (It's alright to leave the fields in configuration for
 }
 ```{{copy}}
 
-Hit **Create* to start the connector, you should be able to see the connector's status:
+Hit **Create** to start the connector, you should be able to see the connector's status:
 ![mirror-source-connector-redpanda-status](./images/step-2-mirror-source-connector-redpanda.png)
 
 
@@ -92,7 +92,7 @@ Move past the configuration wizard page (Again, ignore the empty fields, we will
 }
 ```{{copy}}
 
-Hit **Create* to start the connector, you should be able to see the connector's status:
+Hit **Create** to start the connector, you should be able to see the connector's status:
 ![mirror-checkpoint-redpanda-status](./images/step-2-mirror-checkpoint-redpanda.png)
 
 Repeat last step to create the **MirrorHeartbeatConnector**, make sure you select "import data from Heartbeat" when choosing the connector. 
@@ -114,7 +114,7 @@ Move past the configuration wizard page(Ignore the empty fields, we will overwri
 ```{{copy}}
 
 
-Hit **Create* to start the connector, you should be able to see the connector's status:
+Hit **Create** to start the connector, you should be able to see the connector's status:
 ![mirror-heartbeat-redpanda-status](./images/step-2-mirror-heartbeat-redpanda.png)
 
 Back in the connector page, your should see all three connector running:
