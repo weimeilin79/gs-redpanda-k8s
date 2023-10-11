@@ -61,10 +61,6 @@ weimeilin/mm2producer
 ```{{exec}}
 
 ### Pause all connectors
-Since we no longer need to replicate data from the old cluster, 
-in [Redpanda Console]({{TRAFFIC_HOST1_8080}}/), under *topics/woo* data should be replicated in the topic . 
-
-### Pause all connectors
 In [Redpanda Console]({{TRAFFIC_HOST1_8080}}/), back to the connector page, try to pause all 3 connectors, by going into each connector and click on the pause button.
 ![Pause](./images/step-3-pause.png)
 
