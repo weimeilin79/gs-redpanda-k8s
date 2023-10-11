@@ -43,7 +43,7 @@ Let's go ahead and set up the 3 connectors:
 
 ![Connector Overview](./images/step-2-connector-overview.png)
 
- In to the console, on the left menu, tap on _connector_. Ready to set up your first connector? Click the _Create Connector_ button at the top of the page and pick "import data from Kafka cluster topics" on the next screen. This will lead you to configure the **MirrorSourceConnector**.
+ In to the [Redpanda Console]({{TRAFFIC_HOST1_8080}}/), on the left menu, tap on _connector_. Ready to set up your first connector? Click the _Create Connector_ button at the top of the page and pick "import data from Kafka cluster topics" on the next screen. This will lead you to configure the **MirrorSourceConnector**.
 
 The **MirrorSourceConnector** is your go-to for copying data from your source Kafka cluster to the Redpanda cluster. It consumes records from source topics on the source cluster and then produces them to the corresponding mirrored topics on the target cluster. It also takes care of offset translation between source and target topics so that it can provide exactly-once delivery semantics.
 

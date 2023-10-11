@@ -84,6 +84,8 @@ services:
       - redpanda_network
     environment:
       CONNECT_CONFIGURATION: |
+      environment:
+        bootstrap.servers=redpanda-0:9092
         key.converter=org.apache.kafka.connect.converters.ByteArrayConverter
         value.converter=org.apache.kafka.connect.converters.ByteArrayConverter
         group.id=connectors-group
