@@ -35,7 +35,6 @@
         {"file": "quarkus-apps/avro-schema-consumer/mvnw", "target": "~/quarkus-apps/avro-schema-consumer/", "chmod": "+wx"},
         {"file": "quarkus-apps/avro-schema-consumer/pom.xml", "target": "~/quarkus-apps/avro-schema-consumer/", "chmod": "+wx"},
         {"file": "quarkus-apps/avro-schema-producer/.mvn/wrapper/*", "target": "~/quarkus-apps/avro-schema-producer/.mvn/wrapper/", "chmod": "+wx"},
-        {"file": "quarkus-apps/avro-schema-producer/src/main/avro/*", "target": "~/quarkus-apps/avro-schema-producer/src/main/avro/", "chmod": "+wx"},
         {"file": "quarkus-apps/avro-schema-producer/src/main/java/org/demo/*", "target": "~/quarkus-apps/avro-schema-producer/src/main/java/org/demo/", "chmod": "+wx"},
         {"file": "quarkus-apps/avro-schema-producer/src/main/resources/*", "target": "~/quarkus-apps/avro-schema-producer/src/main/resources/", "chmod": "+wx"},
         {"file": "quarkus-apps/avro-schema-producer/mvnw", "target": "~/quarkus-apps/avro-schema-producer/", "chmod": "+wx"},
