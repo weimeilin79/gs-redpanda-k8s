@@ -16,7 +16,7 @@ cd /root/quarkus-apps/avro-schema-consumer
 ./mvnw install
 
 
-
-sudo add-apt-repository ppa:deadsnakes/ppa
-
-sudo apt install  -y python3.11
+# Setup Python 3.11 needed by the schema migration tool
+sudo add-apt-repository ppa:deadsnakes/ppa -y
+sudo apt install -y python3.11
+curl -sS https://bootstrap.pypa.io/get-pip.py | python3.11 

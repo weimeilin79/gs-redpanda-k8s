@@ -27,10 +27,7 @@ It fetches all subjects (or topics) for which schemas have been registered. If t
 ```
 []
 ```
-> _Note:_ If you see the following response,that means your registry is not ready yet, give it a minute and try the above request again:
-```
-curl: (52) Empty reply from server
-```
+> _Note:_ If you see the `curl: (52) Empty reply from server` response, that means your registry is not ready yet, give it a minute and try the above request again.
 
 While auto-registering a schema during topic publishing is feasible, we'll try the manual route first:
 
@@ -94,7 +91,7 @@ cd /root/quarkus-apps/avro-schema-producer/
 
 Initiate the producer:
 ```
-./mvnw quarkus:run
+./mvnw quarkus:run -Dquarkus.http.port=9090
 ```{{exec}}
 
 
@@ -108,7 +105,7 @@ In _tab 1_, send a movie entry:
 curl --header "Content-Type: application/json" \
   --request POST \
   --data '{"title":"The Shawshank Redemption","year":1994}' \
-  http://localhost:8080/movies
+  http://localhost:9090/movies
 ```{{exec}}
 
 You'll notice an entry, but it may not appear in the expected format. This is because the data has been serialized. To view it in the correct format, we'll need a consumer to deserialize the data:
@@ -154,7 +151,7 @@ cd /root/quarkus-apps/avro-schema-consumer/
 
  Initiate the consumer:
 ```
-./mvnw quarkus:run
+./mvnw quarkus:run -Dquarkus.http.port=9091
 ```{{exec}}
 
 In _tab 1_, send few movie entries:
@@ -163,22 +160,22 @@ In _tab 1_, send few movie entries:
 curl --header "Content-Type: application/json" \
   --request POST \
   --data '{"title":"Detective Pikachu ","year":2019}' \
-  http://localhost:8080/movies
+  http://localhost:9090/movies
 
 curl --header "Content-Type: application/json" \
   --request POST \
   --data '{"title":"Black Panther","year":2018}' \
-  http://localhost:8080/movies
+  http://localhost:9090/movies
 
 curl --header "Content-Type: application/json" \
   --request POST \
   --data '{"title":"Blade Runner 2049","year":2017}' \
-  http://localhost:8080/movies
+  http://localhost:9090/movies
 
 curl --header "Content-Type: application/json" \
   --request POST \
   --data '{"title":"Bird man","year":2014}' \
-  http://localhost:8080/movies
+  http://localhost:9090/movies
 
 ```{{exec}}
 
