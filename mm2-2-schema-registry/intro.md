@@ -8,3 +8,6 @@ Schema Registry is fundamental to ensuring data consistency, compatibility, and 
 
 In this lab, we'll go over the steps to transition seamlessly from Kafka's Schema Registry to Redpanda's, ensuring data integrity and continued smooth operation of your streaming applications.
 
+- Running Quarkus applications with auto-register schema
+- Migrate schemas from Confluent to Redpanda service registry.
+- Enable Server-side schemas ID validation.

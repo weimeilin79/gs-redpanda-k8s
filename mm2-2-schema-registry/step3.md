@@ -1,7 +1,6 @@
 
 ### Migrating producer and consumers
 
-
 We are now have the producer and consumer point to the new Redpanda cluster, to do this, we need to update the broker location.  For producer, navigate to the editor tab. In the left explorer panel, drill down to the directory path _quarkus-apps/avro-schema-producer/src/main/resources_ and open the **application.properties** file. 
 
 - Replace the old broker from `kafka.bootstrap.servers=PLAINTEXT://localhost:29094` to `kafka.bootstrap.servers=PLAINTEXT://localhost:19092`
@@ -9,31 +8,69 @@ We are now have the producer and consumer point to the new Redpanda cluster, to 
 
 And apply the same change to consumer, by updating the **application.properties** file under directory _quarkus-apps/avro-schema-consumer/src/main/resources_.
 
-Update pom.xml
+Replace schemaRegistryUrls pom.xml under _quarkus-apps/avro-schema-consumer/_, this is for the consumer to download the latest schema during compile time. 
+```
+                    <schemaRegistryUrls>
+                        <param>http://localhost:18081</param>
+                    </schemaRegistryUrls>
+```
+![Consumer](./images/step-3-consumer.png)
 
-We'll need a consumer, our consumer will be grabbing the latest schema from the registry. Stay in _tab 3_, and build the consumer:
+In _tab 3_, and restart the consumer this time, it will be connecting to the new Redpanda cluster:
 ```
 cd /root/quarkus-apps/avro-schema-consumer/
 ./mvnw process-resources install quarkus:run -Dquarkus.http.port=9091
 ```{{exec}}
 
+![Consumer](./images/step-3-producer.png)
 
-
+In _tab 2_, and restart the producer, it will also be connecting to the new Redpanda cluster:
 ```
 cd /root/quarkus-apps/avro-schema-producer/
 ./mvnw generate-resources install quarkus:run -Dquarkus.http.port=9090
 ```{{exec}}
 
-Go to [Redpanda Console]({{TRAFFIC_HOST1_8080}}/). In topic, 
+In _tab 1_, let's send some movie entries
+```
+curl --header "Content-Type: application/json" \
+  --request POST \
+  --data '{"title":"Top Gun: Maverick","year":2022}' \
+  http://localhost:9090/movies
 
+curl --header "Content-Type: application/json" \
+  --request POST \
+  --data '{"title":"Lord of the rings","year":2001}' \
+  http://localhost:9090/movies
+```
+
+Go to [Redpanda Console]({{TRAFFIC_HOST1_8080}}/).  In the topic view section, select the **movie** topic. You should now see the entries. 
+
+![New Entries](./images/step-3-new-entry.png)
+
+Take note that it has been correctly decoded. The Redpanda Console automatically identifies the serialization type of the data, making it more user-friendly and straightforward for viewers
+
+![AVRO deserialized](./images/step-3-console-avro.png)
+
+However, what if the data ingested into the topic doesn't adhere to the schema? Let's put this to the test, click on the **+** icon at the top to add a new tab, labeled _tab 4_. In _tab 4_ run, 
 ```
 export PATH="~/.local/bin:$PATH"
 rpk topic produce movies --brokers localhost:19092 
 ```
 
+![Error](./images/step-3-error.png)
+
+You now have a generic producer that will send what ever was prompted in the command line to the broker, please randomly enter some text and hit enter (Or two worst movies in all times!):
+
 ```
-Movie name
-```
+Jack and Jill
+The Happening
+```{{exec}}
+
+Check the [Redpanda Console]({{TRAFFIC_HOST1_8080}}/), you'll see the entry in the **movies**Topic view.
+
+![Bad movies](./images/step-3-bad-movies.png)
+
+Return to _tab 3_ where the consumer was running. Did you see the conspicuous red error messages? This is because the consumer couldn't decode your input and consequently raised complaints.
 
 ```
 ERROR [io.sma.rea.mes.provider] (vert.x-eventloop-thread-0) SRMSG00200: The method org.demo.ConsumedMovieResource#receive has thrown an exception: java.lang.NullPointerException
@@ -67,4 +104,4 @@ ERROR [io.sma.rea.mes.provider] (vert.x-eventloop-thread-0) SRMSG00200: The meth
         at io.netty.util.concurrent.AbstractEventExecutor.runTask(AbstractEventExecutor.java:174)
 ```
 
-Congratulation, you have completed migrating from Kafka to Redpanda cluster.
+That's less than ideal. Fortunately, with Redpanda, we have a solution to mitigate such issues. Let's proceed to the next step and explore how this can be done.

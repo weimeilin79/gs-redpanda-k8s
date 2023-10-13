@@ -1,10 +1,15 @@
 Welcome to the lab! Here, we'll dive into migrating your schema registry, shifting from Confluent to Redpanda. If you're curious about data replication to a new cluster, refer to this [lab](https://killercoda.com/redpanda/scenario/mm2-1-replication).
 
+
+![Lab overview](./images/step-1-overview.png)
+
 ### Initial Environment
 Give it a minute to setup, let's first get a feel for our environment. Fire this up:
 ```
 docker ps --format '{{.Names}} {{.Ports}}'
 ```{{exec}}
+
+![Kafka Setup](./images/step-1-kafka.png)
 
 You should notice three running components - a Kafka broker, Zookeeper, and the Confluent schema registry. 
 ```
@@ -37,6 +42,8 @@ curl -X POST 'http://localhost:8081/subjects/podcast-value/versions' \
 --data '{"schema": "{\"namespace\": \"org.demo\",\"type\": \"record\",\"name\": \"Movie\",\"fields\": [{\"name\": \"title\",\"type\": \"string\"},{\"name\": \"year\",\"type\": \"int\"},{\"name\": \"host\",\"type\": \"string\"}]}"}'
 ```{{exec}}
 
+![Schema podcast added](./images/step-1-schema-podcast.png)
+
 The registry should assign and schema id:
 ```
 {"id":1}
@@ -58,6 +65,7 @@ Let's now try automatically register it by setup the producer, we will will use 
 
 When Avro is coupled with Schema Registry, it ensures that producers and consumers have a unified understanding of the data format, which further guarantees data integrity and compatibility. Here's the magic: the schema registry will store our Avro schemas, and this aids Producer & consumer in efficiently serializing and deserializing messages. Embracing Avro with Schema Registry equips us with both backward and forward compatibility, streamlining the evolution of data models and associated applications.
 
+![Producer](./images/step-1-producer.png)
 
 Let's get started, we'll create a schema for the producer using an AVRO . This schema will then help serialize the data that the producer sends to the Kafka broker. Navigate to the editor tab. In the left explorer panel, drill down to the directory path _quarkus-apps/avro-schema-producer/src/main_. Within this directory, create a new folder named **avro**. Inside this newly-minted folder, create a file with the name **movie.avsc**. Now, populate this file with the following content:
 ```
@@ -94,6 +102,14 @@ Initiate the producer:
 ./mvnw quarkus:run -Dquarkus.http.port=9090
 ```{{exec}}
 
+As it starts, you will see the following prompt in the tab:
+```
+[io.quarkus] (main) avro-schema-producer 1.0.0-SNAPSHOT on JVM (powered by Quarkus 3.4.2) started in 6.259s. Listening on: http://0.0.0.0:9090
+[io.quarkus] (main) Profile prod activated. 
+[io.quarkus] (main) Installed features: [cdi, confluent-registry-avro, kafka-client, resteasy-reactive, resteasy-reactive-jackson, smallrye-context-propagation, smallrye-reactive-messaging, smallrye-reactive-messaging-kafka, vertx]
+```
+
+![Generic Producer](./images/step-1-generic.png)
 
 Click on the **+** icon at the top to add a new tab, labeled _tab 3_. In _tab 3_,Verify the data sent by consuming from topic _movies_, in create _tab 3_ run:
 ```
@@ -108,12 +124,13 @@ curl --header "Content-Type: application/json" \
   http://localhost:9090/movies
 ```{{exec}}
 
-You'll notice an entry, but it may not appear in the expected format. This is because the data has been serialized. To view it in the correct format, we'll need a consumer to deserialize the data:
+You'll notice an entry in _tab 3_ a default bash consumer, but it may not appear in the expected format. This is because the data has been serialized. To view it in the correct format, we'll need a consumer to deserialize the data:
 ```
 0The Shawshank Redemption
 ```
+![Auto Register](./images/step-1-auto-register.png)
 
-Before we move on, in _tab 1_, let's check the Schema registry again, terminate the consumer process in _tab 3_ with `ctrl + C`, and run:
+Terminate the consumer process in _tab 3_ with `ctrl + C`, go to _tab 1_, let's check the Schema registry again:
 ```
 curl -X GET http://localhost:8081/subjects
 ```{{exec}}
@@ -148,11 +165,19 @@ cd /root/quarkus-apps/avro-schema-consumer/
 
 > _Note:_ We are downloading the schema from service registry with step `process-resources`, and use it to generate the Movie class we use in the code.
 
+![Consumer](./images/step-1-consumer.png)
 
  Initiate the consumer:
 ```
 ./mvnw quarkus:run -Dquarkus.http.port=9091
 ```{{exec}}
+
+As it starts, you will see the following prompt in the tab:
+```
+[io.quarkus] (main) avro-schema-consumer 1.0.0-SNAPSHOT on JVM (powered by Quarkus 3.4.2) started in 3.051s. Listening on: http://0.0.0.0:9091
+[io.quarkus] (main) Profile prod activated. 
+[io.quarkus] (main) Installed features: [cdi, confluent-registry-avro, kafka-client, resteasy-reactive, resteasy-reactive-jackson, smallrye-context-propagation, smallrye-reactive-messaging, smallrye-reactive-messaging-kafka, vertx]
+```
 
 In _tab 1_, send few movie entries:
 
@@ -179,7 +204,7 @@ curl --header "Content-Type: application/json" \
 
 ```{{exec}}
 
-You'll see it is correctly interpreted in the consumer. 
+You'll see it is correctly interpreted in the consumer (_tab 3_). 
 ```
 Received movie: Detective Pikachu  (2019)
 Received movie: Black Panther (2018)
