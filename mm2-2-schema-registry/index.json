@@ -31,12 +31,12 @@
         {"file": "docker-compose-kafka.yaml", "target": "~/", "chmod": "+x"},
         {"file": "quarkus-apps/avro-schema-consumer/.mvn/wrapper/*", "target": "~/", "chmod": "+wx"},
         {"file": "quarkus-apps/avro-schema-consumer/src/main/java/org/demo/*", "target": "~/", "chmod": "+wx"},
-        {"file": "quarkus-apps/avro-schema-consumer/src/main/resources/*", "target": "~/quarkus-apps/avro-schema-consumer/src/main/resources/", "chmod": "+wx"},
+        {"file": "quarkus-apps/avro-schema-consumer/src/main/resources/*", "target": "~/", "chmod": "+wx"},
         {"file": "quarkus-apps/avro-schema-consumer/mvnw", "target": "~/quarkus-apps/avro-schema-consumer/", "chmod": "+wx"},
         {"file": "quarkus-apps/avro-schema-consumer/pom.xml", "target": "~/quarkus-apps/avro-schema-consumer/", "chmod": "+wx"},
         {"file": "quarkus-apps/avro-schema-producer/.mvn/wrapper/*", "target": "~/", "chmod": "+wx"},
         {"file": "quarkus-apps/avro-schema-producer/src/main/java/org/demo/*", "target": "~/", "chmod": "+wx"},
-        {"file": "quarkus-apps/avro-schema-producer/src/main/resources/*", "target": "~/quarkus-apps/avro-schema-producer/src/main/resources/", "chmod": "+wx"},
+        {"file": "quarkus-apps/avro-schema-producer/src/main/resources/*", "target": "~/", "chmod": "+wx"},
         {"file": "quarkus-apps/avro-schema-producer/mvnw", "target": "~/quarkus-apps/avro-schema-producer/", "chmod": "+wx"},
         {"file": "quarkus-apps/avro-schema-producer/pom.xml", "target": "~/quarkus-apps/avro-schema-producer/", "chmod": "+wx"}
       ]

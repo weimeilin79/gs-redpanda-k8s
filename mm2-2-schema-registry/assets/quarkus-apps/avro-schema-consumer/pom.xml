@@ -169,9 +169,9 @@
                     <schemaRegistryUrls>
                         <param>http://localhost:8081</param>
                     </schemaRegistryUrls>
-                    <outputDirectory>src/main/avro</outputDirectory>
+                    <outputDirectory>src/main/avro/</outputDirectory>
                     <subjectPatterns>
-                        <param>movies*</param>
+                        <param>movies-value</param>
                     </subjectPatterns>
                 </configuration>
             </plugin>
