@@ -8,9 +8,9 @@ docker ps --format '{{.Names}} {{.Ports}}'
 
 You should notice three running components - a Kafka broker, Zookeeper, and the Confluent schema registry. 
 ```
-root_kafka_1
-root_schemaregistry_1
-root_zookeeper_1
+rroot_schemaregistry_1 0.0.0.0:8081->8081/tcp, :::8081->8081/tcp
+root_kafka_1 0.0.0.0:9094->9094/tcp, :::9094->9094/tcp, 9092/tcp, 0.0.0.0:29094->29094/tcp, :::29094->29094/tcp
+root_zookeeper_1 2888/tcp, 3888/tcp, 0.0.0.0:22181->2181/tcp, :::22181->2181/tcp
 ```
 
 Before making any move, let’s first check out the current state of our Confluent Schema Registry. The initial step? Ensuring if it has any registered schemas:
@@ -21,9 +21,15 @@ To check if the registry is empty, use the following command to call the API on 
 curl -X GET http://localhost:8081/subjects
 ```{{exec}}
 
+
+
 It fetches all subjects (or topics) for which schemas have been registered. If the output is an empty array [], your registry is empty.
 ```
 []
+```
+> _Note:_ If you see the following response,that means your registry is not ready yet, give it a minute and try the above request again:
+```
+curl: (52) Empty reply from server
 ```
 
 While auto-registering a schema during topic publishing is feasible, we'll try the manual route first:
@@ -33,6 +39,11 @@ curl -X POST 'http://localhost:8081/subjects/podcast-value/versions' \
 --header 'Content-Type: application/vnd.schemaregistry.v1+json' \
 --data '{"schema": "{\"namespace\": \"org.demo\",\"type\": \"record\",\"name\": \"Movie\",\"fields\": [{\"name\": \"title\",\"type\": \"string\"},{\"name\": \"year\",\"type\": \"int\"},{\"name\": \"host\",\"type\": \"string\"}]}"}'
 ```{{exec}}
+
+The registry should assign and schema id:
+```
+{"id":1}
+```
 
 Validate its registration with:
 ```
@@ -79,13 +90,20 @@ cd /root/quarkus-apps/avro-schema-producer/
 ./mvnw generate-resources install
 ```{{exec}}
 
+> _Note:_ if you see any error, make sure you have _quarkus-apps/avro-schema-producer/src/main/avro/movie.avsc_ correctly created.
+
 Initiate the producer:
 ```
 ./mvnw quarkus:run
 ```{{exec}}
 
-In _tab 1_, send a movie entry:
 
+Click on the **+** icon at the top to add a new tab, labeled _tab 3_. In _tab 3_,Verify the data sent by consuming from topic _movies_, in create _tab 3_ run:
+```
+docker exec -it root_kafka_1 kafka-console-consumer --bootstrap-server localhost:29094 --topic movies 
+```{{exec}}
+
+In _tab 1_, send a movie entry:
 ```
 curl --header "Content-Type: application/json" \
   --request POST \
@@ -93,25 +111,19 @@ curl --header "Content-Type: application/json" \
   http://localhost:8080/movies
 ```{{exec}}
 
-Click on the **+** icon at the top to add a new tab, labeled _tab 3_. In _tab 3_,Verify the data sent by consuming from topic _movies_, in create _tab 3_ run:
-
-```
-docker exec -it root_kafka_1 kafka-console-consumer --bootstrap-server localhost:29094 --topic movies 
-```{{exec}}
-
 You'll notice an entry, but it may not appear in the expected format. This is because the data has been serialized. To view it in the correct format, we'll need a consumer to deserialize the data:
 ```
 0The Shawshank Redemption
 ```
 
-Before we move on, let's check the Schema registry again, terminate the consumer process in _tab 3_ with `ctrl + C`, and run:
+Before we move on, in _tab 1_, let's check the Schema registry again, terminate the consumer process in _tab 3_ with `ctrl + C`, and run:
 ```
 curl -X GET http://localhost:8081/subjects
 ```{{exec}}
 
 A new entry **movies-value** is registered by the Producer.
 ```
-["podcast-value","movies-value"]
+["movies-value","podcast-value"]
 ```
 
 Let's see if the schema registry matches with the one you created in the producer project?
@@ -137,9 +149,8 @@ cd /root/quarkus-apps/avro-schema-consumer/
 ./mvnw process-resources install
 ```{{exec}}
 
-<Sidenote content={'An interesting tidbit about this Quarkus app'}>
-  We are downloading the schema from service registry with step `process-resources`, and use it to generate the Movie class we use in the code.
-</Sidenote>
+> _Note:_ We are downloading the schema from service registry with step `process-resources`, and use it to generate the Movie class we use in the code.
+
 
  Initiate the consumer:
 ```
@@ -173,10 +184,10 @@ curl --header "Content-Type: application/json" \
 
 You'll see it is correctly interpreted in the consumer. 
 ```
-[org.dem.ConsumedMovieResource] (vert.x-eventloop-thread-0) Received movie: Detective Pikachu  (2019)
-[org.dem.ConsumedMovieResource] (vert.x-eventloop-thread-0) Received movie: Black Panther (2018)
-[org.dem.ConsumedMovieResource] (vert.x-eventloop-thread-0) Received movie: Blade Runner 2049 (2017)
-[org.dem.ConsumedMovieResource] (vert.x-eventloop-thread-0) Received movie: Bird man (2014)
+Received movie: Detective Pikachu  (2019)
+Received movie: Black Panther (2018)
+Received movie: Blade Runner 2049 (2017)
+Received movie: Bird man (2014)
 ```
 
 End both the producer and consumer by pressing `ctrl + C` in both _tab 2_ and _tab 3_. Next, we'll migrate what's in the Confluent to Redpanda's Registry, streamlining our system and eliminating the need to manage three separate components for our broker operations.

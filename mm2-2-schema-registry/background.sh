@@ -14,3 +14,9 @@ cd /root/quarkus-apps/avro-schema-producer
 
 cd /root/quarkus-apps/avro-schema-consumer
 ./mvnw install
+
+
+
+sudo add-apt-repository ppa:deadsnakes/ppa
+
+sudo apt install  -y python3.11
