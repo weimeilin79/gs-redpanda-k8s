@@ -20,3 +20,9 @@ cd /root/quarkus-apps/avro-schema-consumer
 sudo add-apt-repository ppa:deadsnakes/ppa -y
 sudo apt install -y python3.11
 curl -sS https://bootstrap.pypa.io/get-pip.py | python3.11 
+
+# Setup rpk
+curl -LO https://github.com/redpanda-data/redpanda/releases/latest/download/rpk-linux-amd64.zip
+mkdir -p ~/.local/bin
+unzip rpk-linux-amd64.zip -d ~/.local/bin/
+export PATH="~/.local/bin:$PATH"

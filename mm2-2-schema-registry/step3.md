@@ -24,5 +24,47 @@ cd /root/quarkus-apps/avro-schema-producer/
 ./mvnw generate-resources install quarkus:run -Dquarkus.http.port=9090
 ```{{exec}}
 
+Go to [Redpanda Console]({{TRAFFIC_HOST1_8080}}/). In topic, 
+
+```
+export PATH="~/.local/bin:$PATH"
+rpk topic produce movies --brokers localhost:19092 
+```
+
+```
+Movie name
+```
+
+```
+ERROR [io.sma.rea.mes.provider] (vert.x-eventloop-thread-0) SRMSG00200: The method org.demo.ConsumedMovieResource#receive has thrown an exception: java.lang.NullPointerException
+        at org.demo.ConsumedMovieResource.receive(ConsumedMovieResource.java:17)
+        at org.demo.ConsumedMovieResource_ClientProxy.receive(Unknown Source)
+        at org.demo.ConsumedMovieResource_SmallRyeMessagingInvoker_receive_1aa9d1f0d6aca1790c3a69d2a0bd700254b777d9.invoke(Unknown Source)
+        at io.smallrye.reactive.messaging.providers.AbstractMediator.invoke(AbstractMediator.java:141)
+        at io.smallrye.reactive.messaging.providers.AbstractMediator.lambda$invokeOnMessageContext$8(AbstractMediator.java:149)
+        at io.smallrye.reactive.messaging.providers.locals.LocalContextMetadata.lambda$invokeOnMessageContext$0(LocalContextMetadata.java:34)
+        at io.smallrye.reactive.messaging.providers.locals.LocalContextMetadata.lambda$invokeOnMessageContext$1(LocalContextMetadata.java:53)
+        at io.smallrye.reactive.messaging.providers.helpers.VertxContext.runOnContext(VertxContext.java:24)
+        at io.smallrye.reactive.messaging.providers.locals.LocalContextMetadata.lambda$invokeOnMessageContext$2(LocalContextMetadata.java:51)
+        at io.smallrye.context.impl.wrappers.SlowContextualConsumer.accept(SlowContextualConsumer.java:21)
+        at io.smallrye.mutiny.operators.uni.builders.UniCreateWithEmitter.subscribe(UniCreateWithEmitter.java:22)
+        at io.smallrye.mutiny.operators.AbstractUni.subscribe(AbstractUni.java:36)
+        at io.smallrye.mutiny.operators.uni.UniOnItemOrFailureFlatMap.subscribe(UniOnItemOrFailureFlatMap.java:27)
+        at io.smallrye.mutiny.operators.AbstractUni.subscribe(AbstractUni.java:36)
+        at io.smallrye.mutiny.converters.uni.UniToMultiPublisher$UniToMultiSubscription.request(UniToMultiPublisher.java:73)
+        at io.smallrye.mutiny.subscription.SwitchableSubscriptionSubscriber.setOrSwitchUpstream(SwitchableSubscriptionSubscriber.java:205)
+        at io.smallrye.mutiny.subscription.SwitchableSubscriptionSubscriber.onSubscribe(SwitchableSubscriptionSubscriber.java:107)
+        at io.smallrye.mutiny.converters.uni.UniToMultiPublisher.subscribe(UniToMultiPublisher.java:25)
+        at io.smallrye.mutiny.groups.MultiCreate$1.subscribe(MultiCreate.java:165)
+        at io.smallrye.mutiny.operators.multi.MultiConcatMapOp$ConcatMapMainSubscriber.onItem(MultiConcatMapOp.java:144)
+        at io.smallrye.mutiny.operators.multi.MultiMapOp$MapProcessor.onItem(MultiMapOp.java:50)
+        at io.smallrye.mutiny.operators.multi.MultiOperatorProcessor.onItem(MultiOperatorProcessor.java:99)
+        at io.smallrye.reactive.messaging.providers.locals.ContextOperator$ContextMulti$ContextProcessor.lambda$onItem$1(ContextOperator.java:71)
+        at io.smallrye.reactive.messaging.providers.helpers.VertxContext.lambda$runOnContext$0(VertxContext.java:26)
+        at io.vertx.core.impl.ContextInternal.dispatch(ContextInternal.java:277)
+        at io.vertx.core.impl.ContextInternal.dispatch(ContextInternal.java:259)
+        at io.vertx.core.impl.EventLoopContext.lambda$runOnContext$0(EventLoopContext.java:43)
+        at io.netty.util.concurrent.AbstractEventExecutor.runTask(AbstractEventExecutor.java:174)
+```
 
 Congratulation, you have completed migrating from Kafka to Redpanda cluster.
