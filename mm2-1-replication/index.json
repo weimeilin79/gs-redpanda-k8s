@@ -17,15 +17,21 @@
         "text": "step2.md"
       },
       {
-        "title": "Migrating consumer and producers",
+        "title": "Monitoring the MM2 connector",
         "text": "step3.md"
+      },
+      {
+        "title": "Migrating consumer and producers",
+        "text": "step4.md"
       }
     ],
     "assets": {
       "host01": [
+        {"file": "config/*", "target": "~/"},
         {"file": "docker-compose-rp.yaml", "target": "~/", "chmod": "+x"},
         {"file": "docker-compose-kafka.yaml", "target": "~/", "chmod": "+x"},
-        {"file": "docker-compose-clients.yaml", "target": "~/", "chmod": "+x"}
+        {"file": "docker-compose-clients.yaml", "target": "~/", "chmod": "+x"},
+        {"file": "docker-compose-prometheus.yaml", "target": "~/", "chmod": "+x"}
       ]
     }
   },

@@ -79,6 +79,7 @@ services:
     hostname: connect
     ports:
       - "8083:8083"
+      - "9404:9404"
     networks:
       - redpanda_network
     depends_on:

@@ -113,6 +113,8 @@ Move past the configuration wizard page(Ignore the empty fields, we will overwri
 }
 ```{{copy}}
 
+It's alright if you are seeing this error message, it'll resolve in a minute. 
+![status error](./images/step-2-error.png)
 
 Hit **Create** to start the connector, you should be able to see the connector's status:
 ![mirror-heartbeat-redpanda-status](./images/step-2-mirror-heartbeat-redpanda.png)
