@@ -35,7 +35,7 @@ Redpanda has a tool designed to facilitate the transfer of schemas between Schem
 We are going to start by downloading the project from Github:
 
 ```
-git clone https://github.com/redpanda-data/schema-migration.git
+git clone --single-branch --branch masterclass https://github.com/redpanda-data/schema-migration.git
 ```{{exec}}
 
 Next we are going to create an config file that points to the source registry, and specify the intermediate file that stores exported schemas: 
