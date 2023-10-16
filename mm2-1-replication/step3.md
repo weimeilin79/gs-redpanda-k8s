@@ -46,7 +46,7 @@ And further view a task/worker’s status.
 curl localhost:8083/connectors/mirror-source-connector-redpanda/tasks/0/status | jq
 ```{{exec}}
 
-Or you can simply see that in the Redpanda Console too:
+Or you can simply see that in the [Redpanda Console]({{TRAFFIC_HOST1_8080}}/) too:
 ![Record Count](./images/step-3-task.png)
 
 Let's add another task/worker to our connector. Instead of using the console, we can achieve this through a straightforward API call, which will update the configuration for the existing connector. In this example we added maximum task to _2_. 
@@ -87,7 +87,7 @@ docker run -d --network=root_redpanda_network \
 weimeilin/mm2producer
 ```{{exec}}
 
-In the Redpanda console, under the details for the **mirror-source-connector-redpanda** connector, you should now see that the connector has *two* active tasks to handle the increased traffic.
+In the [Redpanda Console]({{TRAFFIC_HOST1_8080}}/), under the details for the **mirror-source-connector-redpanda** connector, you should now see that the connector has *two* active tasks to handle the increased traffic.
 
 ![Record Count](./images/step-3-two-tasks.png)
 
