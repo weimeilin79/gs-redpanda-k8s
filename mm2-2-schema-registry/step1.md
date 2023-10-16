@@ -67,7 +67,7 @@ When Avro is coupled with Schema Registry, it ensures that producers and consume
 
 ![Producer](./images/step-1-producer.png)
 
-Let's get started, we'll create a schema for the producer using an AVRO . This schema will then help serialize the data that the producer sends to the Kafka broker. Navigate to the editor tab. In the left explorer panel, drill down to the directory path _quarkus-apps/avro-schema-producer/src/main_. Within this directory, create a new folder named **avro**. Inside this newly-minted folder, create a file with the name **movie.avsc**. Now, populate this file with the following content:
+Let's get started, we'll create a schema for the producer using an AVRO . This schema will then help serialize the data that the producer sends to the Kafka broker. Navigate to the editor tab. In the left explorer panel, drill down to the directory path _quarkus-apps/avro-schema-producer/src/main_. Within this directory, create a new folder named `avro`. Inside this newly-minted folder, create a file with the name `movie.avsc`. Now, populate this file with the following content:
 
 ![Editor](./images/step-1-editor.png)
 

@@ -59,6 +59,8 @@ curl --header "Content-Type: application/json" \
 
 You can see the consumer printout the data, add it should also appear in the Redpanda Console under the topic **movies**. 
 
+![Validated](./images/step-4-validated.png)
+
 Excellent! You've not only successfully migrated your schema from the old registry but also enabled schema validation. With Redpanda, you now benefit from:
 
 - An all-in-one binary solution (Broker + Schema Registry) without the need for Zookeeper.

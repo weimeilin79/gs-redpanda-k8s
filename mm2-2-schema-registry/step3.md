@@ -14,11 +14,16 @@ sed -i 's/localhost:8081/localhost:18081/g' /root/quarkus-apps/avro-schema-consu
 ```{{exec}}
 ![Consumer](./images/step-3-consumer.png)
 
-Go to_tab 3_ and stop the process with Ctrl-C, and then restart with the following command::
+Go to_tab 3_ and stop the process with Ctrl-C (if it's not already stopped), and then restart with the following command::
 ```
 cd /root/quarkus-apps/avro-schema-consumer/
 ./mvnw process-resources install quarkus:run -Dquarkus.http.port=9091
 ```{{exec}}
+
+Wait until the consumer is fully started.
+```
+[io.quarkus] (main) avro-schema-consumer 1.0.0-SNAPSHOT on JVM (powered by Quarkus 3.4.2) started in 7.474s. Listening on: http://0.0.0.0:9091
+```
 
 ![Consumer](./images/step-3-producer.png)
 
@@ -27,6 +32,11 @@ In _tab 2_, and restart the producer, it will also be connecting to the new Redp
 cd /root/quarkus-apps/avro-schema-producer/
 ./mvnw generate-resources install quarkus:run -Dquarkus.http.port=9090
 ```{{exec}}
+
+Wait until the producer is fully started.
+```
+[io.quarkus] (main) avro-schema-producer 1.0.0-SNAPSHOT on JVM (powered by Quarkus 3.4.2) started in 3.420s. Listening on: http://0.0.0.0:9090
+```
 
 In _tab 1_, let's send some movie entries
 ```
@@ -64,7 +74,7 @@ Jack and Jill
 The Happening
 ```{{exec}}
 
-Check the [Redpanda Console]({{TRAFFIC_HOST1_8080}}/), you'll see the entry in the **movies**Topic view.
+Check the [Redpanda Console]({{TRAFFIC_HOST1_8080}}/), you'll see the entry in the **movies**Topic view (Refresh the topic needed).
 
 ![Bad movies](./images/step-3-bad-movies.png)
 
