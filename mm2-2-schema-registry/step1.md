@@ -68,6 +68,9 @@ When Avro is coupled with Schema Registry, it ensures that producers and consume
 ![Producer](./images/step-1-producer.png)
 
 Let's get started, we'll create a schema for the producer using an AVRO . This schema will then help serialize the data that the producer sends to the Kafka broker. Navigate to the editor tab. In the left explorer panel, drill down to the directory path _quarkus-apps/avro-schema-producer/src/main_. Within this directory, create a new folder named **avro**. Inside this newly-minted folder, create a file with the name **movie.avsc**. Now, populate this file with the following content:
+
+![Editor](./images/step-1-editor.png)
+
 ```
 {
   "namespace": "org.demo",
@@ -135,12 +138,12 @@ Terminate the consumer process in _tab 3_ with `ctrl + C`, go to _tab 1_, let's 
 curl -X GET http://localhost:8081/subjects
 ```{{exec}}
 
-A new entry **movies-value** is registered by the Producer.
+Since we turned on the auto-register in the producer cient, a new entry **movies-value** is added to the schema registry.
 ```
 ["movies-value","podcast-value"]
 ```
 
-Let's see if the schema registry matches with the one you created in the producer project?
+Let's see if the added schema in the registry matches with the one you created in the producer project?
 ```
 curl -X GET http://localhost:8081/subjects/movies-value/versions/1 | jq
 ```{{exec}}
@@ -163,7 +166,7 @@ cd /root/quarkus-apps/avro-schema-consumer/
 ./mvnw process-resources install
 ```{{exec}}
 
-> _Note:_ We are downloading the schema from service registry with step `process-resources`, and use it to generate the Movie class we use in the code.
+> _Note_ to the Java developers, we are downloading the schema from service registry with step `process-resources`, and use it to generate the Movie class we use in the code.
 
 ![Consumer](./images/step-1-consumer.png)
 
@@ -211,5 +214,7 @@ Received movie: Black Panther (2018)
 Received movie: Blade Runner 2049 (2017)
 Received movie: Bird man (2014)
 ```
+
+### Terminate producer and consumer
 
 End both the producer and consumer by pressing `ctrl + C` in both _tab 2_ and _tab 3_. Next, we'll migrate what's in the Confluent to Redpanda's Registry, streamlining our system and eliminating the need to manage three separate components for our broker operations.

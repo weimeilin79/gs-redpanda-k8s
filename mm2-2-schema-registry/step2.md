@@ -5,11 +5,9 @@ There are several ways to set up Redpanda; in this guide, we'll focus on using t
 
 You'll start three services:
 
-**redpanda-0** : This is the broker's name. In this lab, because of limited resources, we're just spinning up a single broker. But remember, in a real-world setup, you'd have multiple brokers for high availability, fault tolerance, and better scaling.
+**redpanda-0** : This is the Redpanda broker. In this lab, because of limited resources, we're operating with just one broker. But remember, in a real-world setup, you'd have multiple brokers for high availability, fault tolerance, and better scaling. Schema registry is already in the broker,  eliminating the need for additional component installations. And for those managing operations, Redpanda autonomously manages cross-cluster replication.. 
 
 **redpanda-console**: This links to the Redpanda Console, which is the official UI for Redpanda.
-
-**connect**: This Docker image is used to set up managed connectors for Redpanda.
 
 Alright, it's time to get these services going. Kick them off with the following command in _tab 1_:
 ```
