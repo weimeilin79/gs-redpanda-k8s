@@ -1,0 +1,35 @@
+version: '3.7'
+services:
+  mysql:
+      image: mysql/mysql-server:8.0.27
+      hostname: mysql
+      container_name: mysql
+      ports:
+        - 3306:3306
+      environment:
+        - MYSQL_ROOT_PASSWORD=debezium
+        - MYSQL_USER=mysqluser
+        - MYSQL_PASSWORD=mysqlpw
+      volumes:
+        - ./mysql/mysql.cnf:/etc/mysql/conf.d
+        - ./mysql/mysql_bootstrap.sql:/docker-entrypoint-initdb.d/mysql_bootstrap.sql
+        - ./mysql/data:/var/lib/mysql-files/data
+  etl:
+    build: etl
+    depends_on: [ mysql ]
+  postgres:
+    image: debezium/postgres:16
+    ports:
+      - 5432:5432
+    healthcheck:
+      test: "pg_isready -U postgresuser -d masterclass"
+      interval: 2s
+      timeout: 20s
+      retries: 10
+    environment:
+      - POSTGRES_USER=postgresuser
+      - POSTGRES_PASSWORD=postgrespw
+      - POSTGRES_DB=masterclass
+      - PGPASSWORD=postgrespw
+    volumes:
+      - ./postgres/postgres_bootstrap.sql:/docker-entrypoint-initdb.d/postgres_bootstrap.sql

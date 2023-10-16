@@ -1,0 +1,38 @@
+{
+    "title": "Building a batch ETL pipeline",
+    "description": "Build a batch ETL pipeline that calculates top selling products.",
+    "details": {
+      "intro": {
+        "text": "intro.md",
+        "background": "background.sh"
+      },
+      "steps": [
+        {
+          "title": "The environment",
+          "text": "step1.md"
+        },
+        {
+          "title": "Source and target databases",
+          "text": "step2.md"
+        },
+        {
+          "title": "The ETL job",
+          "text": "step3.md"
+        }
+      ],
+      "finish": {
+        "text": "finish.md"
+      },
+      "assets": {
+        "host01": [
+          {"file": "mysql/*", "target": "~/","chmod": "+w"},
+          {"file": "postgres/*", "target": "~/","chmod": "+w"},
+          {"file": "etl/*", "target": "~/","chmod": "+w"},
+          {"file": "docker-compose.yml", "target": "~/"}
+        ]
+      }
+    },
+    "backend": {
+      "imageid": "ubuntu-4GB"
+    }
+  }

@@ -1,0 +1,58 @@
+{
+    "title": "Streaming ETL pipeline with CDC, Redpanda, and Apache Flink",
+    "description": "basic stream processing pipelines using Redpanda and Flink SQL",
+    "details": {
+      "intro": {
+        "text": "intro.md",
+        "background": "background.sh"
+      },
+      "steps": [
+        {
+          "title": "The environment",
+          "text": "step1.md"
+        },
+        {
+          "title": "Source and target databases",
+          "text": "step2.md"
+        },
+        {
+          "title": "Debezium connector for MySQL",
+          "text": "step3.md"
+        },
+        {
+          "title": "Flink cluster",
+          "text": "step4.md"
+        },
+        {
+          "title": "Flink source and sink connectors",
+          "text": "step5.md"
+        },
+        {
+          "title": "Register Flink tables",
+          "text": "step6.md"
+        },
+        {
+          "title": "Write the aggregation",
+          "text": "step7.md"
+        },
+        {
+          "title": "Verify aggregated results",
+          "text": "step8.md"
+        }
+      ],
+      "finish": {
+        "text": "finish.md"
+      },
+      "assets": {
+        "host01": [
+          {"file": "mysql/*", "target": "~/","chmod": "+w"},
+          {"file": "postgres/*", "target": "~/","chmod": "+w"},
+          {"file": "docker-compose.yml", "target": "~/"},
+          {"file": "Dockerfile", "target": "~/"}
+        ]
+      }
+    },
+    "backend": {
+      "imageid": "ubuntu-4GB"
+    }
+  }
