@@ -1,4 +1,4 @@
-### Monitor MM2 performance - WIP
+### Monitor MM2 performance
 Monitoring MM2 metrics in real-time helps pinpoint replication delays instantly. This not only offers a clear perspective on potential hindrances but also assures the best migration pace and effectiveness. And it safeguards data integrity and system reliability, guaranteeing a successful migration without data loss or downtime.  Using Redpanda's connector, these performance metrics are automatically made available and can be seamlessly integrated with Prometheus.
 
 Let's start the 
@@ -76,7 +76,8 @@ docker run -d --network=root_redpanda_network \
 -e BOOTSTRAP_SERVERS='kafka:9094' \
 -e SLEEP_TIME=1 \
 -e MAX_REC=10000 \
---name mm2producer \
+-e MIN_REC=500 \
+--name mm2producer-intense \
 weimeilin/mm2producer
 ```{{exec}}
 

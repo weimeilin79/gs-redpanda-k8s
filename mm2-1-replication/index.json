@@ -27,7 +27,7 @@
     ],
     "assets": {
       "host01": [
-        {"file": "config/prometheus/prometheus.yml", "target": "~/config/prometheus", "chmod": "+x"},
+        {"file": "config/prometheus/prometheus.yml", "target": "~/config/prometheus/prometheus.yml", "chmod": "+x"},
         {"file": "docker-compose-rp.yaml", "target": "~/", "chmod": "+x"},
         {"file": "docker-compose-kafka.yaml", "target": "~/", "chmod": "+x"},
         {"file": "docker-compose-clients.yaml", "target": "~/", "chmod": "+x"},
