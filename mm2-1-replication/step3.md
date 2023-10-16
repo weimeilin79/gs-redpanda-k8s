@@ -9,17 +9,19 @@ docker-compose -f docker-compose-prometheus.yaml up -d
 > _*Note:*_ The *Redpanda Connect container* exports metrics and statistics from JMX by
 default, this is available to a Prometheus collector on port 9404. 
 
-Go to [Prometheus]({{TRAFFIC_HOST1_9090}}/graph), if you 
+![Prometheus](./images/step-3-prometheus.png)
 
-There are two main metrics to monitor:
+There are two main metrics to notice:
 - **kafka_connect_mirror_source_connector_replication_latency_ms_max**
 - **kafka_connect_mirror_source_connector_record_count**
 
-Paste **kafka_connect_mirror_source_connector_replication_latency_ms_max** in the query box and click the _Execute_ button, here is what you will see:
+Go to [Prometheus]({{TRAFFIC_HOST1_9090}}/graph) and paste **kafka_connect_mirror_source_connector_replication_latency_ms_max** in the query box and click the _Execute_ button, here is what you will see:
 
 For **kafka_connect_mirror_source_connector_replication_latency_ms_max**, you might not observe any immediate fluctuations. This is because, at the start, there's a surge in message count as the system copies accumulated data between clusters. However, as the replication continues, the Redpanda cluster gradually synchronizes, and the message count is expected to decline until it stabilizes at zero.
 
 Paste **kafka_connect_mirror_source_connector_record_count** in the query box and click the _Execute_ button (change the query range to 5 mins if you want), here is what you will see :
+
+![Record Count](./images/step-3-record-cnt.png)
 
 **kafka_connect_mirror_source_connector_record_count**, you should see a rising trend as we persistently write to the source topic. However, during migration, any activity or fluctuations should cease once all producers have transitioned to the new Redpanda cluster.. 
 
@@ -39,9 +41,9 @@ curl localhost:8083/connectors/mirror-source-connector-redpanda/tasks/0/status |
 ```{{exec}}
 
 Or you can simply see that in the Redpanda Console too:
+![Record Count](./images/step-3-task.png)
 
-
-Let's add another task/worker to our connector. Instead of using the console, we can achieve this through a straightforward API call, which will update the configuration for the existing connector.
+Let's add another task/worker to our connector. Instead of using the console, we can achieve this through a straightforward API call, which will update the configuration for the existing connector. In this example we added maximum task to _2_. 
 
 ```
 curl --location --request PUT 'localhost:8083/connectors/mirror-source-connector-redpanda/config' \
@@ -67,8 +69,19 @@ curl --location --request PUT 'localhost:8083/connectors/mirror-source-connector
 }'
 ```{{exec}}
 
-# TODO, Add a more aggressive producer. 
+### Add an aggressive producer 
+To see the source connector activating both tasks or workers, initiate another producer that will intensively send messages to the Kafka topic: 
+```
+docker run -d --network=root_redpanda_network \
+-e BOOTSTRAP_SERVERS='redpanda-0:9092' \
+-e SLEEP_TIME=1 \
+-e MAX_REC=10000 \
+--name mm2producer \
+weimeilin/mm2producer
+```{{exec}}
 
 In the Redpanda console, under the details for the **mirror-source-connector-redpanda** connector, you should now see that the connector has *two* active tasks to handle the increased traffic.
 
-# TODO, turn off the aggressive producer.
+![Record Count](./images/step-3-two-tasks.png)
+
+Terminate the aggressive producer pressing `Ctrl+C`.
