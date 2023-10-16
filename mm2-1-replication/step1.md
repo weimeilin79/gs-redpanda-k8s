@@ -70,7 +70,7 @@ Creating mm2producer    ... done
 
 *OPTIONAL*: 
 
-Verify the producer by consuming from topic _foo_, in tab 3 run:
+Verify the producer by consuming from topic _foo_:
 ```
 docker exec -it root_kafka_1 kafka-console-consumer --bootstrap-server localhost:29094 --topic foo 
 ```{{exec}}
@@ -90,4 +90,4 @@ Give it a couple of minutes, you should be able to see data randomly generated b
 {"plantId": 57, "botId": "B64", "fulfillment": 5}
 ```
 
-Terminate the consumer in tab 3 by pressing `Ctrl+C`.
+Terminate the consumer by pressing `Ctrl+C`.

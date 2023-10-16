@@ -130,15 +130,15 @@ Data should be replicated in the *foo* topic too.
 
 *OPTIONAL*
 
-Let's manually insert data into the old kafka cluster's *woo* topic, in tab 2 launch producer back up:
+Let's manually insert data into the old kafka cluster's *woo* topic, launch producer back up:
 ```
 docker exec -it root_kafka_1 kafka-console-producer --broker-list localhost:29094 --topic woo 
 ```{{exec}}
 
-Try typing to send data to the *woo* topic using the producer. In tab 2 push few more message in the producer and see if they were replicated in Redpanda cluster.
+Try typing to send data to the *woo* topic using the producer. Push few more message in the producer and see if they were replicated in Redpanda cluster.
 
 Back in [Redpanda Console]({{TRAFFIC_HOST1_8080}}/), under *topics/woo* data should be replicated in the topic . 
 ![foo-topics-status](./images/step-2-woo.png)
 
-Terminate the producer in tab 2 by pressing `Ctrl+C`.
+Terminate the producer by pressing `Ctrl+C`.
 

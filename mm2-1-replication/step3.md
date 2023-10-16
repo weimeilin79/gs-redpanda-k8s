@@ -1,6 +1,8 @@
 ### Monitor MM2 performance
 Monitoring MM2 metrics in real-time helps pinpoint replication delays instantly. This not only offers a clear perspective on potential hindrances but also assures the best migration pace and effectiveness. And it safeguards data integrity and system reliability, guaranteeing a successful migration without data loss or downtime.  Using Redpanda's connector, these performance metrics are automatically made available and can be seamlessly integrated with Prometheus.
 
+![Monitoring](./images/step-3-monitoring.png)
+
 Let's start the 
 ```
 docker-compose -f docker-compose-prometheus.yaml up -d
@@ -15,11 +17,13 @@ There are two main metrics to notice:
 - **kafka_connect_mirror_source_connector_replication_latency_ms_max**
 - **kafka_connect_mirror_source_connector_record_count**
 
-Go to [Prometheus]({{TRAFFIC_HOST1_9090}}/graph) and paste **kafka_connect_mirror_source_connector_replication_latency_ms_max** in the query box and click the _Execute_ button, here is what you will see:
+Go to [Prometheus]({{TRAFFIC_HOST1_9090}}/graph) and paste `kafka_connect_mirror_source_connector_replication_latency_ms_max` in the query box and click the _Execute_ button(change the query range to 1 mins if you want), here is what you will see:
 
-For **kafka_connect_mirror_source_connector_replication_latency_ms_max**, you might not observe any immediate fluctuations. This is because, at the start, there's a surge in message count as the system copies accumulated data between clusters. However, as the replication continues, the Redpanda cluster gradually synchronizes, and the message count is expected to decline until it stabilizes at zero.
+![Replication Latency](./images/step-3-replication-latency.png)
 
-Paste **kafka_connect_mirror_source_connector_record_count** in the query box and click the _Execute_ button (change the query range to 5 mins if you want), here is what you will see :
+For **kafka_connect_mirror_source_connector_replication_latency_ms_max**, At the start, there's a surge in message count as the system copies accumulated data between clusters. However, as the replication continues, the Redpanda cluster gradually synchronizes, and the message count is expected to decline until it stabilizes at zero.
+
+Paste `kafka_connect_mirror_source_connector_record_count` in the query box and click the _Execute_ button (change the query range to 5 mins if you want), here is what you will see :
 
 ![Record Count](./images/step-3-record-cnt.png)
 
@@ -29,6 +33,8 @@ Paste **kafka_connect_mirror_source_connector_record_count** in the query box an
 
 ### Adding more workers
 You might be concerned about performance. What happens if my MM2 connector starts to lag? The solution is straightforward: simply increase the number of workers/tasks handling the replication.
+
+![Scale up](./images/step-3-scale-up.png)
 
 To see how many tasks/workers are currently active, run the following command. It will display the tasks presently operating for the connector.
 ```
@@ -75,8 +81,8 @@ To see the source connector activating both tasks or workers, initiate another p
 docker run -d --network=root_redpanda_network \
 -e BOOTSTRAP_SERVERS='kafka:9094' \
 -e SLEEP_TIME=1 \
--e MAX_REC=10000 \
--e MIN_REC=500 \
+-e MAX_REC=1000 \
+-e MIN_REC=300 \
 --name mm2producer-intense \
 weimeilin/mm2producer
 ```{{exec}}
@@ -85,4 +91,8 @@ In the Redpanda console, under the details for the **mirror-source-connector-red
 
 ![Record Count](./images/step-3-two-tasks.png)
 
-Terminate the aggressive producer pressing `Ctrl+C`.
+Terminate the aggressive producer 
+```
+docker stop  $(docker ps | grep mm2producer-intense | awk '{ print $1 }')
+docker rm mm2producer-intense
+```{{exec}}
