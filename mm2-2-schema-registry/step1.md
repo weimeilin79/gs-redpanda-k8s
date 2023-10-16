@@ -160,7 +160,7 @@ And it is,
 
 ### Start Consumer and download the schema
 
-We'll need a consumer, our consumer will be grabbing the latest schema from the registry. Stay in _tab 3_, and build the consumer:
+We'll need a consumer, our consumer will be grabbing the latest schema from the registry. Go to _tab 3_, and build the consumer:
 ```
 cd /root/quarkus-apps/avro-schema-consumer/
 ./mvnw process-resources install
@@ -182,7 +182,7 @@ As it starts, you will see the following prompt in the tab:
 [io.quarkus] (main) Installed features: [cdi, confluent-registry-avro, kafka-client, resteasy-reactive, resteasy-reactive-jackson, smallrye-context-propagation, smallrye-reactive-messaging, smallrye-reactive-messaging-kafka, vertx]
 ```
 
-In _tab 1_, send few movie entries:
+Head over to _tab 1_, send few movie entries:
 
 ```
 curl --header "Content-Type: application/json" \

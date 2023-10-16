@@ -19,7 +19,6 @@ Please be patient for a moment. You'll know it's done when you see:
 
 ```
 Creating redpanda-0     ... done
-Creating root_connect_1 ... done
 Creating redpanda-console ... done
 ```
 Click on [Redpanda Console]({{TRAFFIC_HOST1_8080}}/) and access it via your browser. In the Topics and Schema Registry views, you should see nothing is created indicating this is an empty cluster.
@@ -32,7 +31,7 @@ Redpanda has a tool designed to facilitate the transfer of schemas between Schem
 
 ![Redpanda Migration Tool](./images/step-2-migrate-tool.png)
 
-We are going to start by downloading the project from Github:
+We are going to start by downloading the project from Github, stay in _tab 1_:
 
 ```
 git clone --single-branch --branch masterclass https://github.com/redpanda-data/schema-migration.git

@@ -3,20 +3,18 @@
 
 We are now have the producer and consumer point to the new Redpanda cluster, to do this, we need to update the broker location.  For producer, navigate to the editor tab. In the left explorer panel, drill down to the directory path _quarkus-apps/avro-schema-producer/src/main/resources_ and open the **application.properties** file. 
 
-- Replace the old broker from `kafka.bootstrap.servers=PLAINTEXT://localhost:29094` to `kafka.bootstrap.servers=PLAINTEXT://localhost:19092`
-- Replace the old registry from `mp.messaging.connector.smallrye-kafka.schema.registry.url=http://localhost:8081` to `mp.messaging.connector.smallrye-kafka.schema.registry.url=http://localhost:18081`
+- Replace the old broker from _kafka.bootstrap.servers=PLAINTEXT://localhost:29094_ to `kafka.bootstrap.servers=PLAINTEXT://localhost:19092`
+- Replace the old registry from _mp.messaging.connector.smallrye-kafka.schema.registry.url=http://localhost:8081_ to `mp.messaging.connector.smallrye-kafka.schema.registry.url=http://localhost:18081`
 
 And apply the same change to consumer, by updating the **application.properties** file under directory _quarkus-apps/avro-schema-consumer/src/main/resources_.
 
-Replace schemaRegistryUrls pom.xml under _quarkus-apps/avro-schema-consumer/_, this is for the consumer to download the latest schema during compile time. 
+Replace schemaRegistryUrls pom.xml under _quarkus-apps/avro-schema-consumer/_, this is for the consumer to download the latest schema during compile time. In _tab 1_ run: 
 ```
-                    <schemaRegistryUrls>
-                        <param>http://localhost:18081</param>
-                    </schemaRegistryUrls>
-```
+sed -i 's/localhost:8081/localhost:18081/g' /root/quarkus-apps/avro-schema-consumer/pom.xml
+```{{exec}}
 ![Consumer](./images/step-3-consumer.png)
 
-In _tab 3_, and restart the consumer this time, it will be connecting to the new Redpanda cluster:
+Go to_tab 3_ and stop the process with Ctrl-C, and then restart with the following command::
 ```
 cd /root/quarkus-apps/avro-schema-consumer/
 ./mvnw process-resources install quarkus:run -Dquarkus.http.port=9091
@@ -41,9 +39,9 @@ curl --header "Content-Type: application/json" \
   --request POST \
   --data '{"title":"Lord of the rings","year":2001}' \
   http://localhost:9090/movies
-```
+```{{exec}}
 
-Go to [Redpanda Console]({{TRAFFIC_HOST1_8080}}/).  In the topic view section, select the **movie** topic. You should now see the entries. 
+Go to [Redpanda Console]({{TRAFFIC_HOST1_8080}}/).  In the topic view section, select the **movies** topic. You should now see the entries. 
 
 ![New Entries](./images/step-3-new-entry.png)
 
@@ -55,7 +53,7 @@ However, what if the data ingested into the topic doesn't adhere to the schema? 
 ```
 export PATH="~/.local/bin:$PATH"
 rpk topic produce movies --brokers localhost:19092 
-```
+```{{exec}}
 
 ![Error](./images/step-3-error.png)
 

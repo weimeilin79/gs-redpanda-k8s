@@ -16,7 +16,7 @@ Enable the topic for Schema ID validation, we will be using the _TopicNameStrate
 ```
 rpk topic alter-config movies \
   --set redpanda.value.schema.id.validation=true \
-  --topic-config redpanda.value.subject.name.strategy=TopicNameStrategy \
+  --set redpanda.value.subject.name.strategy=TopicNameStrategy \
   -X brokers=localhost:19092
 ```{{exec}}
 
