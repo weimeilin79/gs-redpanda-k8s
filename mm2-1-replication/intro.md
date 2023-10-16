@@ -6,6 +6,7 @@ Switching to Redpanda from other Kafka platforms is easy and involves a few simp
 
 - Start the new Redpanda cluster
 - Configure the MM2 connectors
+- Monitor the MM2 connectors
 - Migrate producer and consumer
 
 In this lab, we will walk through the process step-by-step, ensuring you have a firm grasp on how this migration works.

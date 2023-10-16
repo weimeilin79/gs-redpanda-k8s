@@ -73,7 +73,7 @@ curl --location --request PUT 'localhost:8083/connectors/mirror-source-connector
 To see the source connector activating both tasks or workers, initiate another producer that will intensively send messages to the Kafka topic: 
 ```
 docker run -d --network=root_redpanda_network \
--e BOOTSTRAP_SERVERS='redpanda-0:9092' \
+-e BOOTSTRAP_SERVERS='kafka:9094' \
 -e SLEEP_TIME=1 \
 -e MAX_REC=10000 \
 --name mm2producer \
