@@ -19,13 +19,13 @@ Run the CREATE TABLE statements below to create the `order_items` table in Flink
 ```
 CREATE TABLE order_items(
     payload ROW(
-        'order_item_id' INT,
-        'order_id' INT,
-        'product_id' INT,
-        'quantity' INT,
-        'order_date' TIMESTAMP,
-        'price_per_unit' FLOAT,
-        'total_price' FLOAT
+        order_item_id INT,
+        order_id INT,
+        product_id INT,
+        quantity INT,
+        order_date TIMESTAMP,
+        price_per_unit FLOAT,
+        total_price FLOAT
     )
 ) WITH (
     'connector' = 'kafka',
@@ -42,9 +42,9 @@ Next, create the `products` table.
 ```
 CREATE TABLE products(
     payload ROW(
-        'product_id' INT,
-        'product_name' VARCHAR,
-        'category' VARCHAR
+        product_id INT,
+        product_name VARCHAR,
+        category VARCHAR
     )
 ) WITH (
     'connector' = 'kafka',
@@ -82,3 +82,14 @@ show tables;
 ```{{exec}}
 
 You should see an output like this:
+
+```
++----------------------+
+|           table name |
++----------------------+
+|          order_items |
+|             products |
+| top_selling_products |
++----------------------+
+3 rows in set
+```
