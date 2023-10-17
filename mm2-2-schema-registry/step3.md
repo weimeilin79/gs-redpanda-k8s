@@ -14,7 +14,7 @@ sed -i 's/localhost:8081/localhost:18081/g' /root/quarkus-apps/avro-schema-consu
 ```{{exec}}
 ![Consumer](./images/step-3-consumer.png)
 
-Go to_tab 3_ and stop the process with Ctrl-C (if it's not already stopped), and then restart with the following command::
+Go to_tab 3_ and stop the process with `Ctrl+C` (if it's not already stopped), and then restart with the following command::
 ```
 cd /root/quarkus-apps/avro-schema-consumer/
 ./mvnw process-resources install quarkus:run -Dquarkus.http.port=9091
@@ -81,7 +81,7 @@ Check the [Redpanda Console]({{TRAFFIC_HOST1_8080}}/), you'll see the entry in t
 Return to _tab 3_ where the consumer was running. Did you see the conspicuous red error messages? This is because the consumer couldn't decode your input and consequently raised complaints.
 
 ```
-ERROR [io.sma.rea.mes.provider] (vert.x-eventloop-thread-0) SRMSG00200: The method org.demo.ConsumedMovieResource#receive has thrown an exception: java.lang.NullPointerException
+ERROR [org.dem.ConsumedMovieResource] (vert.x-eventloop-thread-0) ERROR: java.lang.NullPointerException: UNKNOWN DATA, CANNOT PROCESS!!
         at org.demo.ConsumedMovieResource.receive(ConsumedMovieResource.java:17)
         at org.demo.ConsumedMovieResource_ClientProxy.receive(Unknown Source)
         at org.demo.ConsumedMovieResource_SmallRyeMessagingInvoker_receive_1aa9d1f0d6aca1790c3a69d2a0bd700254b777d9.invoke(Unknown Source)
@@ -110,6 +110,13 @@ ERROR [io.sma.rea.mes.provider] (vert.x-eventloop-thread-0) SRMSG00200: The meth
         at io.vertx.core.impl.ContextInternal.dispatch(ContextInternal.java:259)
         at io.vertx.core.impl.EventLoopContext.lambda$runOnContext$0(EventLoopContext.java:43)
         at io.netty.util.concurrent.AbstractEventExecutor.runTask(AbstractEventExecutor.java:174)
+        at io.netty.util.concurrent.AbstractEventExecutor.safeExecute(AbstractEventExecutor.java:167)
+        at io.netty.util.concurrent.SingleThreadEventExecutor.runAllTasks(SingleThreadEventExecutor.java:470)
+        at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:569)
+        at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997)
+        at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+        at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+        at java.base/java.lang.Thread.run(Thread.java:829)
 ```
 
 That's less than ideal. Fortunately, with Redpanda, we have a solution to mitigate such issues. Let's proceed to the next step and explore how this can be done.

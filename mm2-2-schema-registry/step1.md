@@ -61,7 +61,13 @@ You should be able to see it appears in the schema registry:
 
 ### Start producer and register schema
 
-Let's now try automatically register it by setup the producer, we will will use Quarkus, a popular Java framework, to set up our Kafka producer and integrate it with Avro schemas. If you're unfamiliar with Avro, it not only provides a compact and rich data structure but also good in its support for schema evolution. This means you can modify your data schema over time without worrying about breaking compatibility.
+Let's begin by creating a new **Topic** _foo_, in tab 1:
+
+```
+docker exec -it root_kafka_1 kafka-topics --create --topic movies --partitions 1 --replication-factor 1 --if-not-exists --bootstrap-server localhost:29094
+```{{exec}}
+
+Now try automatically register a schema by setup the producer, we will use Quarkus, a popular Java framework, to set up our Kafka producer and integrate it with Avro schemas. If you're unfamiliar with Avro, it not only provides a compact and rich data structure but also good in its support for schema evolution. This means you can modify your data schema over time without worrying about breaking compatibility.
 
 When Avro is coupled with Schema Registry, it ensures that producers and consumers have a unified understanding of the data format, which further guarantees data integrity and compatibility. Here's the magic: the schema registry will store our Avro schemas, and this aids Producer & consumer in efficiently serializing and deserializing messages. Embracing Avro with Schema Registry equips us with both backward and forward compatibility, streamlining the evolution of data models and associated applications.
 
