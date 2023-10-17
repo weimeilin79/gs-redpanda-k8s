@@ -16,8 +16,12 @@
           "text": "step2.md"
         },
         {
-          "title": "The ETL job",
+          "title": "Build and run the ETL job",
           "text": "step3.md"
+        },
+        {
+          "title": "Verify the output in Postgres",
+          "text": "step4.md"
         }
       ],
       "finish": {
