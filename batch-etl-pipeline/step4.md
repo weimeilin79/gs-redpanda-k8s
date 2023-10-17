@@ -8,7 +8,7 @@ docker-compose exec postgres psql -U postgresuser -d masterclass
 ```{{exec}}
 
 ```sql
-select * from top_selling_products order by quantity;
+select * from top_selling_products;
 ```{{exec}}
 
 You should see that the table has been populated already, "Product 4" is having the highest sales volume.
