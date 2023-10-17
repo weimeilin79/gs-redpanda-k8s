@@ -11,7 +11,7 @@ docker-compose exec postgres psql -U postgresuser -d masterclass
 select * from top_selling_products order by quantity;
 ```{{exec}}
 
-You should see that the table has been populated already.
+You should see that the table has been populated already, "Product 4" is having the highest sales volume.
 
 However, those results were calculated from the data that already existed in source tables. Let's insert a record into the `order_items` table and see whether the aggregation result changes.
 
@@ -28,7 +28,7 @@ use masterclass;
 INSERT INTO order_items (order_id, product_id, quantity, price_per_unit, total_price) VALUES (1, 1, 4, 50.00, 200.00);
 ```{{exec}}
 
-Open another tab and run the ETL again to see the new results in Postgress.
+Open another tab and run the ETL job again to see the new results in Postgress.
 
 ```
 docker-compose run etl

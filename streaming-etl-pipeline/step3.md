@@ -28,6 +28,8 @@ docker-compose exec debezium curl -i -X POST -H "Accept:application/json" -H "Co
 }'
 ```{{exec}}
 
+If the connection creation was successful, you should receive HTTP response `201 Created`. Otherwise, wait for some time and retry.
+
 Notice the `database.*` configurations specify connectivity details to the `mysql` container. The parameter, `schema.history.internal.kafka.bootstrap.servers` points to the `redpanda` broker the connector uses to write and recover DDL statements to the database schema history topic.
 
 Wait a minute or two until the connector gets deployed inside Debezium and creates the initial snapshot in Redpanda.
