@@ -1,4 +1,4 @@
-Now that all the services are running let's examine the source and target databases to understand the table structures and required transformations.
+Now that the source and target databases are running, let's examine their table structures and required transformations.
 
 For simplicity, we've pre-created MySQL and Postgres databases and seeded MySQL tables with mock data.
 
@@ -28,21 +28,21 @@ Exit the console by typing:
 quit;
 ```
 
-After running the `docker-compose up -d` command in the previous step, the ETL job should run once, populating the Postgres table with results. Let's have a look at it.
+Let's also examine the content of the target database, Postgres, where we will run analytics. Execute the following to log in to `psql` client.
 
 ```
 docker-compose exec postgres psql -U postgresuser -d masterclass
 ```{{exec}}
 
-Run the following to see our target table, `top_selling_products`, which should have products against their sales.
+Run the following to see our target table, `top_selling_products`, which is an empty table at the moment.
 ```sql
 select * from top_selling_products;
-```{{copy}}
+```{{exec}}
 
 Exit the console by typing:
 
 ```sql
 quit;
-```
+```{{exec}}
 
 

@@ -1,9 +1,10 @@
-Now that we understand the source and target database structures, let's look at the ETL job.
+Now that we understand the source and target database structures, let's look at the ETL job, build it and run it.
 
 We have used Python to implement the ETL job.
 
-The script first connects to MySQL and reads the contents in `order_items` and `products` tables. For that, the script uses the `pandas` and `mysql-connector-python` libraries. 
+The script first connects to MySQL and reads the contents in `order_items` and `products` tables. For that, the script uses the `mysql-connector-python` library, which is the Python driver for MySQL.
 
+Then we use the `pandas` library to run select queries against tables and read the content into Pandas Data Frames. pandas is a fast, powerful, flexible and easy to use open source data analysis and manipulation tool, available in Python programming language.
 
 ```python
 # Define SQL queries to fetch data from the database
@@ -46,10 +47,16 @@ RUN pip install mysql-connector-python sqlalchemy pandas psycopg2
 ENTRYPOINT ["python", "./main.py"]
 ```
 
-When you executed the command, `docker-compose up -d` in the Step 1, the ETL container has been built and ran once.
-
-If the it executed successfully, you should see the container `etl` with the exit status 0 as follows.
+Next, execute the following command to build and run this container, which will download and install the required database drivers and libraries we discussed the above and finally kicking off the ETL job.
 
 ```
-docker-compose ps
+docker-compose run etl
+```{{exec}}
+
+If the ETL job executed successfully, you should see the following message on the console.
+
 ```
+The ETL job completed successfully.
+```
+
+In the next step, we will verify the contents of the target database table, `top_selling_products`.
