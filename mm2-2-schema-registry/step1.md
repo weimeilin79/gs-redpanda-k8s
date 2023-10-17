@@ -1,6 +1,12 @@
-Welcome to the lab! Here, we'll dive into migrating your schema registry, shifting from Confluent to Redpanda. If you're curious about data replication to a new cluster, refer to this [lab](https://killercoda.com/redpanda/scenario/mm2-1-replication).
+This lab is part of a two-series set that delves into the foundational steps for migrating to Redpanda. 
 
+The first part covers [MirrorMaker 2.0 (MM2)](https://killercoda.com/redpanda/scenario/mm2-1-replication) data movement, while the second addresses moving the schema registry . Migration is a comprehensive process, encompassing stages like planning, learning about Redpanda, testing, validation, and more. 
 
+I strongly recommend the [Migration Handbook](https://go.redpanda.com/how-to-migrate-from-kafka-to-redpanda), which offers a thorough overview and serves as an excellent starting point to ensure a successful migration.
+
+![Handbook](./images/step-1-handbook.png)
+
+Now, let's get started with schema migration, where we will be moving schema from a confluent schema registry to Redpanda.
 ![Lab overview](./images/step-1-overview.png)
 
 ### Initial Environment
