@@ -92,7 +92,11 @@ mm2consumer-B2
 mm2consumer-B1
 mm2consumer-A
 
+#Tools
+prometheus
 redpanda-console
+
+#MM2 connector
 root_connect_1
 
 #Redpanda Broker
