@@ -1,4 +1,12 @@
-Welcome to the lab, where you will get hands-on experience with migrating data from an Apache Kafka cluster to a Redpanda cluster using MirrorMaker 2.0 (MM2). 
+This lab is part of a two-series set that delves into the foundational steps for migrating to Redpanda. 
+
+The first part covers MirrorMaker 2.0 (MM2) data movement, while the second addresses moving the [schema registry](https://killercoda.com/redpanda/scenario/mm2-2-schema-registry). Migration is a comprehensive process, encompassing stages like planning, learning about Redpanda, testing, validation, and more. 
+
+I strongly recommend the [Migration Handbook](https://go.redpanda.com/how-to-migrate-from-kafka-to-redpanda), which offers a thorough overview and serves as an excellent starting point to ensure a successful migration.
+
+![Handbook](./images/step-1-handbook.png)
+
+But now, you will get hands-on experience with migrating data from an Apache Kafka cluster to a Redpanda cluster using MirrorMaker 2.0 (MM2).
 
 ![overview](./images/step-1-overview.png)
 

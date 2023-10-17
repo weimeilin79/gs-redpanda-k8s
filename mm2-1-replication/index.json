@@ -1,6 +1,6 @@
 {
-  "title": "Migration to Redpanda using Mirror Maker 2",
-  "description": "A getting started course about mirror makers",
+  "title": "Migration to Redpanda using MirrorMaker 2",
+  "description": "Replicating data to Redpanda",
   "details": {
     "intro": {
       "text": "intro.md",

@@ -36,7 +36,7 @@ Click on [Redpanda Console]({{TRAFFIC_HOST1_8080}}/) and access it via your brow
 
 Now that the Redpanda cluster is up and running, we can now go ahead and start the migration. MirrorMaker 2.0 (MM2) brings in the idea of connectors to make migrating from Kafka to Redpanda clusters a breeze.
 
-Let's go ahead and set up the 3 connectors:
+MM2 facilitate cross-cluster data replication, it enables continuous, real-time replication of data from a source Kafka cluster to a target cluster, ensuring that all events are captured and transferred. Let's go ahead and set up the 3 connectors:
 - MirrorSourceConnector 
 - MirrorCheckpointConnector 
 - MirrorHeartbeatConnector 
