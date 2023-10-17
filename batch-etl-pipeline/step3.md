@@ -23,7 +23,7 @@ Then, two data frames are merged to calculate the top selling products.
 merged_df = pd.merge(orders_df, products_df, on='product_id', how='inner')
 
 # Calculate total quantity sold for each product
-top_selling_products = merged_df.groupby('product_name')['quantity'].sum().reset_index()
+top_selling_products = merged_df.groupby('product_id')['quantity'].sum().reset_index()
 
 # Sort the DataFrame by total quantity sold in descending order
 top_selling_products = top_selling_products.sort_values(by='quantity', ascending=False)

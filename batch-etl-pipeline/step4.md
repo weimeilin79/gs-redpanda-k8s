@@ -8,7 +8,7 @@ docker-compose exec postgres psql -U postgresuser -d masterclass
 ```{{exec}}
 
 ```sql
-select * from top_selling_products;
+select * from top_selling_products order by quantity;
 ```{{exec}}
 
 You should see that the table has been populated already.
@@ -33,5 +33,5 @@ You have to run the script manually to see the new results in Postgress.
 docker-compose run etl
 ```
 
-Then check back the Postgres table. You should see that `Product 1` has become the latest top-selling product.
+Then check back the Postgres table. You should see that `Product 2` has become the latest top-selling product.
 

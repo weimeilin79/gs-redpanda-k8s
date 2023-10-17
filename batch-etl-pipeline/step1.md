@@ -9,7 +9,7 @@ You will build a batch ETL pipeline that runs periodically to extract required t
 Go ahead and start the services by running:
 
 ```
-docker-compose up mysql postgres -d
+docker-compose up -d mysql postgres
 ```{{exec}}
 
 The above command starts the following containers:

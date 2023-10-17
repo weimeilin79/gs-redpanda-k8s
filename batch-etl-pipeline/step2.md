@@ -13,20 +13,20 @@ To see the tables, run:
 ```sql
 use masterclass;
 show tables;
-```{{copy}}
+```{{exec}}
 
 As we progress, we will perform a join on `order_items` and `products` tables. So, take a closer look at their content by running:
 
 ```sql
 select * from order_items;
 select * from products;
-```{{copy}}
+```{{exec}}
 
 Exit the console by typing:
 
 ```sql
 quit;
-```
+```{{exec}}
 
 Let's also examine the content of the target database, Postgres, where we will run analytics. Execute the following to log in to `psql` client.
 
