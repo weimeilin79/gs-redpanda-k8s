@@ -9,11 +9,9 @@ You will build a batch ETL pipeline that runs periodically to extract required t
 Go ahead and start the services by running:
 
 ```
-docker-compose up -d
+docker-compose up -d mysql postgres
 ```{{exec}}
 
-This pipeline starts the following containers:
+The above command starts the following containers:
 - `mysql` as the source database.
 - `postgres` as the destination database.
-- `etl` as a Python script performing the ETL job.
-

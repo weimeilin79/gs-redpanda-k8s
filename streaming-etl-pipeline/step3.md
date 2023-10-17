@@ -2,6 +2,8 @@ Since we are building a streaming ETL pipeline, capturing the changes made to th
 
 We do that by creating a MySQL connector in Debezium as follows.
 
+Execute the following in the first tab where you started the containers.
+
 ```
 docker-compose exec debezium curl -i -X POST -H "Accept:application/json" -H "Content-Type:application/json" localhost:8083/connectors/ -d '
  {
@@ -25,6 +27,8 @@ docker-compose exec debezium curl -i -X POST -H "Accept:application/json" -H "Co
   }
 }'
 ```{{exec}}
+
+If the connection creation was successful, you should receive HTTP response `201 Created`. Otherwise, wait for some time and retry.
 
 Notice the `database.*` configurations specify connectivity details to the `mysql` container. The parameter, `schema.history.internal.kafka.bootstrap.servers` points to the `redpanda` broker the connector uses to write and recover DDL statements to the database schema history topic.
 

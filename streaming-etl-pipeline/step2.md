@@ -13,20 +13,20 @@ To see the tables, run:
 ```sql
 use masterclass;
 show tables;
-```{{copy}}
+```{{exec}}
 As we progress, we will perform a join on `order_items` and `products` tables. So, take a closer look at their content by running:
 
 ```sql
 select * from order_items;
 select * from products;
-```{{copy}}
+```{{exec}}
 
-Exit the console by typing:
-
+Exit the shell by running:
 ```sql
 quit;
-```
-Let's follow the same to access the target database in Postgres.
+```{{exec}}
+
+Let's follow the same to access the target database in Postgres. Open a new tab (click on the '+' sign at the top right corner of the current tab) and run the following.
 
 ```
 docker-compose exec postgres psql -U postgresuser -d masterclass
@@ -36,13 +36,8 @@ Run the following to see our target table, `top_selling_products`, which is curr
 
 ```sql
 select * from top_selling_products;
-```{{copy}}
+```{{exec}}
 
-Exit the console by typing:
-
-```sql
-quit;
-```
 
 That's all the databases we will be needing in the coming steps. 
 

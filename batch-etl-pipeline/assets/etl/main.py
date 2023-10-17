@@ -12,7 +12,7 @@ pg_engine = create_engine(PG_CONNECTION_STRING, echo=True)
 pg_connection = pg_engine.connect()
 
 # Define SQL queries to fetch data from the database
-orders_query = "SELECT order_id, product_id, quantity FROM order_items;"
+orders_query = "SELECT order_id, product_id, quantity, total_price FROM order_items;"
 products_query = "SELECT product_id, product_name FROM products;"
 
 # Use Pandas to execute the SQL queries and create DataFrames
@@ -26,10 +26,10 @@ mysql_connection.close()
 merged_df = pd.merge(orders_df, products_df, on='product_id', how='inner')
 
 # Calculate total quantity sold for each product
-top_selling_products = merged_df.groupby('product_name')['quantity'].sum().reset_index()
+top_selling_products = merged_df.groupby('product_name')['total_price'].sum().reset_index()
 
 # Sort the DataFrame by total quantity sold in descending order
-top_selling_products = top_selling_products.sort_values(by='quantity', ascending=False)
+top_selling_products = top_selling_products.sort_values(by='total_price', ascending=False)
 
 # Write the TSP DataFrame to Postgres
 top_selling_products.to_sql('top_selling_products', con=pg_connection, if_exists='replace', index=False)
