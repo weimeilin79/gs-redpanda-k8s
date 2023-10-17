@@ -13,8 +13,11 @@ public class ConsumedMovieResource {
 
     @Incoming("movies")
     public void receive(Movie movie) {
-        LOGGER.infof("Received movie: %s (%d)",
-            movie.getTitle(), movie.getYear());
+        if(movie == null){
+            LOGGER.error( "ERROR", new NullPointerException("UNKNOWN DATA, CANNOT PROCESS!!")); 
+            return;
+        }
+        LOGGER.infof("Received movie: %s (%d)", movie.getTitle(), movie.getYear());
        
     }
 

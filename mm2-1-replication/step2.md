@@ -74,6 +74,9 @@ Hit **Create** to start the connector, you should be able to see the connector's
 ![mirror-source-connector-redpanda-status](./images/step-2-mirror-source-connector-redpanda.png)
 
 
+It's alright if you are seeing this error message, it'll resolve in a minute. 
+![status error](./images/step-2-error.png)
+
 Next, go back to the connector page by clicking on the left menu, tap on _connector_. Repeat the process of clicking on the _Create Connector_ button but this time pick " import data from Kafka cluster offsets" on the next screen. This will lead you to configure the **MirrorCheckpointConnector**.
 
 **MirrorCheckpointConnector**  manages checkpoints, it periodically consumes from all internal MM2 topics on the target cluster and emits checkpoints to the an mm2-offset-checkpoints topic. These checkpoints are essential to translating offsets between source and target clusters, which is essential for failover.
@@ -97,7 +100,7 @@ Hit **Create** to start the connector, you should be able to see the connector's
 
 Repeat last step to create the **MirrorHeartbeatConnector**, make sure you select "import data from Heartbeat" when choosing the connector. 
 
-*&MirrorHeartbeatConnector*& like it's name, it produces heartbeats to predefined topics on the source cluster. These heartbeats are replicated to the target cluster like regular data and can be used to measure replication latency and ensure that the replication is alive and well. 
+**MirrorHeartbeatConnector** like it's name, it produces heartbeats to predefined topics on the source cluster. These heartbeats are replicated to the target cluster like regular data and can be used to measure replication latency and ensure that the replication is alive and well. 
 
 Move past the configuration wizard page(Ignore the empty fields, we will overwrite it in the following step ), and hit **Next**. In the _Connector Properties_ section, overwrite the existing content with the following:
 ```
@@ -113,7 +116,6 @@ Move past the configuration wizard page(Ignore the empty fields, we will overwri
 }
 ```{{copy}}
 
-
 Hit **Create** to start the connector, you should be able to see the connector's status:
 ![mirror-heartbeat-redpanda-status](./images/step-2-mirror-heartbeat-redpanda.png)
 
@@ -128,15 +130,15 @@ Data should be replicated in the *foo* topic too.
 
 *OPTIONAL*
 
-Let's manually insert data into the old kafka cluster's *woo* topic, in tab 2 launch producer back up:
+Let's manually insert data into the old kafka cluster's *woo* topic, launch producer back up:
 ```
 docker exec -it root_kafka_1 kafka-console-producer --broker-list localhost:29094 --topic woo 
 ```{{exec}}
 
-Try typing to send data to the *woo* topic using the producer. In tab 2 push few more message in the producer and see if they were replicated in Redpanda cluster.
+Try typing to send data to the *woo* topic using the producer. Push few more message in the producer and see if they were replicated in Redpanda cluster.
 
 Back in [Redpanda Console]({{TRAFFIC_HOST1_8080}}/), under *topics/woo* data should be replicated in the topic . 
 ![foo-topics-status](./images/step-2-woo.png)
 
-Terminate the producer in tab 2 by pressing `Ctrl+C`.
+Terminate the producer by pressing `Ctrl+C`.
 

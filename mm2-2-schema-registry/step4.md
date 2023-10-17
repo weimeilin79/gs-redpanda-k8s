@@ -57,7 +57,7 @@ curl --header "Content-Type: application/json" \
   http://localhost:9090/movies
 ```{{exec}}
 
-You can see the consumer printout the data, add it should also appear in the Redpanda Console under the topic **movies**. 
+You can see the consumer printout the data, and it should also appear in the Redpanda Console under the topic **movies**. 
 
 ![Validated](./images/step-4-validated.png)
 
