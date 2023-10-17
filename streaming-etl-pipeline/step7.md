@@ -25,6 +25,7 @@ Since this scenario is running on a dynamically provisioned machine, you'll need
 sed 's/PORT/8081/g' /etc/killercoda/host
 ```{{exec}}
 
+[Flink]({{TRAFFIC_HOST1_8081}}/)
 Click the link that gets printed to the terminal. The UI will open in a separate tab. If you get a `Bad Gateway` error, wait a few seconds and try again since the service may still be starting.
 
 If the job is healthy and running, you will see a screen like this.

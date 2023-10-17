@@ -2,6 +2,8 @@ Since we are building a streaming ETL pipeline, capturing the changes made to th
 
 We do that by creating a MySQL connector in Debezium as follows.
 
+Execute the following in the first tab where you started the containers.
+
 ```
 docker-compose exec debezium curl -i -X POST -H "Accept:application/json" -H "Content-Type:application/json" localhost:8083/connectors/ -d '
  {
