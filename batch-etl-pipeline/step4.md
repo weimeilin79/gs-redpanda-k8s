@@ -24,14 +24,15 @@ docker-compose exec mysql mysql -u mysqluser -p
 Then insert the following record:
 
 ```sql
+use masterclass;
 INSERT INTO order_items (order_id, product_id, quantity, price_per_unit, total_price) VALUES (1, 1, 4, 50.00, 200.00);
 ```{{exec}}
 
-You have to run the script manually to see the new results in Postgress.
+Open another tab and run the ETL again to see the new results in Postgress.
 
 ```
 docker-compose run etl
-```
+```{{exec}}
 
-Then check back the Postgres table. You should see that `Product 2` has become the latest top-selling product.
+Then go back to the first tab where you connected to Postgres and check the contents of the `top_selling_products` table. You should see that `Product 1` has become the latest top-selling product.
 
