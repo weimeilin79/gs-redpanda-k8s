@@ -75,7 +75,7 @@ spec:
       replicas: 1
     tls:
       enabled: false
-    resource:
+    resources:
       cpu:
         overprovisioned: true
         cores: 300m
@@ -92,13 +92,15 @@ spec:
       persistentVolume:
         enabled: true
         size: 2Gi
-        storageClass: datadir-redpanda-0
     console:
       enabled: false
 EOF
 ```{{exec}}
 
-
+Wait for the Redpanda Operator to deploy Redpanda using the Helm chart:
+```
+kubectl get redpanda --namespace redpanda --watch
+```
 
 To confirm that the broker is up, run:
 
