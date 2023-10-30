@@ -6,28 +6,53 @@ In this step, you add and spin up Redpanda Console. Redpanda Console is a develo
 ![Redpanda console overview](./images/step-4-overview.png)
 
 ```
-cat <<EOF > value.yaml
-console:
-  enabled: true
-  ingress:
-    enabled: true
-    hosts:
-    - paths:
-        - path: /
-          pathType: ImplementationSpecific
+cat <<EOF | kubectl -n redpanda patch redpanda redpanda --patch-file -
+apiVersion: cluster.redpanda.com/v1alpha1
+kind: Redpanda
+metadata:
+  name: redpanda
+spec:
+  chartRef: {}
+  clusterSpec:
+    console:
+      enabled: true
+      ingress:
+        enabled: true
+        hosts:
+        - paths:
+            - path: /
+              pathType: ImplementationSpecific
 EOF
 ```{{exec}}
 
 
-To kick start Helm and upgrade a release with the new changes in setting, run:
 
 ```
-helm upgrade --install redpanda redpanda/redpanda \
-    --namespace redpanda --create-namespace \
-    --values value.yaml --reuse-values
-
+cat > console.yaml << EOF
+apiVersion: cluster.redpanda.com/v1alpha1
+kind: Redpanda
+metadata:
+  name: redpanda
+spec:
+  chartRef: {}
+  clusterSpec:
+    console:
+      enabled: true
+      ingress:
+        enabled: true
+        hosts:
+        - paths:
+            - path: /
+              pathType: ImplementationSpecific
+EOF
+```{{exec}}
+```
+kubectl -n redpanda patch redpanda redpanda --patch-file console.yaml
 ```{{exec}}
 
+```
+kubectl get redpanda --namespace redpanda --watch
+```{{exec}}
 
 Give it a minute or two, and your console should be deployed and ready. 
 

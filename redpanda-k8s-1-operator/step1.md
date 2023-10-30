@@ -100,8 +100,10 @@ EOF
 Wait for the Redpanda Operator to deploy Redpanda using the Helm chart:
 ```
 kubectl get redpanda --namespace redpanda --watch
+```{{exec}}
 ```
-
+Redpanda reconciliation succeeded
+```
 To confirm that the broker is up, run:
 
 ```
@@ -110,8 +112,10 @@ kubectl -n redpanda get pod
 
 The following status confirms that a Redpanda broker is running. 
 ``` 
-NAME                           READY   STATUS      RESTARTS   AGE
-redpanda-0                     1/1     Running     0          2m50s
+NAME                                            READY   STATUS      RESTARTS   AGE
+redpanda-0                                      2/2     Running     0          5m41s
+redpanda-configuration-vs6bk                    0/1     Completed   0          5m15s
+redpanda-controller-operator-7cf59c7454-mdm5n   2/2     Running     0          6m8s
 ```
 
 Redpanda is ready to roll in Kubernetes! 

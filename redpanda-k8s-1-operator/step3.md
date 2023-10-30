@@ -12,9 +12,10 @@ kubectl -n redpanda get svc
 It displays a headless service that explicitly sets ClusterIP to `None`, so it discovers individual service brokers in each Pod. The `redpanda-external` service is the NodePort Service that allows external access to the Redpanda broker with the external IP bound to the Kubernetes worker node.
 
 ```
-NAME                TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)                                                       AGE
-redpanda            ClusterIP      None            <none>        <none>                                                        20m
-redpanda-external   NodePort       10.99.142.230    <none>        9644:31644/TCP,9094:31092/TCP,8083:30082/TCP,8084:30081/TCP   20m
+NAME                       TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)                                                       AGE
+operator-metrics-service   ClusterIP   10.102.212.90   <none>        8443/TCP                                                      7m14s
+redpanda                   ClusterIP   None            <none>        9644/TCP,8082/TCP,9093/TCP,33145/TCP,8081/TCP                 6m48s
+redpanda-external          NodePort    10.99.53.203    <none>        9645:31644/TCP,9094:31092/TCP,8083:30082/TCP,8084:30081/TCP   6m48s
 ```
 
 
@@ -144,6 +145,7 @@ In this tutorial, the K8s domain is also bound to 0.0.0.0. (Normally, your worke
 ```
 NAME                TYPE           CLUSTER-IP       EXTERNAL-IP   PORT(S)                                                       AGE
 lb-redpanda-0       LoadBalancer   10.104.112.167   <pending>     8081:30533/TCP,8082:30376/TCP,9093:31748/TCP,9644:31103/TCP   6s
+operator-metrics-service   ClusterIP      10.102.212.90   <none>        8443/TCP
 redpanda            ClusterIP      None             <none>        <none>                                                        22m
 redpanda-external   NodePort       10.99.142.230    <none>        9644:31644/TCP,9094:31092/TCP,8083:30082/TCP,8084:30081/TCP   22m
 ```
