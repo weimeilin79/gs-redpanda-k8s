@@ -19,19 +19,39 @@ kubectl get all --namespace redpanda
 you'll see a working Redpanda cluster in the _redpanda_ namespace
 
 ```
-NAME                               READY   STATUS      RESTARTS   AGE
-pod/redpanda-0                     2/2     Running     0          37s
-pod/redpanda-configuration-4z9kw   0/1     Completed   0          37s
+NAME                                                READY   STATUS    RESTARTS   AGE
+pod/redpanda-controller-operator-5b9dd599cc-b29lg   2/2     Running   0          16s
 
-NAME                        TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)                                                       AGE
-service/redpanda            ClusterIP   None             <none>        9644/TCP                                                      37s
-service/redpanda-external   NodePort    10.108.116.179   <none>        9644:31644/TCP,9094:31092/TCP,8083:30082/TCP,8084:30081/TCP   37s
+NAME                               TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE
+service/operator-metrics-service   ClusterIP   10.111.143.49   <none>        8443/TCP   16s
+
+NAME                                           READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/redpanda-controller-operator   1/1     1            1           16s
+
+NAME                                                      DESIRED   CURRENT   READY   AGE
+replicaset.apps/redpanda-controller-operator-5b9dd599cc   1         1         1       16s
+controlplane $ kubectl get all --namespace redpanda
+NAME                                                READY   STATUS      RESTARTS   AGE
+pod/redpanda-0                                      2/2     Running     0          33s
+pod/redpanda-configuration-8gm6m                    0/1     Completed   0          5s
+pod/redpanda-controller-operator-5b9dd599cc-b29lg   2/2     Running     0          53s
+
+NAME                               TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)                                                       AGE
+service/operator-metrics-service   ClusterIP   10.111.143.49   <none>        8443/TCP                                                      53s
+service/redpanda                   ClusterIP   None            <none>        9644/TCP,8082/TCP,9093/TCP,33145/TCP,8081/TCP                 33s
+service/redpanda-external          NodePort    10.101.4.128    <none>        9645:31644/TCP,9094:31092/TCP,8083:30082/TCP,8084:30081/TCP   33s
+
+NAME                                           READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/redpanda-controller-operator   1/1     1            1           53s
+
+NAME                                                      DESIRED   CURRENT   READY   AGE
+replicaset.apps/redpanda-controller-operator-5b9dd599cc   1         1         1       53s
 
 NAME                        READY   AGE
-statefulset.apps/redpanda   1/1     37s
+statefulset.apps/redpanda   1/1     33s
 
 NAME                               COMPLETIONS   DURATION   AGE
-job.batch/redpanda-configuration   1/1           16s        37s
+job.batch/redpanda-configuration   1/1           5s         5s
 ```
 
  Securing Redpanda is crucial to protect sensitive data, maintain compliance with regulatory requirements, prevent unauthorized access and data breaches, and preserve the overall integrity and reliability of the system. First step in securing your Redpanda deployment is with Transport Layer Security (TLS). As it provides the encryption and authentication mechanisms that ensures the communication between Redpanda clients and brokers is encrypted, protecting data confidentiality. 
@@ -56,6 +76,9 @@ helm install \
   --set installCRDs=true
 ```{{exec}}
 
+```
+kubectl -n cert-manager rollout status --watch deployment/cert-manager 
+```{{exec}}
 
 Redpanda helm chart allows you to configure how you want the certificate to be generated, such as setting the issuer or if the certificates are authenticated using public authorities(CA) or privately. 
 
@@ -100,21 +123,52 @@ In this tutorial, to make it simple, we'll be using the default self-signed cert
 
 Let's turn on the TLS config and leave everything as is:
 ```
-cat <<EOF > security.yaml
-tls:
-  enabled: true
+cat <<EOF | kubectl -n redpanda apply -f -
+apiVersion: cluster.redpanda.com/v1alpha1
+kind: Redpanda
+metadata:
+  name: redpanda
+spec:
+  chartRef: 
+    upgrade:
+      force: true
+  clusterSpec:
+    clusterSpec:
+    statefulset:
+      replicas: 1
+    tls:
+      enabled: true
+    resources:
+      cpu:
+        overprovisioned: true
+        cores: 300m
+      memory:
+        container:
+          max: 1025Mi
+        redpanda:
+          reserveMemory: 1Mi
+          memory: 1Gi
+    auth:
+      sasl:
+        enabled: false
+    storage:
+      persistentVolume:
+        enabled: true
+        size: 2Gi
+    console:
+      enabled: true
+      ingress:
+        enabled: true
+        hosts:
+        - paths:
+            - path: /
+              pathType: ImplementationSpecific
 EOF
 ```{{exec}}
 
-
-Let's apply the change to our current running Redpanda cluster:
 ```
-helm upgrade --install redpanda redpanda/redpanda -n redpanda --create-namespace \
-  --set force=true \
-  --values security.yaml \
-  --reuse-values 
+kubectl get redpanda --namespace redpanda --watch
 ```{{exec}}
-
 
 Once done, you should be able to see the certificates generate, 
 ```
