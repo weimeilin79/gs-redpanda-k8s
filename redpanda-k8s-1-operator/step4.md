@@ -49,9 +49,16 @@ spec:
 EOF
 ```{{exec}}
 
-
 Give it a minute or two, and your console should be deployed and ready. 
+```
+kubectl get redpanda --namespace redpanda --watch
+```{{exec}}
+```
+Redpanda reconciliation succeeded
+```
 
+
+Check the running pods.
 ```
 kubectl -n redpanda get pod
 ```{{exec}}
