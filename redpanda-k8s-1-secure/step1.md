@@ -133,9 +133,10 @@ spec:
     upgrade:
       force: true
   clusterSpec:
-    clusterSpec:
     statefulset:
       replicas: 1
+    external:
+      domain: localhost
     tls:
       enabled: true
     resources:

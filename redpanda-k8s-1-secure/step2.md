@@ -13,11 +13,47 @@ kubectl create secret generic redpanda-superusers -n redpanda --from-file=superu
 
 Update the Redpanda cluster by enabling SASL and create the superuser using the secret that you just created:
 ```
-helm upgrade --install redpanda redpanda/redpanda -n redpanda --create-namespace \
-  --set auth.sasl.enabled=true \
-  --set auth.sasl.secretRef=redpanda-superusers \
-  --set auth.sasl.users=null \
-  --reuse-values
+cat <<EOF | kubectl -n redpanda apply -f -
+apiVersion: cluster.redpanda.com/v1alpha1
+kind: Redpanda
+metadata:
+  name: redpanda
+spec:
+  chartRef: 
+    upgrade:
+      force: true
+  clusterSpec:
+    statefulset:
+      replicas: 1
+    tls:
+      enabled: true
+    resources:
+      cpu:
+        overprovisioned: true
+        cores: 300m
+      memory:
+        container:
+          max: 1025Mi
+        redpanda:
+          reserveMemory: 1Mi
+          memory: 1Gi
+    auth:
+      sasl:
+        enabled: true
+        secretRef: redpanda-superusers
+    storage:
+      persistentVolume:
+        enabled: true
+        size: 2Gi
+    console:
+      enabled: true
+      ingress:
+        enabled: true
+        hosts:
+        - paths:
+            - path: /
+              pathType: ImplementationSpecific
+EOF
 ```{{exec}} 
 
 Let's now try getting the cluster without the user credentials:
