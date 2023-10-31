@@ -129,9 +129,7 @@ kind: Redpanda
 metadata:
   name: redpanda
 spec:
-  chartRef: 
-    upgrade:
-      force: true
+  chartRef: {}
   clusterSpec:
     statefulset:
       replicas: 1
