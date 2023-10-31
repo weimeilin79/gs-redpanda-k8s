@@ -5,8 +5,10 @@ In this step, you add and spin up Redpanda Console. Redpanda Console is a develo
 
 ![Redpanda console overview](./images/step-4-overview.png)
 
+
+
 ```
-cat <<EOF | kubectl -n redpanda patch redpanda redpanda --patch-file -
+cat <<EOF | kubectl -n redpanda apply -f -
 apiVersion: cluster.redpanda.com/v1alpha1
 kind: Redpanda
 metadata:
@@ -14,6 +16,28 @@ metadata:
 spec:
   chartRef: {}
   clusterSpec:
+    clusterSpec:
+    statefulset:
+      replicas: 1
+    tls:
+      enabled: false
+    resources:
+      cpu:
+        overprovisioned: true
+        cores: 300m
+      memory:
+        container:
+          max: 1025Mi
+        redpanda:
+          reserveMemory: 1Mi
+          memory: 1Gi
+    auth:
+      sasl:
+        enabled: false
+    storage:
+      persistentVolume:
+        enabled: true
+        size: 2Gi
     console:
       enabled: true
       ingress:
@@ -25,34 +49,6 @@ spec:
 EOF
 ```{{exec}}
 
-
-
-```
-cat > console.yaml << EOF
-apiVersion: cluster.redpanda.com/v1alpha1
-kind: Redpanda
-metadata:
-  name: redpanda
-spec:
-  chartRef: {}
-  clusterSpec:
-    console:
-      enabled: true
-      ingress:
-        enabled: true
-        hosts:
-        - paths:
-            - path: /
-              pathType: ImplementationSpecific
-EOF
-```{{exec}}
-```
-kubectl -n redpanda patch redpanda redpanda --patch-file console.yaml
-```{{exec}}
-
-```
-kubectl get redpanda --namespace redpanda --watch
-```{{exec}}
 
 Give it a minute or two, and your console should be deployed and ready. 
 
@@ -65,10 +61,11 @@ You see the redpanda-console Pod running.
 
 ```
 NAME                                READY   STATUS      RESTARTS   AGE
-redpanda-0                          1/1     Running     0          2m29s
-redpanda-configuration-w5kj8        0/1     Completed   0          31s
-redpanda-console-5d77c44b95-wf6kg   1/1     Running     0          31s
-redpanda-post-upgrade-2l5xg         0/1     Completed   0          25s
+redpanda-0                                      2/2     Running     0               4m1s
+redpanda-configuration-vzm5f                    0/1     Completed   0               3m1s
+redpanda-console-5f6c7d84d7-bm5x7               1/1     Running     2 (3m36s ago)   4m3s
+redpanda-controller-operator-5b9dd599cc-92qqp   2/2     Running     0               36m
+redpanda-post-upgrade-452f5                     0/1     Completed   0               2m55s
 ```
 
 

@@ -22,14 +22,26 @@ ID    HOST                                             PORT
 To create a topic named `demo-topic`, run:
 
 ```
-kubectl -n redpanda exec -ti redpanda-0 -c redpanda -- rpk topic create demo-topic
+cat <<EOF | kubectl -n redpanda apply -f -
+apiVersion: cluster.redpanda.com/v1alpha1
+kind: Topic
+metadata:
+  name: demo-topic
+spec:
+  partitions: 1
+  replicationFactor: 1
+  additionalConfig:
+    cleanup.policy: "compact"
+  kafkaApiSpec:
+    brokers:
+      - "redpanda-0.redpanda.redpanda.svc.cluster.local:9093"
+EOF
 ```{{exec}}
 
 You'll see the topic has been successfully created. 
 
 ```
-TOPIC       STATUS
-demo-topic  OK
+topic.cluster.redpanda.com/demo-topic created
 ```
 
 Use `rpk` to check the cluster again:
