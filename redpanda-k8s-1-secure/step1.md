@@ -181,6 +181,7 @@ redpanda-external-cert               True    redpanda-external-cert             
 redpanda-external-root-certificate   True    redpanda-external-root-certificate   3m8s
 ```
 
+
 and the secrets that stores the actual certificate that are attached to the broker pod:
 
 ```
@@ -196,12 +197,9 @@ redpanda-external-cert               kubernetes.io/tls   3      3m38s
 redpanda-external-root-certificate   kubernetes.io/tls   3      3m42s
 ```
 
-The certificate renewal process is handled seamlessly by cert-manager. You don't need to do anything to facilitate the renewal. However you can alway regenerate the certificate, change any spec on the certificate too: 
+Add mappings in  /etc/hosts file between worker nodes' IP addresses and their custom domain names(For this lab env): 
 ```
-kubectl -n redpanda patch certificate redpanda-external-cert -p '[{"op": "add", "path": "/spec/dnsNames" , "value":["localhost"]}]' --type='json'
-kubectl -n redpanda delete secret redpanda-external-cert
-kubectl -n redpanda patch certificate redpanda-default-cert -p '[{"op": "add", "path": "/spec/dnsNames" , "value":["localhost", "redpanda-0.redpanda.redpanda.svc.cluster.local."]}]' --type='json'
-kubectl -n redpanda delete secret redpanda-default-cert
+sudo true && kubectl --namespace redpanda get endpoints,node -A -o go-template='{{ range $_ := .items }}{{ if and (eq .kind "Endpoints") (eq .metadata.name "redpanda-external") }}{{ range $_ := (index .subsets 0).addresses }}{{ $nodeName := .nodeName }}{{ $podName := .targetRef.name }}{{ range $node := $.items }}{{ if and (eq .kind "Node") (eq .metadata.name $nodeName) }}{{ range $_ := .status.addresses }}{{ if eq .type "InternalIP" }}{{ .address }} {{ $podName }}.localhost{{ "\n" }}{{ end }}{{ end }}{{ end }}{{ end }}{{ end }}{{ end }}{{ end }}' | envsubst | sudo tee -a /etc/hosts
 ```{{exec}}
 
 Give it a minute for the cluster to recreate the secrets, and you'll see the newly created certificate:

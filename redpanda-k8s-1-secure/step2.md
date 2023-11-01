@@ -19,12 +19,16 @@ kind: Redpanda
 metadata:
   name: redpanda
 spec:
-  chartRef: 
-    upgrade:
-      force: true
+  chartRef: {}
   clusterSpec:
+    external:
+      domain: localhost
     statefulset:
       replicas: 1
+    auth:
+      sasl:
+        enabled: true
+        secretRef: redpanda-superusers
     tls:
       enabled: true
     resources:
@@ -37,22 +41,12 @@ spec:
         redpanda:
           reserveMemory: 1Mi
           memory: 1Gi
-    auth:
-      sasl:
-        enabled: true
-        secretRef: redpanda-superusers
     storage:
       persistentVolume:
         enabled: true
         size: 2Gi
     console:
-      enabled: true
-      ingress:
-        enabled: true
-        hosts:
-        - paths:
-            - path: /
-              pathType: ImplementationSpecific
+      enabled: false
 EOF
 ```{{exec}} 
 
@@ -106,16 +100,12 @@ Once you have created the superuser, you can now create new users and authorize 
 
 The normal users are not part of K8s configuration, they are stored and manages in the Redpanda cluster. Therefore we will be using _RPK_ tools to create the user.
 
-Let's download the certificate for admin port:
-```
-kubectl -n redpanda get secret redpanda-default-cert -o go-template='{{ index .data "ca.crt" | base64decode }}' > admin.crt
-```{{exec}}
 
 Create user via *rpk*:
 ```
 rpk acl user create myuser -p '1234qwer' \
   --admin-api-tls-enabled \
-  --admin-api-tls-truststore admin.crt \
+  --admin-api-tls-truststore cae.crt \
   --user admin \
   --password admin \
   --sasl-mechanism SCRAM-SHA-256 \
