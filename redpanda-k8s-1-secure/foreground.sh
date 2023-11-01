@@ -41,52 +41,47 @@ kubectl kustomize https://github.com/redpanda-data/redpanda//src/go/k8s/config/c
 helm upgrade --install redpanda-controller redpanda/operator \
   --namespace redpanda \
   --set image.repository=docker.redpanda.com/redpandadata/redpanda-operator \
-  --set image.tag=v23.2.14 \
+  --set image.tag=v2.0.0 \
   --create-namespace \
   --timeout 10m
 
 
-#while ! kubectl get pod -n redpanda -l app.kubernetes.io/name=operator | grep -w "Running"; do
-#  echo  -n ".."
-#  sleep 1;
-#done
+while ! kubectl get pod -n redpanda -l app.kubernetes.io/name=operator | grep -w "Running"; do
+  echo  -n ".."
+  sleep 1;
+done
 
-#Setup Redpanda cluster
-#cat <<EOF | kubectl -n redpanda apply -f -
-#apiVersion: cluster.redpanda.com/v1alpha1
-#kind: Redpanda
-#metadata:
-#  name: redpanda
-#spec:
-#  chartRef: {}
-#  clusterSpec:
-#    statefulset:
-#      replicas: 1
-#    tls:
-#      enabled: false
-#    resources:
-#      cpu:
-#        overprovisioned: true
-#        cores: 300m
-#      memory:
-#        container:
-#          max: 1025Mi
-#        redpanda:
-#          reserveMemory: 1Mi
-#          memory: 1Gi
-#    auth:
-#      sasl:
-#        enabled: false
-#    storage:
-#      persistentVolume:
-#        enabled: true
-#        size: 2Gi
-#    console:
-#      enabled: true
-#      ingress:
-#        enabled: true
-#        hosts:
-#        - paths:
-#            - path: /
-#              pathType: ImplementationSpecific
-#EOF
+cat <<EOF | kubectl -n redpanda apply -f -
+apiVersion: cluster.redpanda.com/v1alpha1
+kind: Redpanda
+metadata:
+  name: redpanda
+spec:
+  chartRef: {}
+  clusterSpec:
+    external:
+      domain: localhost
+    statefulset:
+      replicas: 1
+    tls:
+      enabled: false
+    resources:
+      cpu:
+        overprovisioned: true
+        cores: 300m
+      memory:
+        container:
+          max: 1025Mi
+        redpanda:
+          reserveMemory: 1Mi
+          memory: 1Gi
+    auth:
+      sasl:
+        enabled: false
+    storage:
+      persistentVolume:
+        enabled: true
+        size: 2Gi
+    console:
+      enabled: false
+EOF
