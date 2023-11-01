@@ -133,8 +133,6 @@ spec:
   clusterSpec:
     statefulset:
       replicas: 1
-    external:
-      domain: localhost
     tls:
       enabled: true
     resources:
@@ -155,13 +153,7 @@ spec:
         enabled: true
         size: 2Gi
     console:
-      enabled: true
-      ingress:
-        enabled: true
-        hosts:
-        - paths:
-            - path: /
-              pathType: ImplementationSpecific
+      enabled: false
 EOF
 ```{{exec}}
 
