@@ -80,7 +80,7 @@ helm install \
 kubectl -n cert-manager rollout status --watch deployment/cert-manager 
 ```{{exec}}
 
-Redpanda helm chart allows you to configure how you want the certificate to be generated, such as setting the issuer or if the certificates are authenticated using public authorities(CA) or privately. 
+Redpanda custom resources allows you to configure how you want the certificate to be generated, such as setting the issuer or if the certificates are authenticated using public authorities(CA) or privately. 
 
 ```
 tls:
@@ -131,6 +131,8 @@ metadata:
 spec:
   chartRef: {}
   clusterSpec:
+    external:
+      domain: localhost
     statefulset:
       replicas: 1
     tls:
@@ -160,6 +162,11 @@ EOF
 ```
 kubectl get redpanda --namespace redpanda --watch
 ```{{exec}}
+
+Wait until you see, hit ctrl_c to escape.
+```
+redpanda   True    Redpanda reconciliation succeeded
+```
 
 Once done, you should be able to see the certificates generate, 
 ```
